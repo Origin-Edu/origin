@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Origin Presentation</title>
+    <!-- Reveal.js 5.2.1 core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css" />
+    <!-- Reveal.js black theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/black.css" />
+    <!-- highlight.js monokai theme for code blocks -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/monokai.css" />
+    <!-- KaTeX CSS (math rendering) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <style>
+      /* ── Layout ─────────────────────────────────────── */
+      html, body { margin: 0; padding: 0; height: 100%; }
+      .reveal .slides section { 
+        text-align: left; 
+        max-height: 100%;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+      }
+
+      /* ── Typography ──────────────────────────────────── */
+      .reveal h1, .reveal h2, .reveal h3 { font-weight: 700; text-transform: none; }
+      .reveal .r-fit-text { line-height: 1.1; }
+      .reveal p, .reveal li { font-size: 0.85em; }
+
+      /* ── Code ────────────────────────────────────────── */
+      .reveal pre { max-height: 100vh; border-radius: 8px; }
+      .reveal pre code { font-size: 0.62em; max-height: 100vh; }
+
+      /* ── Tables ─────────────────────────────────────── */
+      .reveal table { font-size: 0.65em; border-collapse: collapse; }
+      .reveal table th { background: rgba(255,255,255,0.1); }
+      .reveal table td, .reveal table th { padding: 0.4em 0.8em; border: 1px solid rgba(255,255,255,0.15); }
+
+      /* ── Diagrams ────────────────────────────────────── */
+      .reveal .mermaid {
+        background: rgba(20, 20, 20, 0.6);
+        padding: 24px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* ── Color semantics (fixed, never swap) ─────────── */
+      mark { background: transparent; color: #FFD700; font-weight: 800; }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-transition="fade" data-background="#1a1a2e">
+  <h1 class="r-fit-text" style="color: #e8e8e8; font-weight: 300; line-height: 1.2;">
+    A furniture workshop.<br>
+    <mark style="background: #00d4aa; color: #1a1a2e; padding: 0.1em 0.3em;">100 units of wood</mark>.<br>
+    <mark style="background: #ff6b6b; color: white; padding: 0.1em 0.3em;">80 hours of labor</mark>.<br>
+    <span style="color: #ffd93d;">$5</span> per table, <span style="color: #ffd93d;">$4</span> per chair.
+  </h1>
+  <p style="color: #888; font-size: 0.6em; margin-top: 1.5em;">How many of each to maximize profit?</p>
+</section>
+
+<section data-transition="slide" data-background="#1a1a2e">
+  <h1 class="r-fit-text" style="color: #e8e8e8; font-weight: 300; line-height: 1.3;">
+    The feasible region is a <mark style="background: #00d4aa; color: #1a1a2e; padding: 0.1em 0.3em;">polygon</mark>.<br>
+    Profit lines sweep across it.<br>
+    The optimum sits at a <mark style="background: #ffd93d; color: #1a1a2e; padding: 0.1em 0.3em;">vertex</mark>.
+  </h1>
+  <p style="color: #888; font-size: 0.55em; margin-top: 1.5em;">Geometry gives the answer. But how do we compute it?</p>
+</section>
+
+<section data-transition="fade" data-background="#1a1a2e">
+  <h2 class="r-fit-text" style="color: #00d4aa; font-weight: 600;">
+    The Central Question
+  </h2>
+  <p style="color: #e8e8e8; font-size: 1.1em; line-height: 1.6; margin-top: 1em;">
+    How does a <mark style="background: #333; color: #ffd93d; padding: 0.1em 0.3em;">table of numbers</mark> find the optimum vertex?
+  </p>
+  <p style="color: #888; font-size: 0.8em; margin-top: 2em; line-height: 1.5;">
+    No geometry. No plotting. Just arithmetic on a tableau.<br>
+    <span class="fragment" data-fragment-index="0">This chapter: where the tableau comes from.</span><br>
+    <span class="fragment" data-fragment-index="1">Next chapters: how to pivot, read shadow prices, prove it works.</span>
+  </p>
+</section>
+
+<section data-transition="slide" data-background="#1a1a2e">
+  <h2 style="color: #00d4aa; margin-bottom: 0.5em;">Running Example: Furniture Workshop</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em; margin-top: 1em; text-align: left;">
+    <div>
+      <h3 style="color: #ffd93d; font-size: 0.9em; margin-bottom: 0.5em;">Decision Variables</h3>
+      <p style="color: #e8e8e8; font-size: 1.1em; line-height: 1.8;">
+        <span style="color: #00d4aa;">x₁</span> = tables produced<br>
+        <span style="color: #00d4aa;">x₂</span> = chairs produced
+      </p>
+    </div>
+    <div>
+      <h3 style="color: #ffd93d; font-size: 0.9em; margin-bottom: 0.5em;">Objective</h3>
+      <p style="color: #e8e8e8; font-size: 1.2em; font-family: monospace;">
+        Maximize <span style="color: #ffd93d;">5x₁ + 4x₂</span>
+      </p>
+    </div>
+  </div>
+  <div style="margin-top: 1.5em; padding: 1em; background: rgba(255,255,255,0.03); border-radius: 8px; text-align: left;">
+    <h3 style="color: #ff6b6b; font-size: 0.9em; margin-bottom: 0.5em;">Constraints</h3>
+    <p style="color: #e8e8e8; font-size: 1.1em; font-family: monospace; line-height: 1.8;">
+      Wood: &nbsp;&nbsp;&nbsp; 2x₁ + 1x₂ ≤ 100<br>
+      Labor: &nbsp; 1x₁ + 2x₂ ≤ 80<br>
+      Non-negativity: &nbsp; x₁, x₂ ≥ 0
+    </p>
+  </div>
+</section>
+
+<section data-transition="slide" data-background="#1a1a2e">
+  <h2 style="color: #00d4aa; margin-bottom: 0.5em;">Interactive: Explore the Feasible Region</h2>
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+    <div id="ch1-slide4-canvas-container" style="position: relative; width: 500px; height: 400px;">
+      <canvas id="ch1-slide4-canvas" width="500" height="400" style="border: 1px solid #333; border-radius: 4px; background: #0d0d1a;"></canvas>
+      <div id="ch1-slide4-profit-label" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 0.5em 1em; border-radius: 4px; font-family: monospace; color: #ffd93d; font-size: 0.9em;">
+        Profit: 5x₁ + 4x₂ = 0
+      </div>
+      <div id="ch1-slide4-optimal-label" style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,212,170,0.2); border: 1px solid #00d4aa; padding: 0.5em 1em; border-radius: 4px; font-family: monospace; color: #00d4aa; font-size: 0.85em; display: none;">
+        ★ Optimal: (40, 20) → Profit = 280
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1em; width: 500px;">
+      <label for="ch1-slide4-slider" style="color: #888; font-size: 0.9em; min-width: 80px;">Profit (k):</label>
+      <input type="range" id="ch1-slide4-slider" min="0" max="300" value="0" step="5" style="flex: 1; accent-color: #00d4aa;">
+      <span id="ch1-slide4-value" style="color: #ffd93d; font-family: monospace; min-width: 50px; text-align: right;">0</span>
+    </div>
+    <p id="ch1-slide4-hint" style="color: #888; font-size: 0.8em; max-width: 500px; text-align: center;">
+      Drag the slider. Watch the profit line sweep across the feasible polygon. The optimal vertex lights up when the line can't move further.
+    </p>
+  </div>
+  <script>
+    (function() {
+      const canvas = document.getElementById('ch1-slide4-canvas');
+      const ctx = canvas.getContext('2d');
+      const slider = document.getElementById('ch1-slide4-slider');
+      const valueDisplay = document.getElementById('ch1-slide4-value');
+      const profitLabel = document.getElementById('ch1-slide4-profit-label');
+      const optimalLabel = document.getElementById('ch1-slide4-optimal-label');
+      
+      const W = 500, H = 400;
+      const margin = 50;
+      const plotW = W - 2 * margin;
+      const plotH = H - 2 * margin;
+      
+      // Constraints: 2x1 + x2 <= 100, x1 + 2x2 <= 80, x1,x2 >= 0
+      // x1 max = 50 (wood), x2 max = 40 (labor)
+      const x1Max = 50;
+      const x2Max = 40;
+      
+      function toCanvas(x1, x2) {
+        return {
+          x: margin + (x1 / x1Max) * plotW,
+          y: H - margin - (x2 / x2Max) * plotH
+        };
+      }
+      
+      function drawFeasibleRegion() {
+        // Vertices of feasible region: (0,0), (50,0), (40,20), (0,40)
+        const vertices = [
+          toCanvas(0, 0),
+          toCanvas(50, 0),
+          toCanvas(40, 20),
+          toCanvas(0, 40)
+        ];
+        ctx.beginPath();
+        ctx.moveTo(vertices[0].x, vertices[0].y);
+        for (let i = 1; i < vertices.length; i++) {
+          ctx.lineTo(vertices[i].x, vertices[i].y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(0, 212, 170, 0.15)';
+        ctx.fill();
+        ctx.strokeStyle = '#00d4aa';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+      
+      function drawAxes() {
+        ctx.strokeStyle = '#444';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(margin, margin);
+        ctx.lineTo(margin, H - margin);
+        ctx.lineTo(W - margin, H - margin);
+        ctx.stroke();
+        
+        // Labels
+        ctx.fillStyle = '#888';
+        ctx.font = '12px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('x₁ (tables)', W/2, H - 15);
+        ctx.save();
+        ctx.translate(15, H/2);
+        ctx.rotate(-Math.PI/2);
+        ctx.fillText('x₂ (chairs)', 0, 0);
+        ctx.restore();
+        
+        // Tick marks and numbers
+        ctx.fillStyle = '#666';
+        ctx.font = '10px monospace';
+        ctx.textAlign = 'center';
+        for (let i = 0; i <= 5; i++) {
+          const x1 = i * 10;
+          const p = toCanvas(x1, 0);
+          ctx.beginPath();
+          ctx.moveTo(p.x, H - margin);
+          ctx.lineTo(p.x, H - margin + 5);
+          ctx.stroke();
+          ctx.fillText(x1.toString(), p.x, H - margin + 18);
+        }
+        ctx.textAlign = 'right';
+        for (let i = 0; i <= 4; i++) {
+          const x2 = i * 10;
+          const p = toCanvas(0, x2);
+          ctx.beginPath();
+          ctx.moveTo(margin, p.y);
+          ctx.lineTo(margin - 5, p.y);
+          ctx.stroke();
+          ctx.fillText(x2.toString(), margin - 8, p.y + 3);
+        }
+      }
+      
+      function drawConstraintLines() {
+        ctx.strokeStyle = '#ff6b6b';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([5, 5]);
+        
+        // Wood: 2x1 + x2 = 100 -> x2 = 100 - 2x1
+        ctx.beginPath();
+        ctx.moveTo(...Object.values(toCanvas(0, 40))); // capped at x2=40
+        ctx.lineTo(...Object.values(toCanvas(50, 0)));
+        ctx.stroke();
+        
+        // Labor: x1 + 2x2 = 80 -> x2 = 40 - 0.5x1
+        ctx.beginPath();
+        ctx.moveTo(...Object.values(toCanvas(0, 40)));
+        ctx.lineTo(...Object.values(toCanvas(50, 15))); // capped at x1=50
+        ctx.stroke();
+        
+        ctx.setLineDash([]);
+      }
+      
+      function drawProfitLine(k) {
+        // 5x1 + 4x2 = k -> x2 = (k - 5x1)/4
+        ctx.strokeStyle = '#ffd93d';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        
+        // Find intersections with axes
+        const x1Intercept = k / 5;
+        const x2Intercept = k / 4;
+        
+        let x1Start = 0, x2Start = x2Intercept;
+        let x1End = x1Intercept, x2End = 0;
+        
+        // Clip to visible range
+        if (x2Start > x2Max) {
+          x2Start = x2Max;
+          x1Start = (k - 4 * x2Max) / 5;
+        }
+        if (x1End > x1Max) {
+          x1End = x1Max;
+          x2End = (k - 5 * x1Max) / 4;
+        }
+        
+        if (x1Start >= 0 && x2Start >= 0 && x1Start <= x1Max && x2Start <= x2Max) {
+          ctx.moveTo(...Object.values(toCanvas(x1Start, x2Start)));
+        } else {
+          ctx.moveTo(...Object.values(toCanvas(0, 0)));
+        }
+        if (x1End >= 0 && x2End >= 0 && x1End <= x1Max && x2End <= x2Max) {
+          ctx.lineTo(...Object.values(toCanvas(x1End, x2End)));
+        }
+        ctx.stroke();
+        
+        // Arrow indicating direction of increase
+        const midX1 = (x1Start + x1End) / 2;
+        const midX2 = (x2Start + x2End) / 2;
+        const p = toCanvas(midX1, midX2);
+        const perpX = 4; // gradient of 5x1+4x2 is (5,4), perpendicular is (-4,5) or (4,-5)
+        const perpY = -5;
+        const len = Math.sqrt(perpX*perpX + perpY*perpY);
+        const arrowLen = 15;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x + perpX/len * arrowLen, p.y + perpY/len * arrowLen);
+        ctx.stroke();
+        // Arrow head
+        const angle = Math.atan2(perpY, perpX);
+        ctx.beginPath();
+        ctx.moveTo(p.x + perpX/len * arrowLen, p.y + perpY/len * arrowLen);
+        ctx.lineTo(p.x + perpX/len * arrowLen - 5*Math.cos(angle - 0.5), p.y + perpY/len * arrowLen - 5*Math.sin(angle - 0.5));
+        ctx.lineTo(p.x + perpX/len * arrowLen - 5*Math.cos(angle + 0.5), p.y + perpY/len * arrowLen - 5*Math.sin(angle + 0.5));
+        ctx.fillStyle = '#ffd93d';
+        ctx.fill();
+      }
+      
+      function drawOptimalVertex() {
+        const p = toCanvas(40, 20);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 10, 0, 2*Math.PI);
+        ctx.fillStyle = 'rgba(0, 212, 170, 0.3)';
+        ctx.fill();
+        ctx.strokeStyle = '#00d4aa';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        // Star
+        ctx.fillStyle = '#00d4aa';
+        ctx.font = 'bold 20px monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('★', p.x, p.y);
+      }
+      
+      function render(k) {
+        ctx.clearRect(0, 0, W, H);
+        drawAxes();
+        drawConstraintLines();
+        drawFeasibleRegion();
+        drawProfitLine(k);
+        
+        const isOptimal = k >= 275; // Close to optimal 280
+        if (isOptimal) {
+          drawOptimalVertex();
+          optimalLabel.style.display = 'block';
+        } else {
+          optimalLabel.style.display = 'none';
+        }
+        
+        profitLabel.textContent = `Profit: 5x₁ + 4x₂ = ${k}`;
+      }
+      
+      slider.addEventListener('input', function() {
+        const k = parseInt(this.value);
+        valueDisplay.textContent = k;
+        render(k);
+      });
+      
+      // Initial render
+      render(0);
+    })();
+  </script>
+</section>
+
+<section data-transition="fade" data-background="#1a1a2e">
+  <h2 style="color: #ff6b6b; margin-bottom: 0.5em;">The Beginner's Confusion</h2>
+  <p style="color: #e8e8e8; margin-bottom: 1em; line-height: 1.5;">Here is a raw simplex tableau for our workshop. Make sense of it:</p>
+  <pre style="background: #0d0d1a; border: 1px solid #333; border-radius: 4px; padding: 1em; overflow-x: auto; margin: 1em 0;"><code style="color: #e8e8e8; font-size: 0.85em; line-height: 1.6; font-family: 'Fira Code', 'Consolas', monospace;"><span style="color: #888;">      x₁    x₂    s₁    s₂    RHS</span>
+<span style="color: #ff6b6b;">z</span>  <span style="color: #ffd93d;">-5</span>  <span style="color: #ffd93d;">-4</span>   <span style="color: #888;">0</span>    <span style="color: #888;">0</span>    <span style="color: #00d4aa;">0</span>
+<span style="color: #00d4aa;">s₁</span>   <span style="color: #ffd93d;">2</span>   <span style="color: #ffd93d;">1</span>    <span style="color: #00d4aa;">1</span>    <span style="color: #888;">0</span>    <span style="color: #00d4aa;">100</span>
+<span style="color: #00d4aa;">s₂</span>   <span style="color: #ffd93d;">1</span>   <span style="color: #ffd93d;">2</span>    <span style="color: #888;">0</span>    <span style="color: #00d4aa;">1</span>    <span style="color: #00d4aa;">80</span></code></pre>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin-top: 1.5em; text-align: center;">
+    <div style="padding: 1em; background: rgba(255,107,107,0.1); border: 1px solid #ff6b6b; border-radius: 4px;">
+      <p style="color: #ff6b6b; font-weight: 600; margin-bottom: 0.3em;">Where are the constraints?</p>
+      <p style="color: #888; font-size: 0.85em;">Wood & labor coefficients buried in rows</p>
+    </div>
+    <div style="padding: 1em; background: rgba(255,217,61,0.1); border: 1px solid #ffd93d; border-radius: 4px;">
+      <p style="color: #ffd93d; font-weight: 600; margin-bottom: 0.3em;">Where is the objective?</p>
+      <p style="color: #888; font-size: 0.85em;">Negated coefficients in the top row</p>
+    </div>
+    <div style="padding: 1em; background: rgba(0,212,170,0.1); border: 1px solid #00d4aa; border-radius: 4px;">
+      <p style="color: #00d4aa; font-weight: 600; margin-bottom: 0.3em;">Why these pivot rules?</p>
+      <p style="color: #888; font-size: 0.85em;">Most negative → minimum ratio test</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade" data-background="#1a1a2e">
+  <h1 class="r-fit-text" style="color: #e8e8e8; font-weight: 300; line-height: 1.3;">
+    The Misconception:<br>
+    <mark style="background: #333; color: #ff6b6b; padding: 0.1em 0.3em;">"Just a computational trick."</mark>
+  </h1>
+  <p style="color: #888; font-size: 0.9em; margin-top: 1.5em; line-height: 1.6;">
+    The tableau is not arbitrary bookkeeping.<br>
+    <span class="fragment" data-fragment-index="0" style="color: #e8e8e8;">Every entry has geometric meaning.</span><br>
+    <span class="fragment" data-fragment-index="1" style="color: #e8e8e8;">Every pivot corresponds to an edge walk on the polygon.</span><br>
+    <span class="fragment" data-fragment-index="2" style="color: #e8e8e8;">The structure is <mark style="background: #00d4aa; color: #1a1a2e; padding: 0.1em 0.3em;">inevitable</mark> — not invented.</span>
+  </p>
+</section>
+
+<section data-transition="slide" data-background="#1a1a2e">
+  <h2 style="color: #00d4aa; margin-bottom: 0.5em;">Core Insight Preview</h2>
+  <div style="background: rgba(0,212,170,0.08); border: 1px solid #00d4aa; border-radius: 8px; padding: 2em; margin-top: 1em; text-align: center;">
+    <p style="color: #e8e8e8; font-size: 1.2em; line-height: 1.7; font-weight: 300;">
+      A tableau = <mark style="background: #00d4aa; color: #1a1a2e; padding: 0.15em 0.4em;">basic variables expressed in terms of non-basics</mark>.<br><br>
+      A pivot = <mark style="background: #ffd93d; color: #1a1a2e; padding: 0.15em 0.4em;">swap one basic for one non-basic</mark>.<br><br>
+      Optimum = <mark style="background: #ff6b6b; color: white; padding: 0.15em 0.4em;">no improving non-basic remains</mark>.
+    </p>
+  </div>
+  <p style="color: #888; font-size: 0.8em; margin-top: 1.5em;">
+    Three sentences. The entire simplex method lives in them.
+  </p>
+</section>
+
+<section data-transition="fade" data-background="#1a1a2e">
+  <h2 style="color: #ffd93d; margin-bottom: 0.5em;">The Promise</h2>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5em; margin-top: 1.5em; text-align: left;">
+    <div style="padding: 1.5em; background: rgba(255,255,255,0.02); border-radius: 8px; border-left: 3px solid #00d4aa;">
+      <p style="color: #00d4aa; font-weight: 600; margin-bottom: 0.5em;">✦ Construct tableaus from any LP</p>
+      <p style="color: #888; font-size: 0.9em;">Standard form → slack variables → initial basis</p>
+    </div>
+    <div style="padding: 1.5em; background: rgba(255,255,255,0.02); border-radius: 8px; border-left: 3px solid #ffd93d;">
+      <p style="color: #ffd93d; font-weight: 600; margin-bottom: 0.5em;">✦ Pivot by hand, step by step</p>
+      <p style="color: #888; font-size: 0.9em;">Entering variable → leaving variable → row operations</p>
+    </div>
+    <div style="padding: 1.5em; background: rgba(255,255,255,0.02); border-radius: 8px; border-left: 3px solid #ff6b6b;">
+      <p style="color: #ff6b6b; font-weight: 600; margin-bottom: 0.5em;">✦ Read shadow prices from the final row</p>
+      <p style="color: #888; font-size: 0.9em;">What an extra unit of wood/labor is worth</p>
+    </div>
+    <div style="padding: 1.5em; background: rgba(255,255,255,0.02); border-radius: 8px; border-left: 3px solid #888;">
+      <p style="color: #888; font-weight: 600; margin-bottom: 0.5em;">✦ Explain <em>why</em> simplex works</p>
+      <p style="color: #888; font-size: 0.9em;">Geometry ↔ Algebra correspondence made precise</p>
+    </div>
+  </div>
+  <p style="color: #00d4aa; font-size: 1.1em; margin-top: 2em; text-align: center; font-weight: 300;">
+    The table of numbers will never look mysterious again.
+  </p>
+</section>
+<section data-transition="fade">
+  <h1 class="r-fit-text">Chapter 2: The Foundations — From Geometry to Algebra</h1>
+  <p class="fragment">We saw the feasible polygon. We saw the optimal vertex.</p>
+  <p class="fragment">Now we build the algebraic machinery that <mark>walks from vertex to vertex</mark> without ever drawing a graph.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Callback: What Chapter 1 Gave Us</h2>
+  <ul>
+    <li class="fragment">Furniture factory: tables (<var>x₁</var>), chairs (<var>x₂</var>)</li>
+    <li class="fragment">Wood: <var>2x₁ + x₂ ≤ 100</var> | Labor: <var>x₁ + 2x₂ ≤ 80</var></li>
+    <li class="fragment">Profit: <var>z = 5x₁ + 4x₂</var> (maximize)</li>
+    <li class="fragment">Feasible region = convex polygon with 4 vertices</li>
+    <li class="fragment"><strong>Key geometric fact:</strong> Optimum occurs at a vertex</li>
+    <li class="fragment"><strong>Key unanswered question:</strong> How do we <em>algebraically</em> move from vertex to vertex?</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Standard Form: Equality Constraints</h2>
+  <p>Inequalities hide the algebra. We make them equalities by adding <strong>slack variables</strong>:</p>
+  <div class="fragment">
+    <pre><code class="language-text" data-trim>
+Wood:    2x₁ +  x₂ + s₁ = 100   (s₁ = unused wood)
+Labor:   x₁ + 2x₂ + s₂ =  80   (s₂ = unused labor)
+
+x₁, x₂, s₁, s₂ ≥ 0
+    </code></pre>
+  </div>
+  <p class="fragment"><var>s₁</var>, <var>s₂</var> ≥ 0 by definition — they measure <em>unused</em> resources.</p>
+  <p class="fragment">We now have <strong>4 variables, 2 equations</strong>. The geometry is unchanged; we've just made the constraints explicit.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Basic and Non-Basic Variables</h2>
+  <ul>
+    <li class="fragment"><strong>n = 4</strong> variables (<var>x₁, x₂, s₁, s₂</var>), <strong>m = 2</strong> constraints</li>
+    <li class="fragment">Choose <strong>n − m = 2</strong> variables to set to zero → <em>non-basic</em></li>
+    <li class="fragment">Solve the 2 equations for the remaining 2 → <em>basic</em></li>
+    <li class="fragment">Result = <strong>basic solution</strong></li>
+    <li class="fragment">If all variables ≥ 0 → <strong>basic feasible solution (BFS)</strong></li>
+  </ul>
+  <p class="fragment">Each BFS corresponds to exactly one vertex of the feasible polygon.</p>
+  <p class="fragment">Each vertex corresponds to exactly one BFS (assuming non-degeneracy).</p>
+</section>
+
+<section data-transition="slide" id="ch2-slide5-enumerate">
+  <h2>Interactive: Enumerate All Basic Solutions</h2>
+  <p>Choose which 2 variables are basic. The system solves for them.</p>
+  
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0;">
+    <div>
+      <label>Basic variable 1:
+        <select id="ch2-slide5-basic1" onchange="ch2slide5update()">
+          <option value="x1">x₁</option>
+          <option value="x2" selected>x₂</option>
+          <option value="s1">s₁</option>
+          <option value="s2">s₂</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label>Basic variable 2:
+        <select id="ch2-slide5-basic2" onchange="ch2slide5update()">
+          <option value="x1" selected>x₁</option>
+          <option value="x2">x₂</option>
+          <option value="s1">s₁</option>
+          <option value="s2">s₂</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div id="ch2-slide5-result" style="font-family: monospace; font-size: 1.1rem; min-height: 4rem;"></div>
+  <p id="ch2-slide5-status" style="margin-top: 0.5rem; font-weight: bold;"></p>
+
+  <script>
+    function ch2slide5update() {
+      const b1 = document.getElementById('ch2-slide5-basic1').value;
+      const b2 = document.getElementById('ch2-slide5-basic2').value;
+      const resultDiv = document.getElementById('ch2-slide5-result');
+      const statusDiv = document.getElementById('ch2-slide5-status');
+      
+      if (b1 === b2) {
+        resultDiv.textContent = 'Error: basic variables must be distinct';
+        statusDiv.textContent = '';
+        statusDiv.style.color = '';
+        return;
+      }
+      
+      const vars = {x1: 0, x2: 0, s1: 0, s2: 0};
+      const nonBasic = [b1, b2].filter(v => v !== b1 && v !== b2); // wrong logic, fix below
+      
+      // Actually: non-basics are the two NOT chosen
+      const allVars = ['x1','x2','s1','s2'];
+      const basic = [b1, b2];
+      const nonBasic = allVars.filter(v => !basic.includes(v));
+      
+      // Set non-basics to 0, solve for basics
+      // Equations: 2x1 + x2 + s1 = 100, x1 + 2x2 + s2 = 80
+      // Substitute non-basics = 0
+      
+      let x1=0, x2=0, s1=0, s2=0;
+      let feasible = true;
+      
+      if (basic.includes('x1') && basic.includes('x2')) {
+        // Solve 2x1 + x2 = 100, x1 + 2x2 = 80
+        // 2x1 + x2 = 100
+        // 2x1 + 4x2 = 160 (×2)
+        // Subtract: -3x2 = -60 => x2 = 20, x1 = 40
+        x1 = 40; x2 = 20;
+      } else if (basic.includes('x1') && basic.includes('s1')) {
+        // x2=0, s2=0: 2x1 + s1 = 100, x1 = 80 => x1=80, s1=-60
+        x1 = 80; s1 = -60; feasible = false;
+      } else if (basic.includes('x1') && basic.includes('s2')) {
+        // x2=0, s1=0: 2x1 = 100 => x1=50, x1+s2=80 => s2=30
+        x1 = 50; s2 = 30;
+      } else if (basic.includes('x2') && basic.includes('s1')) {
+        // x1=0, s2=0: x2 + s1 = 100, 2x2 = 80 => x2=40, s1=60
+        x2 = 40; s1 = 60;
+      } else if (basic.includes('x2') && basic.includes('s2')) {
+        // x1=0, s1=0: x2 = 100, 2x2 + s2 = 80 => x2=100, s2=-120
+        x2 = 100; s2 = -120; feasible = false;
+      } else if (basic.includes('s1') && basic.includes('s2')) {
+        // x1=0, x2=0: s1=100, s2=80
+        s1 = 100; s2 = 80;
+      }
+      
+      vars.x1 = x1; vars.x2 = x2; vars.s1 = s1; vars.s2 = s2;
+      
+      resultDiv.innerHTML = `(x₁, x₂, s₁, s₂) = (${x1}, ${x2}, ${s1}, ${s2})`;
+      statusDiv.textContent = feasible ? '✓ Feasible (BFS) → Vertex' : '✗ Infeasible (negative slack)';
+      statusDiv.style.color = feasible ? '#2e7d32' : '#c62828';
+    }
+    ch2slide5update();
+  </script>
+</section>
+
+<section data-transition="slide">
+  <h2>From BFS to Vertex: The Correspondence</h2>
+  <table style="width: 100%; font-size: 0.95rem;">
+    <thead>
+      <tr><th>Basic Variables</th><th>Solution (x₁,x₂,s₁,s₂)</th><th>Vertex (x₁,x₂)</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr class="fragment"><td>s₁, s₂</td><td>(0, 0, 100, 80)</td><td>(0, 0)</td><td style="color:#2e7d32">✓ Origin</td></tr>
+      <tr class="fragment"><td>x₁, s₂</td><td>(50, 0, 0, 30)</td><td>(50, 0)</td><td style="color:#2e7d32">✓ Wood intercept</td></tr>
+      <tr class="fragment"><td>x₂, s₁</td><td>(0, 40, 60, 0)</td><td>(0, 40)</td><td style="color:#2e7d32">✓ Labor intercept</td></tr>
+      <tr class="fragment"><td>x₁, x₂</td><td>(40, 20, 0, 0)</td><td>(40, 20)</td><td style="color:#2e7d32">✓ Optimal intersection</td></tr>
+      <tr class="fragment"><td>x₁, s₁</td><td>(80, 0, -60, 0)</td><td>(80, 0)</td><td style="color:#c62828">✗ Infeasible</td></tr>
+      <tr class="fragment"><td>x₂, s₂</td><td>(0, 100, 0, -120)</td><td>(0, 100)</td><td style="color:#c62828">✗ Infeasible</td></tr>
+    </tbody>
+  </table>
+  <p class="fragment">Only 4 of the 6 basic solutions are feasible. These 4 are exactly the 4 vertices.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Expressing Basics in Terms of Non-Basics</h2>
+  <p>At the origin: basic = {s₁, s₂}, non-basic = {x₁, x₂}</p>
+  <div class="fragment">
+    <pre><code class="language-text" data-trim>
+s₁ = 100 − 2x₁ − x₂
+s₂ =  80 −  x₁ − 2x₂
+    </code></pre>
+  </div>
+  <p class="fragment">This is <strong>Gaussian elimination</strong> — rewriting each basic variable as a function of the non-basics.</p>
+  <p class="fragment">The coefficients tell us: <em>if we increase a non-basic, how do the basics change?</em></p>
+  <p class="fragment">This rewritten system <strong>is the tableau's soul</strong>. Every pivot is just a change of basis.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Objective in Terms of Non-Basics</h2>
+  <p>Original objective: <var>z = 5x₁ + 4x₂</var></p>
+  <p class="fragment">At the origin, <var>x₁</var> and <var>x₂</var> are non-basic (currently zero). Substitute the basic expressions… but wait — the objective already uses only non-basics!</p>
+  <div class="fragment">
+    <pre><code class="language-text" data-trim>
+z = 0 + 5x₁ + 4x₂
+    </code></pre>
+  </div>
+  <p class="fragment">The coefficients of non-basics in the objective are the <strong>reduced costs</strong>:</p>
+  <ul class="fragment">
+    <li><var>x₁</var> reduced cost = <strong>+5</strong></li>
+    <li><var>x₂</var> reduced cost = <strong>+4</strong></li>
+  </ul>
+  <p class="fragment">Positive reduced cost → increasing that non-basic <em>improves</em> the objective.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">Optimality Condition at a BFS</h1>
+  <p class="fragment">A BFS is optimal <mark>iff all reduced costs ≤ 0</mark> (for maximization).</p>
+  <p class="fragment">At the origin: reduced costs are <strong>+5</strong> and <strong>+4</strong>.</p>
+  <p class="fragment"><strong>Not optimal.</strong> We must move.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Choosing the Entering Variable</h2>
+  <p>Most positive reduced cost enters — <em>steepest ascent</em>.</p>
+  <ul>
+    <li class="fragment"><var>x₁</var> reduced cost = 5</li>
+    <li class="fragment"><var>x₂</var> reduced cost = 4</li>
+    <li class="fragment"><strong>x₁ enters</strong> the basis</li>
+  </ul>
+  <p class="fragment">Geometric meaning: choose the edge with the fastest profit increase per unit step.</p>
+  <p class="fragment">From the origin, two edges emanate: along x₁-axis (wood constraint) and x₂-axis (labor constraint).</p>
+  <p class="fragment"><var>x₁</var> gives $5/unit vs <var>x₂</var> at $4/unit. We pick the x₁-edge.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Ratio Test: Choosing the Leaving Variable</h2>
+  <p>How far can we increase <var>x₁</var> before a basic variable hits zero?</p>
+  <div class="fragment">
+    <pre><code class="language-text" data-trim>
+s₁ = 100 − 2x₁ ≥ 0  →  x₁ ≤ 100/2 = 50
+s₂ =  80 −  x₁ ≥ 0  →  x₁ ≤  80/1 = 80
+    </code></pre>
+  </div>
+  <p class="fragment">Minimum ratio: <strong>min(50, 80) = 50</strong>.</p>
+  <p class="fragment"><var>s₁</var> hits zero first → <strong>s₁ leaves</strong> the basis.</p>
+  <p class="fragment">Wood constraint binds first. We move 50 units along the x₁-axis.</p>
+  <p class="fragment">New vertex: <strong>(50, 0)</strong> with <var>s₁=0, s₂=30</var>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Summary: One Pivot Algebraically</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+    <div>
+      <h3>Before Pivot (Origin)</h3>
+      <ul>
+        <li>Basic: s₁, s₂</li>
+        <li>Non-basic: x₁, x₂</li>
+        <li>Solution: (0, 0, 100, 80)</li>
+        <li>z = 0</li>
+        <li>Reduced costs: x₁=5, x₂=4</li>
+      </ul>
+    </div>
+    <div>
+      <h3>After Pivot (Wood Intercept)</h3>
+      <ul>
+        <li>Basic: x₁, s₂</li>
+        <li>Non-basic: x₂, s₁</li>
+        <li>Solution: (50, 0, 0, 30)</li>
+        <li>z = 250</li>
+        <li>New reduced costs: ?</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1.5rem;"><strong>Entering:</strong> most positive reduced cost (x₁)</p>
+  <p class="fragment"><strong>Leaving:</strong> minimum ratio test (s₁)</p>
+  <p class="fragment">We moved along the wood-constraint edge from (0,0) to (50,0).</p>
+  <p class="fragment"><mark>But we're not done yet.</mark> The new reduced costs will tell us whether to continue.</p>
+</section>
+<section data-transition="fade">
+  <h2 class="r-fit-text">From Geometry to Algebra</h2>
+  <p class="fragment">Chapter 2 showed us the <mark>geometric truth</mark>: optimal solutions live at vertices.</p>
+  <p class="fragment">We move from vertex to vertex along edges, improving the objective each step.</p>
+  <p class="fragment">But how do we <mark>actually compute</mark> the next vertex without plotting?</p>
+  <p class="fragment">We need a <mark>systematic algebraic mechanism</mark> that:</p>
+  <ul class="fragment">
+    <li>Tracks which variables are basic (vertex coordinates)</li>
+    <li>Tells us which edge to follow (entering variable)</li>
+    <li>Tells us how far we can go (leaving variable)</li>
+    <li>Updates everything in one structured operation</li>
+  </ul>
+  <p class="fragment">That mechanism is the <mark>Simplex Tableau</mark>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Anatomy of the Simplex Tableau</h2>
+  <p>The tableau is an augmented matrix organizing all constraints and the objective.</p>
+  <div class="mermaid" style="font-size: 0.85rem;">
+    graph LR
+      subgraph Tableau["Simplex Tableau Structure"]
+        direction TB
+        Header["| Basis | x₁ | x₂ | s₁ | s₂ | RHS |"]
+        ZRow["| z     | c₁ | c₂ | c₃ | c₄ |  z  |"]
+        B1["| s₁    | a₁₁| a₁₂| a₁₃| a₁₄| b₁  |"]
+        B2["| s₂    | a₂₁| a₂₂| a₂₃| a₂₄| b₂  |"]
+      end
+      style Header fill:#e8f4fd,stroke:#2196f3
+      style ZRow fill:#fff3e0,stroke:#ff9800
+      style B1 fill:#e8f5e9,stroke:#4caf50
+      style B2 fill:#e8f5e9,stroke:#4caf50
+  </div>
+  <ul>
+    <li class="fragment"><strong>Columns</strong>: every variable (decision + slack) + RHS</li>
+    <li class="fragment"><strong>Basis column</strong>: which variable currently owns each row</li>
+    <li class="fragment"><strong>Constraint rows</strong>: one per basic variable, expressing it in terms of non-basics</li>
+    <li class="fragment"><strong>Objective row (z-row)</strong>: reduced costs — the marginal value of each non-basic</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Initial Tableau for Furniture Workshop</h2>
+  <p>Our problem: Max 5x₁ + 4x₂ s.t. 2x₁ + x₂ + s₁ = 100, x₁ + 2x₂ + s₂ = 80</p>
+  <pre><code class="language-text" data-trim>
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS |
+|-------|----|----|----|----|-----|
+| s₁    |  2 |  1 |  1 |  0 | 100 |
+| s₂    |  1 |  2 |  0 |  1 |  80 |
+| z     | -5 | -4 |  0 |  0 |   0 |
+  </code></pre>
+  <ul class="fragment">
+    <li><strong>Basis = [s₁, s₂]</strong> — slack variables start as basic (vertex at origin)</li>
+    <li><strong>Constraint rows</strong>: direct from standard form coefficients</li>
+    <li><strong>z-row</strong>: coefficients are <mark>−cⱼ</mark> for max problems (reduced costs)</li>
+    <li class="fragment">RHS of z-row = current objective value = <mark>0</mark></li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Reading the Tableau: Current Solution</h2>
+  <p>The tableau <mark>encodes a complete basic feasible solution</mark> at a glance.</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+    <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px; border-left: 4px solid #4caf50;">
+      <h4>Basic Variables (Basis column)</h4>
+      <p>Value = RHS of their row</p>
+      <code>s₁ = 100</code><br>
+      <code>s₂ = 80</code>
+    </div>
+    <div style="background: #fff3e0; padding: 1rem; border-radius: 8px; border-left: 4px solid #ff9800;">
+      <h4>Non-Basic Variables</h4>
+      <p>Value = 0 (not in basis)</p>
+      <code>x₁ = 0</code><br>
+      <code>x₂ = 0</code>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1rem;">
+    <strong>Objective value</strong> = RHS of z-row = <mark>0</mark>
+  </p>
+  <p class="fragment">
+    This corresponds to the <mark>origin vertex (0,0)</mark> — 0 tables, 0 chairs, all resources unused.
+  </p>
+</section>
+
+<section data-transition="slide">
+  <h2>Reading the Tableau: Reduced Costs</h2>
+  <p>The z-row coefficients (excluding RHS) are <mark>reduced costs</mark>.</p>
+  <pre><code class="language-text" data-trim>
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS |
+|-------|----|----|----|----|-----|
+| z     | -5 | -4 |  0 |  0 |   0 |
+        ↑    ↑
+    reduced  reduced
+    cost     cost
+  </code></pre>
+  <ul>
+    <li class="fragment"><strong>Reduced cost of xⱼ</strong> = rate of change in objective per unit increase in xⱼ</li>
+    <li class="fragment">For <mark>maximization</mark> with this sign convention: <strong>negative = improving</strong></li>
+    <li class="fragment"><code>x₁: -5</code> → each table adds $5 profit (uses 2 labor, 1 wood)</li>
+    <li class="fragment"><code>x₂: -4</code> → each chair adds $4 profit (uses 1 labor, 2 wood)</li>
+    <li class="fragment"><code>s₁: 0</code>, <code>s₂: 0</code> → slack variables don't directly affect profit</li>
+  </ul>
+  <p class="fragment">Most negative = <mark>steepest ascent</mark> = best entering candidate.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Interactive: Tableau Constructor</h2>
+  <p>Build intuition: given a basis, reconstruct the tableau rows by solving for basics.</p>
+  <div id="ch3-tableau-constructor" style="margin-top: 1rem;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start;">
+      <div>
+        <h4>Select Basis</h4>
+        <label style="display: block; margin: 0.5rem 0;">
+          <input type="radio" name="basis" value="s1,s2" checked onchange="updateTableauConstructor()">
+          Basis = [s₁, s₂] (initial)
+        </label>
+        <label style="display: block; margin: 0.5rem 0;">
+          <input type="radio" name="basis" value="x1,s2" onchange="updateTableauConstructor()">
+          Basis = [x₁, s₂] (after 1st pivot)
+        </label>
+        <label style="display: block; margin: 0.5rem 0;">
+          <input type="radio" name="basis" value="x1,x2" onchange="updateTableauConstructor()">
+          Basis = [x₁, x₂] (optimal)
+        </label>
+      </div>
+      <div>
+        <h4>Your Tableau</h4>
+        <table id="constructor-table" style="width: 100%; border-collapse: collapse; font-family: monospace; font-size: 0.85rem;">
+          <thead>
+            <tr style="background: #e8f4fd;">
+              <th style="border: 1px solid #ccc; padding: 0.3rem;">Basis</th>
+              <th style="border: 1px solid #ccc; padding: 0.3rem;">x₁</th>
+              <th style="border: 1px solid #ccc; padding: 0.3rem;">x₂</th>
+              <th style="border: 1px solid #ccc; padding: 0.3rem;">s₁</th>
+              <th style="border: 1px solid #ccc; padding: 0.3rem;">s₂</th>
+              <th style="border: 1px solid #ccc; padding: 0.3rem;">RHS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="border: 1px solid #ccc; padding: 0.3rem; background: #e8f5e9;"><input id="b1-name" value="s₁" readonly style="width: 3rem; border: none; background: transparent;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b1-x1" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b1-x2" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b1-s1" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b1-s2" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b1-rhs" type="number" step="0.01" style="width: 3rem;"></td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ccc; padding: 0.3rem; background: #e8f5e9;"><input id="b2-name" value="s₂" readonly style="width: 3rem; border: none; background: transparent;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b2-x1" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b2-x2" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b2-s1" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b2-s2" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="b2-rhs" type="number" step="0.01" style="width: 3rem;"></td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ccc; padding: 0.3rem; background: #fff3e0;"><input id="z-name" value="z" readonly style="width: 3rem; border: none; background: transparent;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="z-x1" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="z-x2" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="z-s1" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="z-s2" type="number" step="0.01" style="width: 3rem;"></td>
+              <td style="border: 1px solid #ccc; padding: 0.3rem;"><input id="z-rhs" type="number" step="0.01" style="width: 3rem;"></td>
+            </tr>
+          </tbody>
+        </table>
+        <button onclick="checkTableau()" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: #2196f3; color: white; border: none; border-radius: 4px; cursor: pointer;">Check Answers</button>
+        <div id="constructor-feedback" style="margin-top: 0.5rem; font-weight: bold;"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tableaus = {
+      "s1,s2": {
+        basis: ["s₁", "s₂"],
+        rows: [
+          [2, 1, 1, 0, 100],
+          [1, 2, 0, 1, 80],
+          [-5, -4, 0, 0, 0]
+        ]
+      },
+      "x1,s2": {
+        basis: ["x₁", "s₂"],
+        rows: [
+          [1, 0.5, 0.5, 0, 50],
+          [0, 1.5, -0.5, 1, 30],
+          [0, -1.5, 2.5, 0, 250]
+        ]
+      },
+      "x1,x2": {
+        basis: ["x₁", "x₂"],
+        rows: [
+          [1, 0, 2/3, -1/3, 40],
+          [0, 1, -1/3, 2/3, 20],
+          [0, 0, 10/3, 5/3, 280]
+        ]
+      }
+    };
+    function updateTableauConstructor() {
+      const selected = document.querySelector('input[name="basis"]:checked').value;
+      const t = tableaus[selected];
+      document.getElementById('b1-name').value = t.basis[0];
+      document.getElementById('b2-name').value = t.basis[1];
+      // Clear inputs
+      ['b1','b2','z'].forEach(prefix => {
+        ['x1','x2','s1','s2','rhs'].forEach(suffix => {
+          document.getElementById(prefix+'-'+suffix).value = '';
+          document.getElementById(prefix+'-'+suffix).style.background = 'white';
+        });
+      });
+      document.getElementById('constructor-feedback').textContent = '';
+    }
+    function checkTableau() {
+      const selected = document.querySelector('input[name="basis"]:checked').value;
+      const t = tableaus[selected];
+      let allCorrect = true;
+      ['b1','b2','z'].forEach((prefix, rowIdx) => {
+        ['x1','x2','s1','s2','rhs'].forEach((suffix, colIdx) => {
+          const input = document.getElementById(prefix+'-'+suffix);
+          const expected = t.rows[rowIdx][colIdx];
+          const val = parseFloat(input.value);
+          if (Math.abs(val - expected) < 0.01) {
+            input.style.background = '#c8e6c9';
+          } else {
+            input.style.background = '#ffcdd2';
+            allCorrect = false;
+          }
+        });
+      });
+      document.getElementById('constructor-feedback').textContent = 
+        allCorrect ? "✓ Correct! Tableau reconstructed." : "✗ Some entries incorrect. Check highlighted cells.";
+      document.getElementById('constructor-feedback').style.color = allCorrect ? '#2e7d32' : '#c62828';
+    }
+    updateTableauConstructor();
+  </script>
+</section>
+
+<section data-transition="slide">
+  <h2>Pivot Operation: Row Operations</h2>
+  <p>Moving to an adjacent vertex = <mark>elementary row operations</mark> on the tableau.</p>
+  <p class="fragment"><strong>Step 1: Choose entering variable</strong> — most negative reduced cost → <mark>x₁ (-5)</mark></p>
+  <p class="fragment"><strong>Step 2: Choose leaving variable</strong> — minimum ratio test:</p>
+  <pre class="fragment"><code class="language-text" data-trim>
+s₁ row: 100 / 2 = 50
+s₂ row:  80 / 1 = 80  → minimum = 50, so s₁ leaves
+  </code></pre>
+  <p class="fragment"><strong>Pivot element</strong> = 2 (intersection of x₁ column, s₁ row)</p>
+  <p class="fragment"><strong>Step 3: Normalize pivot row</strong> — divide row by pivot element:</p>
+  <pre class="fragment"><code class="language-text" data-trim>
+New x₁ row = Old s₁ row ÷ 2
+          = [1, 0.5, 0.5, 0 | 50]
+  </code></pre>
+  <p class="fragment"><strong>Step 4: Eliminate x₁ from other rows</strong> — add multiples of new pivot row:</p>
+  <ul class="fragment">
+    <li>s₂ row: Old s₂ row − 1 × New x₁ row</li>
+    <li>z row: Old z row + 5 × New x₁ row</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>After First Pivot: New Tableau</h2>
+  <pre><code class="language-text" data-trim data-line-numbers="1-4">
+| Basis | x₁ | x₂  | s₁  | s₂ | RHS |
+|-------|----|-----|-----|----|-----|
+| x₁    |  1 | 0.5 | 0.5 |  0 |  50 |
+| s₂    |  0 | 1.5 | -0.5|  1 |  30 |
+| z     |  0 | -1.5| 2.5 |  0 | 250 |
+  </code></pre>
+  <ul class="fragment">
+    <li><strong>Basis updated</strong>: [x₁, s₂] — x₁ entered, s₁ left</li>
+    <li><strong>x₁ row</strong>: normalized pivot row — x₁ expressed in terms of non-basics (x₂, s₁)</li>
+    <li><strong>s₂ row</strong>: x₁ eliminated — s₂ expressed in terms of non-basics</li>
+    <li><strong>z row</strong>: x₁ eliminated — reduced costs updated</li>
+    <li class="fragment"><strong>Identity columns</strong>: x₁ column = [1, 0, 0]ᵀ, s₂ column = [0, 1, 0]ᵀ</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Interpreting the New Tableau</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+    <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px; border-left: 4px solid #4caf50;">
+      <h4>Current Solution</h4>
+      <code>x₁ = 50</code> (tables)<br>
+      <code>s₂ = 30</code> (unused wood)<br>
+      <code>x₂ = 0</code> (chairs)<br>
+      <code>s₁ = 0</code> (labor fully used)
+    </div>
+    <div style="background: #e8f4fd; padding: 1rem; border-radius: 8px; border-left: 4px solid #2196f3;">
+      <h4>Objective Value</h4>
+      <code style="font-size: 1.5rem;">$250</code>
+      <p>RHS of z-row</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1rem;">
+    <strong>Reduced costs (z-row):</strong>
+  </p>
+  <ul class="fragment">
+    <li><code>x₂: -1.5</code> → still negative → <mark>can improve further</mark></li>
+    <li><code>s₁: 2.5</code> → positive → increasing unused labor would <em>decrease</em> profit</li>
+    <li class="fragment"><mark>s₁'s reduced cost = 2.5</mark> is the <strong>shadow price</strong> of labor!</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Second Pivot: x₂ Enters, s₂ Leaves</h2>
+  <p>Entering: <mark>x₂</mark> (reduced cost = -1.5, most negative)</p>
+  <p class="fragment">Ratio test for leaving variable:</p>
+  <pre class="fragment"><code class="language-text" data-trim>
+x₁ row: 50 / 0.5 = 100
+s₂ row: 30 / 1.5 = 20  ← minimum
+  </code></pre>
+  <p class="fragment"><strong>s₂ leaves</strong>. Pivot element = <mark>1.5</mark> (x₂ column, s₂ row)</p>
+  <p class="fragment"><strong>Row operations:</strong></p>
+  <ol class="fragment">
+    <li>Normalize pivot row: New x₂ row = Old s₂ row ÷ 1.5</li>
+    <li>Eliminate x₂ from x₁ row: New x₁ row = Old x₁ row − 0.5 × New x₂ row</li>
+    <li>Eliminate x₂ from z row: New z row = Old z row + 1.5 × New x₂ row</li>
+  </ol>
+</section>
+
+<section data-transition="slide">
+  <h2>Optimal Tableau Reached</h2>
+  <pre><code class="language-text" data-trim data-line-numbers="1-4">
+| Basis | x₁ | x₂ | s₁    | s₂    | RHS |
+|-------|----|----|-------|-------|-----|
+| x₁    |  1 |  0 |  2/3  | -1/3  |  40 |
+| x₂    |  0 |  1 | -1/3  |  2/3  |  20 |
+| z     |  0 |  0 | 10/3  |  5/3  | 280 |
+  </code></pre>
+  <ul class="fragment">
+    <li><strong>Basis = [x₁, x₂]</strong> — both decision variables basic</li>
+    <li><strong>Solution</strong>: x₁ = 40 tables, x₂ = 20 chairs</li>
+    <li><strong>Slacks</strong>: s₁ = 0, s₂ = 0 — both constraints binding</li>
+    <li><strong>Profit</strong> = $280 (maximum)</li>
+    <li class="fragment"><strong>All reduced costs ≥ 0</strong> → <mark>optimality condition satisfied</mark></li>
+    <li class="fragment">Shadow prices: labor = 10/3 ≈ $3.33, wood = 5/3 ≈ $1.67</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Why the Pivot Rules Work</h2>
+  <h1 class="r-fit-text" style="margin-top: 1rem;">
+    <mark>Entering</mark>: steepest ascent edge
+  </h1>
+  <h1 class="r-fit-text" style="margin-top: 0.5rem;">
+    <mark>Leaving</mark>: first constraint hit
+  </h1>
+  <p class="fragment" style="margin-top: 1.5rem; font-size: 1.2rem;">
+    Together: move to <mark>adjacent vertex</mark> with <mark>better objective</mark>.
+  </p>
+  <div class="fragment" style="margin-top: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 8px;">
+    <p><strong>Geometric interpretation:</strong></p>
+    <ul>
+      <li>Each basis = a vertex (intersection of n constraint boundaries)</li>
+      <li>Pivot = slide along edge where one constraint becomes slack, another becomes tight</li>
+      <li>Ratio test = distance to next vertex along that edge</li>
+      <li>Reduced cost = directional derivative along that edge</li>
+    </ul>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h2 class="r-fit-text">The Tableau Is a Vertex Machine</h2>
+  <p class="fragment">Each tableau = one vertex of the feasible region.</p>
+  <p class="fragment">Each pivot = one edge traversal to a better vertex.</p>
+  <p class="fragment">The z-row = compass telling us which edge improves the objective.</p>
+  <p class="fragment">The ratio test = odometer telling us how far we can go.</p>
+  <p class="fragment" style="margin-top: 1rem; color: #e65100; font-weight: bold;">
+    But what if the compass breaks? What if no edge improves things — yet we're not optimal?
+  </p>
+</section>
+
+<section data-transition="fade">
+  <h2 class="r-fit-text">What Could Go Wrong?</h2>
+  <p class="fragment">We assumed:</p>
+  <ul class="fragment">
+    <li>Every pivot makes strict progress (objective increases)</li>
+    <li>Ratio test always has a unique minimum</li>
+    <li>We never return to a previous vertex</li>
+  </ul>
+  <p class="fragment" style="color: #e65100; font-weight: bold;">
+    What if the reduced cost is negative but the ratio test fails?
+  </p>
+  <p class="fragment" style="color: #e65100; font-weight: bold;">
+    What if multiple rows tie for the minimum ratio?
+  </p>
+  <p class="fragment" style="color: #e65100; font-weight: bold;">
+    What if we cycle forever without reaching optimality?
+  </p>
+  <p class="fragment" style="margin-top: 1rem; font-size: 1.2rem;">
+    Chapter 4: <mark>Degeneracy, Unboundedness, and Cycling</mark> — when the mechanism jams.
+  </p>
+</section>
+<section data-transition="fade">
+  <h1 class="r-fit-text">Chapter 4: The Application — Mastering the Workshop Problem</h1>
+  <p style="font-size: 1.2em; opacity: 0.8;">From optimal tableau to economic insight</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Recall: Our Optimal Tableau from Chapter 3</h2>
+  <p>We ended with the final tableau for the workshop problem:</p>
+  <pre><code class="language-text" data-trim>
+Maximize: 5x₁ + 4x₂
+s.t. 2x₁ +  x₂ ≤ 100  (wood)
+      x₁ + 2x₂ ≤  80  (labor)
+      x₁, x₂ ≥ 0
+  </code></pre>
+  <pre><code class="language-text" data-trim data-line-numbers>
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS  |
+|-------|----|----|----|----|------|
+| x₁    | 1  | 0  | 2/3| -1/3| 40  |
+| x₂    | 0  | 1  | -1/3| 2/3| 20  |
+|-------|----|----|----|----|------|
+| z     | 0  | 0  | 10/3| 5/3| 280 |
+  </code></pre>
+  <p class="fragment">This single tableau contains <mark>every answer</mark> about the problem.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Reading the Optimal Solution</h2>
+  <ul>
+    <li class="fragment"><strong>Decision variables:</strong> x₁ = 40 tables, x₂ = 20 chairs</li>
+    <li class="fragment"><strong>Maximum profit:</strong> z = $280</li>
+    <li class="fragment"><strong>Slack variables:</strong> s₁ = 0, s₂ = 0</li>
+    <li class="fragment"><strong>Wood used:</strong> 2(40) + 20 = 100 <span style="color:#27ae60">(all 100 units consumed)</span></li>
+    <li class="fragment"><strong>Labor used:</strong> 40 + 2(20) = 80 <span style="color:#27ae60">(all 80 units consumed)</span></li>
+    <li class="fragment"><strong>Both constraints binding</strong> — no waste at optimum</li>
+  </ul>
+  <p class="fragment" style="margin-top: 1em;">The basis {x₁, x₂} tells us <mark>which constraints are active</mark> at the optimal vertex.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">Shadow Prices = <mark>Reduced Costs of Slack Variables</mark></h1>
+  <p style="font-size: 1.2em;">The marginal value of each resource</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Shadow Prices from the Optimal Tableau</h2>
+  <pre><code class="language-text" data-trim data-line-numbers>
+| Basis | x₁ | x₂ | s₁   | s₂   | RHS  |
+|-------|----|----|------|------|------|
+| x₁    | 1  | 0  | 2/3  | -1/3 | 40   |
+| x₂    | 0  | 1  | -1/3 | 2/3  | 20   |
+|-------|----|----|------|------|------|
+| z     | 0  | 0  | 10/3 | 5/3  | 280  |
+  </code></pre>
+  <ul>
+    <li class="fragment"><strong>s₁ (wood) reduced cost:</strong> 10/3 ≈ <span style="color:#27ae60">$3.33</span> per unit</li>
+    <li class="fragment"><strong>s₂ (labor) reduced cost:</strong> 5/3 ≈ <span style="color:#27ae60">$1.67</span> per unit</li>
+  </ul>
+  <p class="fragment"><strong>Interpretation:</strong> If we could buy one more unit of wood, profit increases by ~$3.33. One more unit of labor → ~$1.67.</p>
+  <p class="fragment">These are the <mark>shadow prices</strong> (dual variables) — the economic value of relaxing each constraint.</p>
+</section>
+
+<section data-transition="slide" id="ch4-shadow-calc">
+  <h2>Interactive: Shadow Price Calculator</h2>
+  <p>Adjust resource availability and see the predicted new profit (valid for small changes):</p>
+  <div style="display: flex; gap: 2em; flex-wrap: wrap; margin: 1em 0;">
+    <div>
+      <label>Δ Wood (units): </label>
+      <input type="range" id="ch4-delta-wood" min="-20" max="20" value="0" step="1" style="width: 200px;">
+      <span id="ch4-wood-val">0</span>
+    </div>
+    <div>
+      <label>Δ Labor (units): </label>
+      <input type="range" id="ch4-delta-labor" min="-20" max="20" value="0" step="1" style="width: 200px;">
+      <span id="ch4-labor-val">0</span>
+    </div>
+  </div>
+  <div style="font-size: 1.3em; margin: 1em 0;">
+    Predicted profit: $<span id="ch4-pred-profit">280.00</span>
+    <br>
+    <span id="ch4-validity" style="color: #27ae60;">✓ Within validity range</span>
+  </div>
+  <button onclick="ch4Resolve()" style="padding: 0.5em 1em; font-size: 1em;">Re-solve with Simplex (verify)</button>
+  <pre id="ch4-resolve-output" style="margin-top: 1em; display: none;"></pre>
+</section>
+
+<section data-transition="slide">
+  <h2>Sensitivity: Range of Validity</h2>
+  <p>Shadow prices hold only while the <mark>optimal basis remains unchanged</mark>.</p>
+  <p>We compute allowable changes to RHS before a basic variable hits zero:</p>
+  <pre><code class="language-text" data-trim>
+For wood (s₁ column in basis):
+  x₁: 40 - (2/3)Δ ≥ 0  →  Δ ≤ 60
+  x₂: 20 - (-1/3)Δ ≥ 0 →  Δ ≥ -60
+  Wood range: [100-60, 100+60] = [40, 160]  ❌
+
+Wait — let's recompute carefully using the tableau columns...
+  </code></pre>
+  <p class="fragment">Correct calculation using the <strong>inverse basis matrix</strong> (the slack columns in the optimal tableau):</p>
+  <pre><code class="language-text" data-trim data-line-numbers>
+Current RHS: [40, 20]ᵀ
+Slack columns (B⁻¹):
+  s₁: [2/3, -1/3]ᵀ
+  s₂: [-1/3, 2/3]ᵀ
+
+Wood (b₁ = 100):  40 - (2/3)Δ₁ ≥ 0  →  Δ₁ ≤ 60
+                  20 - (-1/3)Δ₁ ≥ 0 →  Δ₁ ≥ -60
+  Allowable: Δ₁ ∈ [-60, 60]  →  Wood ∈ [40, 160]
+
+Labor (b₂ = 80):  40 - (-1/3)Δ₂ ≥ 0 →  Δ₂ ≥ -120
+                  20 - (2/3)Δ₂ ≥ 0  →  Δ₂ ≤ 30
+  Allowable: Δ₂ ∈ [-120, 30]  →  Labor ∈ [-40, 110] → [0, 110] (non-negativity)
+  </code></pre>
+  <p class="fragment"><strong>Valid ranges:</strong> Wood ∈ [40, 160], Labor ∈ [0, 110]</p>
+  <p class="fragment">Beyond these, the basis changes → shadow prices change.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Reduced Costs of Non-Basics at Optimum</h2>
+  <pre><code class="language-text" data-trim data-line-numbers>
+| Basis | x₁ | x₂ | s₁   | s₂   | RHS  |
+|-------|----|----|------|------|------|
+| x₁    | 1  | 0  | 2/3  | -1/3 | 40   |
+| x₂    | 0  | 1  | -1/3 | 2/3  | 20   |
+|-------|----|----|------|------|------|
+| z     | 0  | 0  | 10/3 | 5/3  | 280  |
+  </code></pre>
+  <ul>
+    <li class="fragment"><strong>Non-basic variables:</strong> s₁, s₂ (both at zero)</li>
+    <li class="fragment"><strong>Reduced costs:</strong> 10/3 > 0, 5/3 > 0</li>
+    <li class="fragment"><strong>Meaning for slacks:</strong> Positive reduced cost = resource is <span style="color:#e74c3c">scarce</span> (binding constraint)</li>
+    <li class="fragment">If a slack had reduced cost = 0 → constraint not binding (resource abundant)</li>
+  </ul>
+  <p class="fragment">For decision variables (if any were non-basic):</p>
+  <ul>
+    <li class="fragment">Reduced cost > 0 → increasing it would <span style="color:#e74c3c">decrease</span> profit (for max)</li>
+    <li class="fragment">Reduced cost = 0 → <span style="color:#f39c12">alternative optimal solutions</span> exist</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Edge Case: Degeneracy</h2>
+  <p>Add a third constraint: <strong>x₁ ≤ 40</strong> (machine capacity)</p>
+  <p>New problem: Maximize 5x₁ + 4x₂ subject to:</p>
+  <pre><code class="language-text" data-trim>
+2x₁ +  x₂ ≤ 100  (wood)
+ x₁ + 2x₂ ≤  80  (labor)
+ x₁        ≤  40  (machine)
+x₁, x₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Optimal solution unchanged: x₁ = 40, x₂ = 20, profit = $280</p>
+  <p class="fragment">But now we have <mark>three binding constraints</mark> in 2D — one is redundant.</p>
+  <pre><code class="language-text" data-trim data-line-numbers class="fragment">
+| Basis | x₁ | x₂ | s₁ | s₂ | s₃ | RHS |
+|-------|----|----|----|----|----|-----|
+| x₁    | 1  | 0  | *  | *  | *  | 40  |
+| x₂    | 0  | 1  | *  | *  | *  | 20  |
+| s₃    | 0  | 0  | *  | *  | 1  | 0   |  ← Basic variable at ZERO
+|-------|----|----|----|----|----|-----|
+| z     | 0  | 0  | *  | *  | *  | 280 |
+  </code></pre>
+  <p class="fragment"><strong>Degenerate BFS:</strong> A basic variable equals zero. The vertex is "over-defined."</p>
+</section>
+
+<section data-transition="slide" id="ch4-degen-explorer">
+  <h2>Interactive: Degeneracy Explorer</h2>
+  <div style="display: flex; gap: 2em; flex-wrap: wrap; align-items: center; margin: 1em 0;">
+    <label style="font-size: 1.2em;">
+      <input type="checkbox" id="ch4-machine-toggle" checked> Machine constraint (x₁ ≤ 40)
+    </label>
+  </div>
+  <div id="ch4-degen-tableau" style="font-family: monospace; font-size: 0.9em;"></div>
+  <p id="ch4-degen-explanation" style="margin-top: 1em;"></p>
+  <details style="margin-top: 1em;">
+    <summary><strong>Bland's Rule & Cycling</strong></summary>
+    <p>Degeneracy can cause <span style="color:#e74c3c">cycling</span> — simplex revisits same tableau.</p>
+    <p><strong>Bland's Rule:</strong> Always choose the entering/leaving variable with <mark>smallest index</mark>. Guarantees finite termination.</p>
+    <p>In practice: rare, but theoretically important.</p>
+  </details>
+</section>
+
+<section data-transition="slide">
+  <h2>Edge Case: Alternative Optima</h2>
+  <p>Change profit to: <strong>Maximize 4x₁ + 4x₂</strong> (equal profit per item)</p>
+  <p>Constraints unchanged:</p>
+  <pre><code class="language-text" data-trim>
+2x₁ +  x₂ ≤ 100
+ x₁ + 2x₂ ≤  80
+x₁, x₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Optimal tableau (after simplex):</p>
+  <pre><code class="language-text" data-trim data-line-numbers class="fragment">
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS |
+|-------|----|----|----|----|-----|
+| x₁    | 1  | 0  | 2/3| -1/3| 40 |
+| x₂    | 0  | 1  | -1/3| 2/3| 20 |
+|-------|----|----|----|----|-----|
+| z     | 0  | 0  | 2  | 2  | 240 |
+  </code></pre>
+  <p class="fragment">Wait — all reduced costs ≥ 0. But what if we pivot on a zero reduced cost?</p>
+  <p class="fragment"><strong>Zero reduced cost for non-basic</strong> → alternative optimal solutions exist.</p>
+  <p class="fragment">The profit line <mark>coincides with a constraint edge</mark> — entire segment is optimal.</p>
+</section>
+
+<section data-transition="slide" id="ch4-alt-opt-viz">
+  <h2>Interactive: Alternative Optima Visualizer</h2>
+  <p>Profit: 4x₁ + 4x₂. Constraint edge: x₁ + 2x₂ = 80 (labor binding)</p>
+  <div style="margin: 1em 0;">
+    <label>Position along optimal edge: </label>
+    <input type="range" id="ch4-alt-slider" min="0" max="100" value="50" style="width: 300px;">
+    <span id="ch4-alt-pos">50%</span>
+  </div>
+  <div id="ch4-alt-solution" style="font-size: 1.2em; margin: 1em 0;"></div>
+  <div id="ch4-alt-tableau" style="font-family: monospace; font-size: 0.85em;"></div>
+</section>
+
+<section data-transition="slide">
+  <h2>Unboundedness Detection</h2>
+  <p>What if the ratio test <mark>fails completely</mark>?</p>
+  <pre><code class="language-text" data-trim>
+Maximize: x₁ + x₂
+s.t. x₁ - x₂ ≤ 10
+     -x₁ + x₂ ≤ 5
+     x₁, x₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Initial tableau (after adding slacks):</p>
+  <pre><code class="language-text" data-trim data-line-numbers class="fragment">
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS |
+|-------|----|----|----|----|-----|
+| s₁    | 1  | -1 | 1  | 0  | 10  |
+| s₂    | -1 | 1  | 0  | 1  | 5   |
+|-------|----|----|----|----|-----|
+| z     | -1 | -1 | 0  | 0  | 0   |
+  </code></pre>
+  <p class="fragment">Enter x₁ (most negative reduced cost). Column: [1, -1]ᵀ</p>
+  <p class="fragment"><strong>Ratio test:</strong> Only positive entries in pivot column qualify.</p>
+  <p class="fragment">Row 1: 10/1 = 10. Row 2: -1 ≤ 0 → <span style="color:#e74c3c">ineligible</span>.</p>
+  <p class="fragment">Only one ratio → x₁ enters, s₁ leaves. But what if <mark>no positive entries</mark>?</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Unboundedness: Geometric View</h2>
+  <pre><code class="language-text" data-trim data-line-numbers>
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS |
+|-------|----|----|----|----|-----|
+| s₁    | 1  | -1 | 1  | 0  | 10  |
+| s₂    | -1 | 1  | 0  | 1  | 5   |
+|-------|----|----|----|----|-----|
+| z     | -1 | -1 | 0  | 0  | 0   |
+  </code></pre>
+  <p class="fragment">Suppose we enter x₂ instead. Column: [-1, 1]ᵀ</p>
+  <p class="fragment">Row 1: -1 ≤ 0 (ineligible). Row 2: 5/1 = 5.</p>
+  <p class="fragment">Now suppose a different problem where entering column has <mark>all entries ≤ 0</mark>:</p>
+  <pre><code class="language-text" data-trim class="fragment">
+Maximize: x₁ + x₂
+s.t. -x₁ + x₂ ≤ 5
+      x₁, x₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Tableau: x₂ column = [1]ᵀ (positive) — bounded.</p>
+  <p class="fragment">But if constraint were: <strong>-x₁ - x₂ ≤ -5</strong> (i.e., x₁ + x₂ ≥ 5)...</p>
+  <p class="fragment">Then entering column for x₁ could be all ≤ 0 → <span style="color:#e74c3c">unbounded</span>.</p>
+  <p class="fragment"><strong>Geometric meaning:</strong> Feasible region open in improving direction. No vertex maximizes.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Infeasibility and Phase I</h2>
+  <p>What if no obvious initial BFS exists?</p>
+  <p>Example: <strong>≥ constraints</strong> or <strong>= constraints</strong></p>
+  <pre><code class="language-text" data-trim>
+Minimize: 3x₁ + 2x₂
+s.t. 2x₁ + x₂ ≥ 100
+      x₁ + 2x₂ ≥ 80
+      x₁, x₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Adding slack gives: 2x₁ + x₂ - s₁ = 100. Setting x=0 → s₁ = -100 <span style="color:#e74c3c">(infeasible)</span></p>
+  <p class="fragment"><strong>Phase I (Two-Phase Method):</strong></p>
+  <ol>
+    <li class="fragment">Add <mark>artificial variables</mark> a₁, a₂ ≥ 0</li>
+    <li class="fragment">Minimize a₁ + a₂ (sum of artificials)</li>
+    <li class="fragment">If min > 0 → <span style="color:#e74c3c">original problem infeasible</span></li>
+    <li class="fragment">If min = 0 → drop artificials, proceed to Phase II with feasible basis</li>
+  </ol>
+  <p class="fragment"><strong>Big-M Method alternative:</strong> Penalize artificials in objective with huge M.</p>
+  <p class="fragment">Modern solvers use <mark>dual simplex</mark> or <mark>interior point</mark> — Phase I mostly pedagogical.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">The Tableau Tells All</h1>
+  <ul style="font-size: 1.3em; text-align: left; max-width: 800px; margin: 1em auto;">
+    <li class="fragment">✅ <span style="color:#27ae60">Optimal solution</span> — basic variables, objective value</li>
+    <li class="fragment">✅ <span style="color:#27ae60">Shadow prices</span> — reduced costs of slacks</li>
+    <li class="fragment">✅ <span style="color:#27ae60">Sensitivity ranges</span> — how much RHS can change</li>
+    <li class="fragment">⚠️ <span style="color:#f39c12">Degeneracy</span> — basic variable at zero</li>
+    <li class="fragment">⚠️ <span style="color:#f39c12">Alternative optima</span> — zero reduced cost for non-basic</li>
+    <li class="fragment">❌ <span style="color:#e74c3c">Unboundedness</span> — no positive pivot column entries</li>
+    <li class="fragment">❌ <span style="color:#e74c3c">Infeasibility</span> — Phase I detects</li>
+  </ul>
+  <p class="fragment" style="font-size: 1.2em; margin-top: 1em;">One algorithmic framework. <mark>All</mark> linear programming diagnostics.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">But Where Do Shadow Prices <mark>Come From</mark>?</h1>
+  <p style="font-size: 1.3em;">We read them from the tableau. But why do they work?</p>
+  <p class="fragment" style="font-size: 1.2em;">The answer lies in a <mark>parallel universe</mark> — the Dual Problem.</p>
+  <p class="fragment" style="font-size: 1.2em;">Every LP has a twin. The shadow prices <mark>are</mark> the dual optimal solution.</p>
+  <p class="fragment" style="color: #f39c12; font-size: 1.3em;">Chapter 5: Duality — The Hidden Symmetry</p>
+</section>
+
+<script>
+  // Shadow Price Calculator
+  const woodSlider = document.getElementById('ch4-delta-wood');
+  const laborSlider = document.getElementById('ch4-delta-labor');
+  const woodVal = document.getElementById('ch4-wood-val');
+  const laborVal = document.getElementById('ch4-labor-val');
+  const predProfit = document.getElementById('ch4-pred-profit');
+  const validity = document.getElementById('ch4-validity');
+  const resolveOutput = document.getElementById('ch4-resolve-output');
+
+  function updateShadowCalc() {
+    const dw = parseInt(woodSlider.value);
+    const dl = parseInt(laborSlider.value);
+    woodVal.textContent = dw >= 0 ? '+' + dw : dw;
+    laborVal.textContent = dl >= 0 ? '+' + dl : dl;
+    
+    const profit = 280 + (10/3) * dw + (5/3) * dl;
+    predProfit.textContent = profit.toFixed(2);
+    
+    // Validity ranges: Wood [40, 160] → Δ ∈ [-60, 60], Labor [0, 110] → Δ ∈ [-80, 30]
+    const woodOk = dw >= -60 && dw <= 60;
+    const laborOk = dl >= -80 && dl <= 30;
+    
+    if (woodOk && laborOk) {
+      validity.textContent = '✓ Within validity range';
+      validity.style.color = '#27ae60';
+    } else {
+      validity.textContent = '⚠ Outside validity range — basis may change';
+      validity.style.color = '#e74c3c';
+    }
+  }
+  
+  woodSlider.oninput = updateShadowCalc;
+  laborSlider.oninput = updateShadowCalc;
+  updateShadowCalc();
+
+  function ch4Resolve() {
+    const dw = parseInt(woodSlider.value);
+    const dl = parseInt(laborSlider.value);
+    
+    // Simple re-solve for the 2-constraint problem
+    // Max 5x1 + 4x2 s.t. 2x1 + x2 <= 100+dw, x1 + 2x2 <= 80+dl
+    const wood = 100 + dw;
+    const labor = 80 + dl;
+    
+    // Solve the 2x2 system for intersection
+    // 2x1 + x2 = wood
+    // x1 + 2x2 = labor
+    // x1 = (2*wood - labor)/3, x2 = (2*labor - wood)/3
+    const x1 = (2*wood - labor) / 3;
+    const x2 = (2*labor - wood) / 3;
+    
+    let result = `Re-solve with Wood=${wood}, Labor=${labor}:\n`;
+    
+    if (x1 >= 0 && x2 >= 0) {
+      const profit = 5*x1 + 4*x2;
+      result += `Intersection: x₁=${x1.toFixed(2)}, x₂=${x2.toFixed(2)}\n`;
+      result += `Profit: $${profit.toFixed(2)}\n`;
+      result += `Predicted: $${(280 + (10/3)*dw + (5/3)*dl).toFixed(2)}\n`;
+      result += `Match: ${Math.abs(profit - (280 + (10/3)*dw + (5/3)*dl)) < 0.01 ? 'YES' : 'NO (basis changed)'}`;
+    } else {
+      result += `Intersection infeasible (x₁=${x1.toFixed(2)}, x₂=${x2.toFixed(2)})\n`;
+      result += `Optimum at a different vertex — basis has changed.`;
+    }
+    
+    resolveOutput.textContent = result;
+    resolveOutput.style.display = 'block';
+  }
+
+  // Degeneracy Explorer
+  const machineToggle = document.getElementById('ch4-machine-toggle');
+  const degenTableau = document.getElementById('ch4-degen-tableau');
+  const degenExplanation = document.getElementById('ch4-degen-explanation');
+
+  function updateDegeneracy() {
+    if (machineToggle.checked) {
+      degenTableau.innerHTML = `
+| Basis | x₁ | x₂ | s₁   | s₂   | s₃ | RHS |
+|-------|----|----|------|------|----|-----|
+| x₁    | 1  | 0  | 2/3  | -1/3 | 0  | 40  |
+| x₂    | 0  | 1  | -1/3 | 2/3  | 0  | 20  |
+| s₃    | 0  | 0  | 0    | 0    | 1  | 0   |  ← DEGENERATE (basic at 0)
+|-------|----|----|------|------|----|-----|
+| z     | 0  | 0  | 10/3 | 5/3  | 0  | 280 |`;
+      degenExplanation.innerHTML = '<strong>Degenerate BFS:</strong> s₃ = 0 but basic. Three constraints bind at one vertex in 2D. Ratio test ties possible — Bland\'s rule prevents cycling.';
+    } else {
+      degenTableau.innerHTML = `
+| Basis | x₁ | x₂ | s₁   | s₂ | RHS |
+|-------|----|----|------|----|-----|
+| x₁    | 1  | 0  | 2/3  | -1/3 | 40 |
+| x₂    | 0  | 1  | -1/3 | 2/3  | 20 |
+|-------|----|----|------|----|-----|
+| z     | 0  | 0  | 10/3 | 5/3  | 280 |`;
+      degenExplanation.innerHTML = '<strong>Non-degenerate:</strong> Only 2 constraints bind (wood & labor). Machine constraint removed — no redundancy.';
+    }
+  }
+  machineToggle.onchange = updateDegeneracy;
+  updateDegeneracy();
+
+  // Alternative Optima Visualizer
+  const altSlider = document.getElementById('ch4-alt-slider');
+  const altPos = document.getElementById('ch4-alt-pos');
+  const altSolution = document.getElementById('ch4-alt-solution');
+  const altTableau = document.getElementById('ch4-alt-tableau');
+
+  function updateAltOpt() {
+    const t = parseInt(altSlider.value) / 100; // 0 to 1
+    altPos.textContent = (t * 100).toFixed(0) + '%';
+    
+    // Optimal edge: x₁ + 2x₂ = 80, with 2x₁ + x₂ ≤ 100, x₁,x₂ ≥ 0
+    // Endpoints: (40, 20) and (0, 40)
+    const x1 = 40 * (1 - t);
+    const x2 = 20 * (1 - t) + 40 * t;
+    const profit = 4 * x1 + 4 * x2;
+    
+    altSolution.innerHTML = `x₁ = ${x1.toFixed(1)}, x₂ = ${x2.toFixed(1)}, Profit = $${profit.toFixed(1)}`;
+    
+    // Show tableau with zero reduced cost for non-basic (depending on basis)
+    // At t=0: basis {x₁, x₂}, s₁,s₂ non-basic
+    // At t=1: basis {x₂, s₁}, x₁,s₂ non-basic
+    if (t < 0.5) {
+      altTableau.innerHTML = `
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS |
+|-------|----|----|----|----|-----|
+| x₁    | 1  | 0  | 2/3| -1/3| ${x1.toFixed(1)} |
+| x₂    | 0  | 1  | -1/3| 2/3| ${x2.toFixed(1)} |
+|-------|----|----|----|----|-----|
+| z     | 0  | 0  | 2  | 2  | ${profit.toFixed(1)} |
+← Zero reduced cost for s₁,s₂? No — they're slacks. 
+← But if we pivot x₁ out, s₁ enters with reduced cost 0.`;
+    } else {
+      altTableau.innerHTML = `
+| Basis | x₁ | x₂ | s₁ | s₂ | RHS |
+|-------|----|----|----|----|-----|
+| s₁    | 1  | 0  | 1  | -2 | ${(100 - 2*x1 - x2).toFixed(1)} |
+| x₂    | 0  | 1  | 0  | 1  | ${x2.toFixed(1)} |
+|-------|----|----|----|----|-----|
+| z     | 0  | 0  | 0  | 2  | ${profit.toFixed(1)} |
+← x₁ non-basic with REDUCED COST = 0 → Alternative optimum!`;
+    }
+  }
+  altSlider.oninput = updateAltOpt;
+  updateAltOpt();
+</script>
+<section data-transition="fade">
+  <h1 class="r-fit-text">Chapter 5: The Bigger Picture — Beyond the Tableau</h1>
+</section>
+
+<section data-transition="slide">
+  <h2 class="r-fit-text">Return to the Central Question</h2>
+  <p class="fragment">Chapter 1 asked: <mark>How does the simplex tableau navigate vertices?</mark></p>
+  <p class="fragment">Chapter 2 showed the geometry: each vertex = a basis, each edge = a pivot.</p>
+  <p class="fragment">Chapter 3 revealed the algebra: <mark>each row = basic variable expressed via non-basics</mark> — organized Gauss-Jordan elimination.</p>
+  <p class="fragment">Chapter 4 proved the economics: <mark>reduced costs = marginal value, shadow prices = constraint worth</mark> — sensitivity without re-solving.</p>
+  <p class="fragment">Our running example — maximize <span class="math">5x_1 + 4x_2</span> s.t. <span class="math">2x_1 + x_2 \le 100</span>, <span class="math">x_1 + 2x_2 \le 80</span> — walked from (0,0) → (50,0) → <mark>(40,20)</mark> in two pivots.</p>
+  <p class="fragment">Now we assemble the complete picture.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Central Artifact: Final Tableau Annotated</h2>
+  <pre><code class="language-text" data-trim data-line-numbers>
+Optimal Tableau for: max 5x₁ + 4x₂  s.t. 2x₁ + x₂ ≤ 100, x₁ + 2x₂ ≤ 80
+
+Basis | x₁   x₂   s₁   s₂   | RHS
+------|--------------------|-----
+ x₁   |  1   0  2/3 -1/3  |  40   ← basic var x₁ = 40 - ⅔s₁ + ⅓s₂
+ x₂   |  0   1 -1/3  2/3  |  20   ← basic var x₂ = 20 + ⅓s₁ - ⅔s₂
+------|--------------------|-----
+  z   |  0   0 10/3  5/3  | 280   ← reduced costs (shadow prices)
+      |                    |
+      |  Basis: {x₁, x₂}   |
+      |  Non-basis: {s₁, s₂} = 0
+      |  Solution: x₁=40, x₂=20, z=280
+      |  Shadow prices: y₁=10/3, y₂=5/3
+      |  RHS ranges: s₁∈[-60,∞), s₂∈[-40,∞)
+  </code></pre>
+  <p class="fragment"><strong>Every number readable:</strong> basis, solution, reduced costs, shadow prices, allowable RHS ranges — all from one matrix.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">Core Insight Restated</h1>
+  <h2 class="r-fit-text fragment">The simplex tableau <mark>is</mark> organized Gaussian elimination.</h2>
+  <p class="fragment">It maintains an invertible basis matrix <span class="math">B</span> implicitly.</p>
+  <p class="fragment">Each pivot = one Gauss-Jordan step swapping a column of <span class="math">B</span> with a non-basic column.</p>
+  <p class="fragment">The tableau <mark>is</mark> <span class="math">B^{-1}A \mid B^{-1}b</span> with the objective row <span class="math">c_B^T B^{-1}A - c^T</span>.</p>
+  <p class="fragment">Geometry (vertices, edges) = Algebra (basis, pivots).</p>
+  <p class="fragment">You now see <mark>both sides simultaneously</mark>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Limitations of the Simplex Method</h2>
+  <ul>
+    <li class="fragment"><strong>Worst-case complexity:</strong> Exponential (Klee-Minty cube, 1972). A cleverly constructed <span class="math">n</span>-variable LP forces <span class="math">2^n - 1</span> pivots.</li>
+    <li class="fragment"><strong>Practical reality:</strong> Remarkably efficient on real-world problems — typically <span class="math">2m \text{ to } 3m</span> pivots for <span class="math">m</span> constraints.</li>
+    <li class="fragment"><strong>Large sparse problems:</strong> Full tableau stores <span class="math">O(mn)</span> dense entries — wasteful when <span class="math">A</span> is sparse.</li>
+    <li class="fragment"><strong>Modern solvers use:</strong>
+      <ul>
+        <li>Revised simplex (maintain <span class="math">B^{-1}</span> or LU factors only)</li>
+        <li>Interior point methods (polynomial complexity, different geometry)</li>
+      </ul>
+    </li>
+  </ul>
+  <p class="fragment">The tableau is a <mark>teaching lens</mark>, not always the computational engine.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Duality: The Shadow Price Connection</h2>
+  <p>Primal (our running example):</p>
+  <pre><code class="language-text" data-trim>
+max  5x₁ + 4x₂
+s.t. 2x₁ +  x₂ ≤ 100
+      x₁ + 2x₂ ≤  80
+      x₁, x₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Dual:</p>
+  <pre><code class="language-text" data-trim data-line-numbers>
+min 100y₁ + 80y₂
+s.t. 2y₁ +  y₂ ≥ 5
+      y₁ + 2y₂ ≥ 4
+      y₁, y₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Optimal dual: <mark><span class="math">y_1 = 10/3, \; y_2 = 5/3</span></mark> — exactly the shadow prices from the tableau's objective row.</p>
+  <p class="fragment">Strong duality: <span class="math">5(40) + 4(20) = 280 = 100(10/3) + 80(5/3)</span>.</p>
+  <p class="fragment">Complementary slackness: <span class="math">x_1>0 \Rightarrow 2y_1+y_2=5</span>, <span class="math">x_2>0 \Rightarrow y_1+2y_2=4</span>, <span class="math">s_1=s_2=0 \Rightarrow y_1,y_2>0</span>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Interactive: Primal-Dual Pair Explorer</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.85rem;">
+    <div style="border: 2px solid var(--color-good); border-radius: 8px; padding: 0.5rem;">
+      <h4 style="color: var(--color-good); margin-top: 0;">Primal Tableau</h4>
+      <pre id="ch5-slide6-primal" style="margin: 0; font-size: 0.75rem;"></pre>
+    </div>
+    <div style="border: 2px solid var(--color-bad); border-radius: 8px; padding: 0.5rem;">
+      <h4 style="color: var(--color-bad); margin-top: 0;">Dual Tableau</h4>
+      <pre id="ch5-slide6-dual" style="margin: 0; font-size: 0.75rem;"></pre>
+    </div>
+  </div>
+  <div style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+    <label>RHS 1 (100): <input type="range" id="ch5-slide6-rhs1" min="50" max="150" value="100" step="1"> <span id="ch5-slide6-rhs1-val">100</span></label>
+    <label>RHS 2 (80): <input type="range" id="ch5-slide6-rhs2" min="40" max="120" value="80" step="1"> <span id="ch5-slide6-rhs2-val">80</span></label>
+    <label>Obj x₁ (5): <input type="range" id="ch5-slide6-obj1" min="2" max="8" value="5" step="0.5"> <span id="ch5-slide6-obj1-val">5</span></label>
+    <label>Obj x₂ (4): <input type="range" id="ch5-slide6-obj2" min="2" max="7" value="4" step="0.5"> <span id="ch5-slide6-obj2-val">4</span></label>
+  </div>
+  <p id="ch5-slide6-status" style="margin-top: 0.5rem; font-weight: bold;"></p>
+  <script>
+    function renderTableau(rhs1, rhs2, obj1, obj2) {
+      // Solve the 2x2 system for current parameters
+      // Primal: max obj1*x1 + obj2*x2 s.t. 2x1+x2<=rhs1, x1+2x2<=rhs2
+      // Optimal basis {x1,x2} gives: x1 = (2*rhs1 - rhs2)/3, x2 = (2*rhs2 - rhs1)/3
+      // Valid when both >= 0: rhs2 <= 2*rhs1 and rhs1 <= 2*rhs2
+      const x1 = (2*rhs1 - rhs2)/3;
+      const x2 = (2*rhs2 - rhs1)/3;
+      const feasible = x1 >= -1e-9 && x2 >= -1e-9;
+      
+      // Dual: min rhs1*y1 + rhs2*y2 s.t. 2y1+y2>=obj1, y1+2y2>=obj2
+      // Optimal dual (when both constraints binding): y1 = (2*obj1 - obj2)/3, y2 = (2*obj2 - obj1)/3
+      const y1 = (2*obj1 - obj2)/3;
+      const y2 = (2*obj2 - obj1)/3;
+      const dualFeasible = y1 >= -1e-9 && y2 >= -1e-9;
+      
+      // Reduced costs for non-basics s1, s2 in primal = shadow prices = y1, y2
+      // Reduced costs for non-basics in dual = primal solution x1, x2
+      
+      let primalText = "Basis | x₁  x₂  s₁  s₂ | RHS\n";
+      primalText += "------|-----------------|-----\n";
+      if (feasible) {
+        primalText += ` x₁   |  1  0  2/3 -1/3 | ${x1.toFixed(2)}\n`;
+        primalText += ` x₂   |  0  1 -1/3  2/3 | ${x2.toFixed(2)}\n`;
+        primalText += `------|-----------------|-----\n`;
+        primalText += `  z   |  0  0 ${y1.toFixed(2)} ${y2.toFixed(2)} | ${(obj1*x1+obj2*x2).toFixed(2)}`;
+      } else {
+        primalText += " Basis changed — different vertex active";
+      }
+      
+      let dualText = "Basis | y₁  y₂  s₁  s₂ | RHS\n";
+      dualText += "------|-----------------|-----\n";
+      if (dualFeasible) {
+        dualText += ` y₁   |  1  0  2/3 -1/3 | ${y1.toFixed(2)}\n`;
+        dualText += ` y₂   |  0  1 -1/3  2/3 | ${y2.toFixed(2)}\n`;
+        dualText += `------|-----------------|-----\n`;
+        dualText += `  w   |  0  0 ${x1.toFixed(2)} ${x2.toFixed(2)} | ${(rhs1*y1+rhs2*y2).toFixed(2)}`;
+      } else {
+        dualText += " Basis changed — different vertex active";
+      }
+      
+      document.getElementById('ch5-slide6-primal').textContent = primalText;
+      document.getElementById('ch5-slide6-dual').textContent = dualText;
+      
+      const status = document.getElementById('ch5-slide6-status');
+      if (feasible && dualFeasible) {
+        status.textContent = `Strong duality: Primal = ${(obj1*x1+obj2*x2).toFixed(2)}, Dual = ${(rhs1*y1+rhs2*y2).toFixed(2)} ✓`;
+        status.style.color = 'var(--color-good)';
+      } else {
+        status.textContent = "Basis change detected — shadow prices shift";
+        status.style.color = 'var(--color-bad)';
+      }
+    }
+    
+    document.getElementById('ch5-slide6-rhs1').oninput = function() {
+      document.getElementById('ch5-slide6-rhs1-val').textContent = this.value;
+      renderTableau(+this.value, +document.getElementById('ch5-slide6-rhs2').value,
+                    +document.getElementById('ch5-slide6-obj1').value, +document.getElementById('ch5-slide6-obj2').value);
+    };
+    document.getElementById('ch5-slide6-rhs2').oninput = function() {
+      document.getElementById('ch5-slide6-rhs2-val').textContent = this.value;
+      renderTableau(+document.getElementById('ch5-slide6-rhs1').value, +this.value,
+                    +document.getElementById('ch5-slide6-obj1').value, +document.getElementById('ch5-slide6-obj2').value);
+    };
+    document.getElementById('ch5-slide6-obj1').oninput = function() {
+      document.getElementById('ch5-slide6-obj1-val').textContent = this.value;
+      renderTableau(+document.getElementById('ch5-slide6-rhs1').value, +document.getElementById('ch5-slide6-rhs2').value,
+                    +this.value, +document.getElementById('ch5-slide6-obj2').value);
+    };
+    document.getElementById('ch5-slide6-obj2').oninput = function() {
+      document.getElementById('ch5-slide6-obj2-val').textContent = this.value;
+      renderTableau(+document.getElementById('ch5-slide6-rhs1').value, +document.getElementById('ch5-slide6-rhs2').value,
+                    +document.getElementById('ch5-slide6-obj1').value, +this.value);
+    };
+    
+    // Initial render
+    renderTableau(100, 80, 5, 4);
+  </script>
+</section>
+
+<section data-transition="slide">
+  <h2>What Comes Next: Revised Simplex</h2>
+  <p>The full tableau stores <mark>redundant information</mark> — every column of <span class="math">A</span> transformed by <span class="math">B^{-1}</span>.</p>
+  <p class="fragment">Revised simplex maintains only:</p>
+  <ul>
+    <li class="fragment">The basis inverse <span class="math">B^{-1}</span> (or LU factorization)</li>
+    <li class="fragment">The basic variable values <span class="math">x_B = B^{-1}b</span></li>
+    <li class="fragment">The basic cost vector <span class="math">c_B</span></li>
+  </ul>
+  <p class="fragment"><strong>Pricing step</strong> computes reduced costs on demand:</p>
+  <pre><code class="language-text" data-trim>
+π = c_B^T B^{-1}          (simplex multipliers = shadow prices)
+r_j = c_j - π A_j         (reduced cost for non-basic j)
+  </code></pre>
+  <p class="fragment">Only the entering column <span class="math">B^{-1}A_j</span> is computed when needed.</p>
+  <p class="fragment">Standard in commercial solvers (CPLEX, Gurobi, Xpress) — exploits sparsity, enables reinversion control.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>What Comes Next: Interior Point Methods</h2>
+  <p class="fragment">Simplex walks the <mark>boundary</mark> (vertices → edges → vertices).</p>
+  <p class="fragment">Interior point methods stay <mark>strictly inside</mark> the feasible region.</p>
+  <p class="fragment"><strong>Barrier method:</strong> Add logarithmic barrier <span class="math">-\mu \sum \ln(x_i)</span> to objective, solve sequence of unconstrained problems as <span class="math">\mu \to 0</span>.</p>
+  <p class="fragment">Follows the <mark>central path</mark> — a smooth curve through the interior converging to optimum.</p>
+  <p class="fragment"><strong>Complexity:</strong> Polynomial (<span class="math">O(\sqrt{n} L)</span> iterations, <span class="math">L</span> = input bit length).</p>
+  <p class="fragment"><strong>Trade-off:</strong> Each iteration solves a linear system (Newton step) — expensive but fewer iterations for very large problems.</p>
+  <p class="fragment">Modern solvers run <mark>both</mark> and choose automatically.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">Closing: The Tableau as a Lens</h1>
+  <p class="fragment">The simplex tableau reveals:</p>
+  <ul>
+    <li class="fragment"><mark>Geometry through algebra</mark> — vertices as bases, edges as pivots</li>
+    <li class="fragment"><mark>Economics through shadow prices</mark> — dual variables = constraint marginal values</li>
+    <li class="fragment"><mark>Sensitivity through reduced costs</mark> — how far until the basis breaks</li>
+  </ul>
+  <p class="fragment">Our running example — maximize <span class="math">5x_1 + 4x_2</span> s.t. <span class="math">2x_1 + x_2 \le 100</span>, <span class="math">x_1 + 2x_2 \le 80</span> — is now fully transparent:</p>
+  <p class="fragment">Optimal vertex <mark>(40, 20)</mark>, value <mark>280</mark>, shadow prices <mark>10/3, 5/3</mark>, ranges <mark>s₁ ∈ [-60, ∞), s₂ ∈ [-40, ∞)</mark>.</p>
+  <p class="fragment">You started with a question: <mark>"What is a simplex tableau?"</mark></p>
+  <p class="fragment">You now hold the lens. <strong>Use it.</strong></p>
+</section>
+      </div>
+    </div>
+
+    <!-- Reveal.js core -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+    <!-- Plugins: load before Reveal.initialize() -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/math/math.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+    <!-- Mermaid (diagram support) -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <script>
+      // ── Neutralize History API ─────────────────────────────────────────────
+      // Reveal.js's location.js calls history.replaceState() after every slide
+      // change to update the URL hash. When this deck is loaded via srcDoc
+      // inside a sandboxed iframe, Chrome throws a SecurityError because the
+      // document URL is 'about:srcdoc'. Replacing both methods with no-ops
+      // makes all of Reveal's internal URL-tracking silently do nothing.
+      // This must run BEFORE Reveal.initialize() is called.
+      history.pushState  = function () {};
+      history.replaceState = function () {};
+
+      // Wait for the DOM to be fully parsed before initialising Reveal so
+      // that all CDN plugin scripts have been evaluated.
+      document.addEventListener('DOMContentLoaded', function () {
+        // Mermaid must be initialised before Reveal processes the slides
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+        }
+
+        if (typeof Reveal !== 'undefined') {
+          Reveal.initialize({
+            // hash: false — disables Reveal's built-in URL/history tracking.
+            // The deck runs inside a sandboxed srcDoc iframe where
+            // history.replaceState is either forbidden or a no-op. Enabling
+            // hash would cause repeated SecurityError crashes in Chrome.
+            hash: false,
+            controls: true,
+            controlsTutorial: false,
+            progress: true,
+            center: true,
+            keyboard: { 38: false, 40: false },
+            width: 1920,
+            height: 1080,
+            transition: 'slide',
+            transitionSpeed: 'fast',
+            slideNumber: 'c/t',
+            // KaTeX math rendering
+            math: {
+              mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+              config: 'TeX-AMS_HTML-full',
+              tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+              }
+            },
+            // Load only plugins whose scripts were actually included above
+            plugins: [
+              typeof RevealHighlight !== 'undefined' ? RevealHighlight : null,
+              typeof RevealMath !== 'undefined' ? RevealMath.KaTeX : null,
+              typeof RevealNotes !== 'undefined' ? RevealNotes : null,
+            ].filter(Boolean)
+          }).then(function () {
+            // Render mermaid diagrams after Reveal finishes layout
+            if (typeof mermaid !== 'undefined') {
+              Reveal.on('slidechanged', renderMermaid);
+              Reveal.on('ready', renderMermaid);
+            }
+          });
+        } else {
+          console.error('[Origin] Reveal.js failed to load from CDN.');
+        }
+      });
+
+      async function renderMermaid() {
+        if (typeof mermaid === 'undefined') return;
+        const elements = document.querySelectorAll('.mermaid:not([data-processed])');
+        for (const el of elements) {
+          try {
+            const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
+            const { svg } = await mermaid.render(id, el.textContent.trim());
+            el.innerHTML = svg;
+            el.setAttribute('data-processed', 'true');
+          } catch (err) {
+            console.warn('[Origin] Mermaid render error:', err);
+          }
+        }
+      }
+
+      // ── postMessage navigation bridge ──────────────────────────────────────
+      // The parent page (PocketFlowPresentation.tsx) cannot access this iframe's
+      // DOM directly because sandbox="allow-scripts" gives it a null origin.
+      // Instead it forwards keyboard events as postMessage commands, and we
+      // translate them into Reveal.js API calls here.
+      //
+      // Guard: Reveal.initialize() is async. If a key arrives before the deck
+      // is ready, Reveal.next() etc. silently no-ops. We buffer early messages
+      // and replay them once the 'ready' event fires.
+      var _revealReady = false;
+      var _pendingActions = [];
+
+      function _dispatchRevealAction(action) {
+        if (typeof Reveal === 'undefined') return;
+        if (!Reveal.isReady || !Reveal.isReady()) return; // guard: not yet initialised
+        switch (action) {
+          case 'next':       Reveal.next();  break;
+          case 'prev':       Reveal.prev();  break;
+          case 'scroll-down': 
+            var p = document.querySelector('section.present');
+            if(p) p.scrollBy({top: 60, behavior: 'smooth'});
+            break;
+          case 'scroll-up':
+            var p = document.querySelector('section.present');
+            if(p) p.scrollBy({top: -60, behavior: 'smooth'});
+            break;
+          case 'fullscreen':
+            // Fullscreen must be triggered by a user gesture inside the iframe.
+            // postMessage fires in the iframe context, which counts as a gesture.
+            var el = document.documentElement;
+            if (!document.fullscreenElement) {
+              el.requestFullscreen && el.requestFullscreen();
+            } else {
+              document.exitFullscreen && document.exitFullscreen();
+            }
+            break;
+          case 'escape':
+            if (document.fullscreenElement) {
+              document.exitFullscreen && document.exitFullscreen();
+            }
+            break;
+        }
+      }
+
+      // Flush queued actions once Reveal signals it is ready.
+      // We hook this inside DOMContentLoaded so Reveal is guaranteed defined.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Reveal !== 'undefined') {
+          Reveal.on('ready', function () {
+            _revealReady = true;
+            // Replay any nav commands that arrived before initialization finished.
+            var pending = _pendingActions.splice(0);
+            pending.forEach(function (a) { _dispatchRevealAction(a); });
+          });
+        }
+      });
+
+      window.addEventListener('message', function (event) {
+        if (!event.data || event.data.type !== 'reveal-nav') return;
+        console.log('[reveal-nav] received nav:', event.data.action, '| Reveal ready:', _revealReady); // DEBUG — remove after confirming
+        if (typeof Reveal === 'undefined') return;
+        var action = event.data.action;
+        if (!_revealReady) {
+          // Buffer it — will be flushed when Reveal fires 'ready'
+          _pendingActions.push(action);
+          return;
+        }
+        _dispatchRevealAction(action);
+      });
+    </script>
+  </body>
+</html>
