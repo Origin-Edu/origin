@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Origin Presentation</title>
+    <!-- Reveal.js 5.2.1 core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css" />
+    <!-- Reveal.js black theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/black.css" />
+    <!-- highlight.js monokai theme for code blocks -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/monokai.css" />
+    <!-- KaTeX CSS (math rendering) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <style>
+      /* ── Layout ─────────────────────────────────────── */
+      html, body { margin: 0; padding: 0; height: 100%; }
+      .reveal .slides section { 
+        text-align: left; 
+        max-height: 100%;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+      }
+
+      /* ── Typography ──────────────────────────────────── */
+      .reveal h1, .reveal h2, .reveal h3 { font-weight: 700; text-transform: none; }
+      .reveal .r-fit-text { line-height: 1.1; }
+      .reveal p, .reveal li { font-size: 0.85em; }
+
+      /* ── Code ────────────────────────────────────────── */
+      .reveal pre { max-height: 100vh; border-radius: 8px; }
+      .reveal pre code { font-size: 0.62em; max-height: 100vh; }
+
+      /* ── Tables ─────────────────────────────────────── */
+      .reveal table { font-size: 0.65em; border-collapse: collapse; }
+      .reveal table th { background: rgba(255,255,255,0.1); }
+      .reveal table td, .reveal table th { padding: 0.4em 0.8em; border: 1px solid rgba(255,255,255,0.15); }
+
+      /* ── Diagrams ────────────────────────────────────── */
+      .reveal .mermaid {
+        background: rgba(20, 20, 20, 0.6);
+        padding: 24px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* ── Color semantics (fixed, never swap) ─────────── */
+      mark { background: transparent; color: #FFD700; font-weight: 800; }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-transition="fade" data-background="#0d1b2a">
+  <h1 class="r-fit-text" style="color:#e0e0e0; font-weight:300; line-height:1.2;">
+    The <mark style="background:#1b9e77; color:#fff; padding:0 0.3em;">$2M Mistake</mark>
+  </h1>
+  <p style="color:#aaa; font-size:1.2em; margin-top:1em;">A Real OR Origin Story</p>
+</section>
+
+<section data-transition="slide" data-background="#0d1b2a">
+  <h2 style="color:#1b9e77; margin-bottom:0.5em;">North Atlantic, 1941</h2>
+  <p style="color:#ddd; font-size:1.1em; line-height:1.6;">
+    German U-boats were sinking Allied merchant ships faster than shipyards could replace them.
+    <br><br>
+    The Admiralty asked: <strong>Should convoys be large or small?</strong>
+  </p>
+  <ul style="color:#ccc; font-size:1.1em; line-height:1.8; margin-top:1.5em;">
+    <li class="fragment">Large convoys: fewer targets, but slower to assemble and harder to maneuver</li>
+    <li class="fragment">Small convoys: faster turnaround, but more targets spread across the ocean</li>
+    <li class="fragment">Naval tradition favored small convoys — "don't put all eggs in one basket"</li>
+  </ul>
+</section>
+
+<section data-transition="slide" data-background="#0d1b2a">
+  <h2 style="color:#d62728; margin-bottom:0.5em;">The Operational Research Team</h2>
+  <p style="color:#ddd; font-size:1.1em; line-height:1.6;">
+    Patrick Blackett (future Nobel physicist) assembled mathematicians, physicists, and statisticians.
+    <br><br>
+    They didn't guess. They <strong>structured the problem</strong>:
+  </p>
+  <ul style="color:#ccc; font-size:1.1em; line-height:1.8; margin-top:1.5em;">
+    <li class="fragment">Decision: convoy size (number of merchant ships per escort group)</li>
+    <li class="fragment">Objective: minimize ships lost per ton of cargo delivered</li>
+    <li class="fragment">Constraints: escort vessels available, port capacity, assembly time</li>
+    <li class="fragment">Uncertainty: U-boat positions, weather, mechanical breakdowns</li>
+  </ul>
+</section>
+
+<section data-transition="fade" data-background="#0d1b2a">
+  <h1 class="r-fit-text" style="color:#1b9e77; font-weight:600;">
+    The Answer: <mark style="background:#fff; color:#0d1b2a; padding:0 0.2em;">Large Convoys</mark>
+  </h1>
+  <p style="color:#ddd; font-size:1.2em; margin-top:1em;">
+    The model showed detection probability grows <strong>sub-linearly</strong> with convoy size,
+    while escort efficiency grows <strong>linearly</strong>.
+  </p>
+  <p class="fragment" style="color:#1b9e77; font-size:1.3em; font-weight:500; margin-top:1.5em;">
+    Result: 50% reduction in shipping losses. Millions of tons saved.
+  </p>
+  <p class="fragment" style="color:#aaa; font-size:1em; margin-top:2em;">
+    Operational Research was born — not from better intuition, but from <strong>better structure</strong>.
+  </p>
+</section>
+
+<section data-transition="slide" data-background="#f8f9fa">
+  <h2 style="color:#0d1b2a; margin-bottom:0.5em;">Meet <mark style="background:#1b9e77; color:#fff; padding:0 0.3em;">QuickShip</mark></h2>
+  <p style="color:#333; font-size:1.15em; line-height:1.7;">
+    A mid-sized delivery company. Same-day promise. Growing pains.
+  </p>
+
+  <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.5em; margin-top:2em; text-align:left;">
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #1b9e77;">
+      <h3 style="color:#1b9e77; margin:0 0 0.5em;">Fleet</h3>
+      <p style="margin:0; font-size:1.1em;">12 trucks (mixed capacity: 8×1500kg, 4×3000kg)</p>
+    </div>
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #1b9e77;">
+      <h3 style="color:#1b9e77; margin:0 0 0.5em;">Depots</h3>
+      <p style="margin:0; font-size:1.1em;">3 locations (North, Central, South)</p>
+    </div>
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #d62728;">
+      <h3 style="color:#d62728; margin:0 0 0.5em;">Daily Demand</h3>
+      <p style="margin:0; font-size:1.1em;">~200 orders, same-day delivery window</p>
+    </div>
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #d62728;">
+      <h3 style="color:#d62728; margin:0 0 0.5em;">Pressures</h3>
+      <p style="margin:0; font-size:1.1em;">Fuel +23% YoY • 2 driver vacancies • New competitor</p>
+    </div>
+  </div>
+
+  <p class="fragment" style="color:#555; margin-top:2em; font-style:italic;">
+    "We've always figured it out on the whiteboard. But the whiteboard is getting crowded."
+  </p>
+</section>
+
+<section data-transition="fade" data-background="#0d1b2a">
+  <h1 class="r-fit-text" style="color:#e0e0e0; font-weight:300; line-height:1.3;">
+    The Central Question
+  </h1>
+</section>
+
+<section data-transition="slide" data-background="#0d1b2a">
+  <h2 style="color:#ddd; font-weight:300; font-size:1.5em; line-height:1.4;">
+    How do we decide <mark style="background:#1b9e77; color:#fff; padding:0 0.2em;">which truck</mark> takes <mark style="background:#1b9e77; color:#fff; padding:0 0.2em;">which orders</mark>, from <mark style="background:#1b9e77; color:#fff; padding:0 0.2em;">which depot</mark>, in <mark style="background:#1b9e77; color:#fff; padding:0 0.2em;">what sequence</mark> — every single day — without guessing?
+  </h2>
+
+  <div class="fragment" style="margin-top:2em; padding:1.5em; background:rgba(27,158,119,0.1); border-radius:8px; border:1px solid #1b9e77;">
+    <p style="color:#1b9e77; margin:0; font-size:1.1em;">
+      <strong>12 trucks × 3 depots × 200 orders</strong> = billions of possible assignments.
+    </p>
+    <p class="fragment" style="color:#1b9e77; margin:0.5em 0 0; font-size:1.1em;">
+      The dispatcher has <strong>30 minutes</strong> each morning before trucks roll.
+    </p>
+  </div>
+</section>
+
+<section data-transition="slide" data-background="#f8f9fa">
+  <h2 style="color:#0d1b2a; margin-bottom:0.5em;">The Beginner's Confusion</h2>
+  <h3 style="color:#d62728; font-weight:500; margin:1em 0 0.5em;">"Is This Just Optimization?"</h3>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2em; margin-top:1.5em; text-align:left;">
+    <div>
+      <h4 style="color:#d62728; margin:0 0 0.5em;">Optimization (the solver)</h4>
+      <ul style="color:#555; line-height:1.8;">
+        <li>Finds the best values for decision variables</li>
+        <li>Given a <strong>fixed mathematical model</strong></li>
+        <li>Output: "Set x₁=3, x₂=7, cost=$2,840"</li>
+        <li class="fragment" style="color:#d62728;">⚠ Blind to whether the model matches reality</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="color:#1b9e77; margin:0 0 0.5em;">Operational Research (the cycle)</h4>
+      <ul style="color:#555; line-height:1.8;">
+        <li class="fragment"><strong>1. Problem Structuring</strong> — What are we really deciding?</li>
+        <li class="fragment"><strong>2. Modeling</strong> — Translate to math (variables, constraints, objective)</li>
+        <li class="fragment"><strong>3. Solving</strong> — Run the optimizer</li>
+        <li class="fragment"><strong>4. Validating</strong> — Does the solution work in practice?</li>
+        <li class="fragment"><strong>5. Implementing</strong> — Build the tool the dispatcher uses</li>
+        <li class="fragment"><strong>6. Monitoring</strong> — Track KPIs, detect drift, re-model</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="fragment" style="margin-top:2em; padding:1em; background:#fff; border-radius:8px; border-left:4px solid #1b9e77; color:#333;">
+    <strong>OR = the full lifecycle.</strong> Optimization is step 3. Steps 1, 2, 4, 5, 6 are where most value lives — and where most failures happen.
+  </p>
+</section>
+
+<section data-transition="fade" data-background="#0d1b2a">
+  <h1 class="r-fit-text" style="color:#e0e0e0; font-weight:300;">
+    The Misconception
+  </h1>
+  <h2 class="r-fit-text" style="color:#d62728; font-weight:400; margin-top:0.5em;">
+    "OR Needs Supercomputers"
+  </h2>
+</section>
+
+<section data-transition="slide" data-background="#0d1b2a">
+  <h2 style="color:#ddd; margin-bottom:0.5em;">Same Structure, Different Scale</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2em; margin-top:1.5em; text-align:left;">
+    <div style="background:rgba(27,158,119,0.1); padding:1.5em; border-radius:8px; border:1px solid #1b9e77;">
+      <h3 style="color:#1b9e77; margin:0 0 0.5em;">QuickShip Today (3 trucks)</h3>
+      <pre style="color:#ccc; margin:0; font-size:0.85em;"><code>Variables:  x_{t,d,o} ∈ {0,1}
+  t ∈ {T1,T2,T3}
+  d ∈ {N,C,S}
+  o ∈ {1..50 orders}
+
+Constraints:
+  ∑_t x_{t,d,o} = 1  ∀o   (each order assigned once)
+  ∑_o w_o x_{t,d,o} ≤ Cap_t  ∀t,d  (capacity)
+  ∑_o dist_{d,o} x_{t,d,o} ≤ Range_t  (range)
+
+Minimize: ∑ c_{t,d,o} x_{t,d,o}</code></pre>
+    </div>
+    <div style="background:rgba(214,39,40,0.1); padding:1.5em; border-radius:8px; border:1px solid #d62728;">
+      <h3 style="color:#d62728; margin:0 0 0.5em;">Enterprise Scale (3000 trucks)</h3>
+      <pre style="color:#ccc; margin:0; font-size:0.85em;"><code>Variables:  x_{t,d,o} ∈ {0,1}
+  t ∈ {T1..T3000}
+  d ∈ {D1..D50}
+  o ∈ {1..50000 orders}
+
+Constraints:
+  ∑_t x_{t,d,o} = 1  ∀o
+  ∑_o w_o x_{t,d,o} ≤ Cap_t  ∀t,d
+  ∑_o dist_{d,o} x_{t,d,o} ≤ Range_t
+
+Minimize: ∑ c_{t,d,o} x_{t,d,o}</code></pre>
+    </div>
+  </div>
+
+  <p class="fragment" style="color:#1b9e77; margin-top:1.5em; font-size:1.2em; font-weight:500;">
+    The <strong>modeling mindset</strong> is identical. Only the compute time changes.
+  </p>
+  <p class="fragment" style="color:#aaa; margin-top:1em;">
+    QuickShip's 3-truck problem solves in <strong>milliseconds</strong> on a laptop.
+    The 3000-truck version needs decomposition heuristics — but the <em>structure</em> is the same.
+  </p>
+</section>
+
+<section data-transition="slide" data-background="#f8f9fa">
+  <h2 style="color:#0d1b2a; margin-bottom:0.2em;">Interactive: You're the Dispatcher</h2>
+  <p style="color:#666; margin-bottom:1.5em;">Assign 10 orders to 3 trucks. You have 60 seconds.</p>
+
+  <div id="ch1-slide6-dispatcher" style="display:grid; grid-template-columns:1fr 380px; gap:2em; align-items:start;">
+    <!-- Left: Orders pool -->
+    <div>
+      <h4 style="color:#0d1b2a; margin:0 0 0.8em;">📦 Unassigned Orders (click to select)</h4>
+      <div id="ch1-slide6-orders" style="display:flex; flex-wrap:wrap; gap:0.5em; min-height:200px;">
+        <!-- Orders rendered by JS -->
+      </div>
+      <div id="ch1-slide6-selected" style="margin-top:1em; padding:0.8em; background:#fff3cd; border-radius:6px; display:none;">
+        <strong>Selected:</strong> <span id="ch1-slide6-selected-list">—</span>
+      </div>
+    </div>
+
+    <!-- Right: Trucks -->
+    <div>
+      <h4 style="color:#0d1b2a; margin:0 0 0.8em;">🚚 Trucks (click to assign selected orders)</h4>
+      <div id="ch1-slide6-trucks" style="display:flex; flex-direction:column; gap:0.8em;">
+        <!-- Trucks rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Timer & Results -->
+  <div style="margin-top:1.5em; display:flex; align-items:center; gap:2em; flex-wrap:wrap;">
+    <div id="ch1-slide6-timer" style="font-size:1.5em; font-weight:600; color:#d62728; font-variant-numeric:tabular-nums;">
+      60s
+    </div>
+    <button id="ch1-slide6-start" onclick="ch1slide6start()" style="padding:0.6em 1.5em; font-size:1em; background:#1b9e77; color:#fff; border:none; border-radius:6px; cursor:pointer;">
+      Start Dispatch
+    </button>
+    <button id="ch1-slide6-reset" onclick="ch1slide6reset()" style="padding:0.6em 1.5em; font-size:1em; background:#6c757d; color:#fff; border:none; border-radius:6px; cursor:pointer; display:none;">
+      Reset
+    </button>
+  </div>
+
+  <div id="ch1-slide6-results" style="margin-top:1.5em; padding:1.5em; background:#fff; border-radius:8px; border:1px solid #dee2e6; display:none;">
+    <h4 style="margin:0 0 1em; color:#0d1b2a;">Results</h4>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1em; text-align:center;">
+      <div style="background:#f8d7da; padding:1em; border-radius:6px;">
+        <div style="color:#721c24; font-size:0.9em;">Your Total Cost</div>
+        <div id="ch1-slide6-user-cost" style="color:#721c24; font-size:1.5em; font-weight:600;">—</div>
+      </div>
+      <div style="background:#d4edda; padding:1em; border-radius:6px;">
+        <div style="color:#155724; font-size:0.9em;">Optimal Cost</div>
+        <div id="ch1-slide6-opt-cost" style="color:#155724; font-size:1.5em; font-weight:600;">—</div>
+      </div>
+      <div style="background:#fff3cd; padding:1em; border-radius:6px;">
+        <div style="color:#856404; font-size:0.9em;">Gap</div>
+        <div id="ch1-slide6-gap" style="color:#856404; font-size:1.5em; font-weight:600;">—</div>
+      </div>
+    </div>
+    <p id="ch1-slide6-msg" style="margin:1em 0 0; color:#555;"></p>
+  </div>
+</section>
+
+<script>
+(function(){
+  // Problem data: 10 orders, 3 trucks
+  const orders = [
+    {id:'O1', weight:400, depot:'N', loc:'N1', cost:{T1:12,T2:18,T3:25}},
+    {id:'O2', weight:350, depot:'N', loc:'N2', cost:{T1:10,T2:20,T3:22}},
+    {id:'O3', weight:500, depot:'C', loc:'C1', cost:{T1:22,T2:12,T3:15}},
+    {id:'O4', weight:300, depot:'C', loc:'C2', cost:{T1:25,T2:10,T3:18}},
+    {id:'O5', weight:450, depot:'S', loc:'S1', cost:{T1:30,T2:22,T3:10}},
+    {id:'O6', weight:250, depot:'S', loc:'S2', cost:{T1:28,T2:25,T3:8}},
+    {id:'O7', weight:600, depot:'N', loc:'N3', cost:{T1:15,T2:18,T3:30}},
+    {id:'O8', weight:350, depot:'C', loc:'C3', cost:{T1:20,T2:14,T3:16}},
+    {id:'O9', weight:400, depot:'S', loc:'S3', cost:{T1:32,T2:20,T3:12}},
+    {id:'O10', weight:300, depot:'N', loc:'N4', cost:{T1:11,T2:19,T3:24}},
+  ];
+
+  const trucks = [
+    {id:'T1', capacity:1500, depot:'N', assigned:[]},
+    {id:'T2', capacity:1500, depot:'C', assigned:[]},
+    {id:'T3', capacity:3000, depot:'S', assigned:[]},
+  ];
+
+  let state = {
+    running:false,
+    timeLeft:60,
+    timerId:null,
+    selectedOrderIds:[],
+    userCost:null,
+    optCost:null,
+  };
+
+  // Compute optimal via brute force (small enough: 3^10 = 59049)
+  function computeOptimal() {
+    let best = Infinity;
+    const n = orders.length;
+    // Recursive search with pruning
+    function search(idx, assignment, loads) {
+      if (idx === n) {
+        // Check capacity
+        if (loads[0] <= 1500 && loads[1] <= 1500 && loads[2] <= 3000) {
+          let cost = 0;
+          for (let i=0;i<n;i++) cost += orders[i].cost[trucks[assignment[i]].id];
+          if (cost < best) best = cost;
+        }
+        return;
+      }
+      for (let t=0;t<3;t++) {
+        const newLoad = loads[t] + orders[idx].weight;
+        const cap = trucks[t].capacity;
+        if (newLoad <= cap) {
+          assignment[idx] = t;
+          loads[t] = newLoad;
+          search(idx+1, assignment, loads);
+          loads[t] -= orders[idx].weight;
+        }
+      }
+    }
+    search(0, new Array(n), [0,0,0]);
+    return best;
+  }
+
+  const OPT_COST = computeOptimal(); // precompute
+
+  function render() {
+    // Orders
+    const ordersEl = document.getElementById('ch1-slide6-orders');
+    ordersEl.innerHTML = orders.map(o => {
+      const assigned = trucks.some(t => t.assigned.includes(o.id));
+      const selected = state.selectedOrderIds.includes(o.id);
+      return `<div class="order-chip" data-id="${o.id}" style="
+        padding:0.5em 0.8em;
+        background:${assigned ? '#e9ecef' : (selected ? '#d1e7dd' : '#fff')};
+        border:2px solid ${assigned ? '#adb5bd' : (selected ? '#1b9e77' : '#dee2e6')};
+        border-radius:6px;
+        cursor:${assigned ? 'not-allowed' : 'pointer'};
+        opacity:${assigned ? 0.6 : 1};
+        font-size:0.9em;
+        transition:all 0.15s;
+      ">${o.id} (${o.weight}kg, ${o.depot})</div>`;
+    }).join('');
+
+    // Click handlers for orders
+    ordersEl.querySelectorAll('.order-chip').forEach(el => {
+      el.onclick = () => {
+        if (state.running) {
+          const id = el.dataset.id;
+          if (!state.selectedOrderIds.includes(id)) {
+            state.selectedOrderIds.push(id);
+            render();
+          }
+        }
+      };
+    });
+
+    // Selected display
+    const selEl = document.getElementById('ch1-slide6-selected');
+    const selList = document.getElementById('ch1-slide6-selected-list');
+    if (state.selectedOrderIds.length > 0) {
+      selEl.style.display = 'block';
+      selList.textContent = state.selectedOrderIds.join(', ');
+    } else {
+      selEl.style.display = 'none';
+    }
+
+    // Trucks
+    const trucksEl = document.getElementById('ch1-slide6-trucks');
+    trucksEl.innerHTML = trucks.map(t => {
+      const load = t.assigned.reduce((s,oid)=>s+orders.find(o=>o.id===oid).weight,0);
+      const pct = Math.round(load/t.capacity*100);
+      return `<div class="truck-panel" data-id="${t.id}" style="
+        background:#fff;
+        border:2px solid ${state.selectedOrderIds.length>0 ? '#1b9e77' : '#dee2e6'};
+        border-radius:8px;
+        padding:1em;
+        cursor:${state.selectedOrderIds.length>0 ? 'pointer' : 'default'};
+        transition:border-color 0.15s;
+      ">
+        <div style="display:flex; justify-content:space-between; margin-bottom:0.5em;">
+          <strong style="color:#0d1b2a;">${t.id}</strong>
+          <span style="color:${pct>90?'#d62728':'#555'}; font-size:0.9em;">${load}/${t.capacity}kg (${pct}%)</span>
+        </div>
+        <div style="height:8px; background:#e9ecef; border-radius:4px; overflow:hidden;">
+          <div style="width:${pct}%; height:100%; background:${pct>90?'#d62728':'#1b9e77'}; transition:width 0.2s;"></div>
+        </div>
+        <div style="margin-top:0.5em; font-size:0.85em; color:#666;">
+          ${t.assigned.length? t.assigned.join(', ') : '<em>empty</em>'}
+        </div>
+      </div>`;
+    }).join('');
+
+    // Click handlers for trucks
+    if (state.running && state.selectedOrderIds.length > 0) {
+      trucksEl.querySelectorAll('.truck-panel').forEach(el => {
+        el.onclick = () => {
+          const tid = el.dataset.id;
+          const truck = trucks.find(t=>t.id===tid);
+          // Check capacity for all selected
+          const addedWeight = state.selectedOrderIds.reduce((s,oid)=>s+orders.find(o=>o.id===oid).weight,0);
+          const currentLoad = truck.assigned.reduce((s,oid)=>s+orders.find(o=>o.id===oid).weight,0);
+          if (currentLoad + addedWeight <= truck.capacity) {
+            truck.assigned.push(...state.selectedOrderIds);
+            state.selectedOrderIds = [];
+            render();
+            checkDone();
+          } else {
+            alert('Exceeds truck capacity!');
+          }
+        };
+      });
+    }
+  }
+
+  function checkDone() {
+    const allAssigned = orders.every(o => trucks.some(t => t.assigned.includes(o.id)));
+    if (allAssigned) {
+      finishGame();
+    }
+  }
+
+  function finishGame() {
+    state.running = false;
+    clearInterval(state.timerId);
+    document.getElementById('ch1-slide6-start').style.display = 'none';
+    document.getElementById('ch1-slide6-reset').style.display = 'inline-block';
+
+    // Calculate user cost
+    let cost = 0;
+    for (const t of trucks) {
+      for (const oid of t.assigned) {
+        cost += orders.find(o=>o.id===oid).cost[t.id];
+      }
+    }
+    state.userCost = cost;
+    state.optCost = OPT_COST;
+
+    document.getElementById('ch1-slide6-user-cost').textContent = '$' + cost;
+    document.getElementById('ch1-slide6-opt-cost').textContent = '$' + OPT_COST;
+    const gap = ((cost - OPT_COST) / OPT_COST * 100).toFixed(1);
+    document.getElementById('ch1-slide6-gap').textContent = '+' + gap + '%';
+
+    const msgEl = document.getElementById('ch1-slide6-msg');
+    if (cost === OPT_COST) {
+      msgEl.innerHTML = '<strong style="color:#1b9e77;">Optimal! 🎉</strong> You found the best assignment.';
+    } else if (gap < 10) {
+      msgEl.innerHTML = '<strong style="color:#1b9e77;">Close!</strong> Only ' + gap + '% above optimal. Structure helps.';
+    } else {
+      msgEl.innerHTML = '<strong style="color:#d62728;">Gap: ' + gap + '%</strong> This is why we need models, not just intuition.';
+    }
+    document.getElementById('ch1-slide6-results').style.display = 'block';
+    render();
+  }
+
+  function ch1slide6start() {
+    state.running = true;
+    state.timeLeft = 60;
+    state.selectedOrderIds = [];
+    trucks.forEach(t => t.assigned = []);
+    document.getElementById('ch1-slide6-start').style.display = 'none';
+    document.getElementById('ch1-slide6-reset').style.display = 'none';
+    document.getElementById('ch1-slide6-results').style.display = 'none';
+    render();
+
+    const timerEl = document.getElementById('ch1-slide6-timer');
+    state.timerId = setInterval(() => {
+      state.timeLeft--;
+      timerEl.textContent = state.timeLeft + 's';
+      if (state.timeLeft <= 10) timerEl.style.color = '#d62728';
+      if (state.timeLeft <= 0) {
+        clearInterval(state.timerId);
+        if (state.running) finishGame();
+      }
+    }, 1000);
+  }
+
+  function ch1slide6reset() {
+    ch1slide6start();
+  }
+
+  // Initial render
+  render();
+})();
+</script>
+
+<style>
+  #ch1-slide6-dispatcher .order-chip:hover:not([style*="opacity: 0.6"]) {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(27,158,119,0.3);
+  }
+  #ch1-slide6-dispatcher .truck-panel:hover:not([style*="cursor: default"]) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27,158,119,0.2);
+  }
+</style>
+
+<section data-transition="fade" data-background="#0d1b2a">
+  <h1 class="r-fit-text" style="color:#1b9e77; font-weight:600; line-height:1.2;">
+    The Core Insight
+  </h1>
+  <h2 class="r-fit-text" style="color:#e0e0e0; font-weight:300; margin-top:0.3em;">
+    <mark style="background:#1b9e77; color:#fff; padding:0 0.2em;">Structure Beats Intuition</mark>
+  </h2>
+</section>
+
+<section data-transition="slide" data-background="#0d1b2a">
+  <h2 style="color:#ddd; margin-bottom:1em;">What the Dispatcher Game Reveals</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2em; margin-top:1em; text-align:left;">
+    <div style="background:rgba(214,39,40,0.1); padding:1.5em; border-radius:8px; border:1px solid #d62728;">
+      <h3 style="color:#d62728; margin:0 0 0.5em;">Intuition (Human)</h3>
+      <ul style="color:#ccc; line-height:1.8;">
+        <li class="fragment">Fast on tiny problems (3 orders, 1 truck)</li>
+        <li class="fragment">Collapses under combinatorial explosion</li>
+        <li class="fragment">Biased by recent experience, not global view</li>
+        <li class="fragment">Cannot quantify "how far from optimal"</li>
+        <li class="fragment">No audit trail — "I just knew"</li>
+      </ul>
+    </div>
+    <div style="background:rgba(27,158,119,0.1); padding:1.5em; border-radius:8px; border:1px solid #1b9e77;">
+      <h3 style="color:#1b9e77; margin:0 0 0.5em;">Structure (OR Model)</h3>
+      <ul style="color:#ccc; line-height:1.8;">
+        <li class="fragment">Scales: same logic for 10 or 10,000 orders</li>
+        <li class="fragment">Exhaustive (or provably near-optimal)</li>
+        <li class="fragment">Objective: every decision traced to cost function</li>
+        <li class="fragment">Quantifiable gap: "We're 3.2% above optimum"</li>
+        <li class="fragment">Reproducible: same input → same output</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="fragment" style="color:#1b9e77; margin-top:2em; font-size:1.3em; font-weight:500; text-align:center;">
+    Good decisions come from good structure, not just smart people.
+  </p>
+  <p class="fragment" style="color:#aaa; margin-top:1em; text-align:center;">
+    OR provides that structure <strong>systematically</strong>.
+  </p>
+</section>
+
+<section data-transition="slide" data-background="#f8f9fa">
+  <h2 style="color:#0d1b2a; margin-bottom:0.5em;">The Promise: What You'll Build</h2>
+  <p style="color:#333; font-size:1.1em; line-height:1.7;">
+    By the end of this course, you'll have a <strong>Decision Dashboard</strong> for QuickShip —
+    a living artifact that grows chapter by chapter:
+  </p>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5em; margin-top:2em;">
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #1b9e77; position:relative;">
+      <span style="position:absolute; top:-12px; left:1.5em; background:#1b9e77; color:#fff; padding:0.2em 0.8em; border-radius:12px; font-size:0.85em; font-weight:600;">Ch 2</span>
+      <h4 style="color:#1b9e77; margin:1.5em 0 0.5em;">Whiteboard → Math</h4>
+      <p style="color:#555; margin:0; font-size:0.95em;">Structure the QuickShip problem. Define variables, constraints, objective. Build the LP formulation.</p>
+    </div>
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #1b9e77; position:relative;">
+      <span style="position:absolute; top:-12px; left:1.5em; background:#1b9e77; color:#fff; padding:0.2em 0.8em; border-radius:12px; font-size:0.85em; font-weight:600;">Ch 3</span>
+      <h4 style="color:#1b9e77; margin:1.5em 0 0.5em;">Math → Solver</h4>
+      <p style="color:#555; margin:0; font-size:0.95em;">Implement in PuLP / OR-Tools. Solve the daily dispatch. Validate against the interactive game.</p>
+    </div>
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #1b9e77; position:relative;">
+      <span style="position:absolute; top:-12px; left:1.5em; background:#1b9e77; color:#fff; padding:0.2em 0.8em; border-radius:12px; font-size:0.85em; font-weight:600;">Ch 4</span>
+      <h4 style="color:#1b9e77; margin:1.5em 0 0.5em;">Solver → What-If</h4>
+      <p style="color:#555; margin:0; font-size:0.95em;">Sensitivity analysis. Shadow prices. "What if fuel jumps 15%?" "What if we add a 4th depot?"</p>
+    </div>
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border-left:4px solid #1b9e77; position:relative;">
+      <span style="position:absolute; top:-12px; left:1.5em; background:#1b9e77; color:#fff; padding:0.2em 0.8em; border-radius:12px; font-size:0.85em; font-weight:600;">Ch 5</span>
+      <h4 style="color:#1b9e77; margin:1.5em 0 0.5em;">Dashboard → Operations</h4>
+      <p style="color:#555; margin:0; font-size:0.95em;">Monitoring KPIs. Detecting drift. Re-optimizing weekly. The full OR cycle in production.</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="slide" data-background="#f8f9fa">
+  <h2 style="color:#0d1b2a; margin-bottom:0.5em;">Color Convention — Our Visual Language</h2>
+  <p style="color:#555; margin-bottom:1.5em;">Consistent semantics across all chapters, all diagrams, all code output.</p>
+
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5em; margin-top:1em;">
+    <!-- Green = Feasible -->
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border:2px solid #1b9e77; text-align:center;">
+      <div style="width:60px; height:60px; border-radius:50%; background:#1b9e77; margin:0 auto 1em; display:flex; align-items:center; justify-content:center;">
+        <span style="color:#fff; font-size:1.5em; font-weight:600;">✓</span>
+      </div>
+      <h3 style="color:#1b9e77; margin:0 0 0.5em;">Green = Feasible</h3>
+      <p style="color:#555; margin:0; font-size:0.95em;">Solutions satisfying <strong>all constraints</strong>. Capacity respected. Time windows met. Every order assigned.</p>
+      <div style="margin-top:1em; padding:0.5em; background:#d4edda; border-radius:4px; font-family:monospace; font-size:0.85em; color:#155724;">
+        load ≤ capacity ✓<br>time ≤ deadline ✓
+      </div>
+    </div>
+
+    <!-- Red = Infeasible -->
+    <div style="background:#fff; padding:1.5em; border-radius:8px; border:2px solid #d62728; text-align:center;">
+      <div style="width:60px; height:60px; border-radius:50%; background:#d62728; margin:0 auto 1em; display:flex; align-items:center; justify-content:center;">
+        <span style="color:#fff; font-size:1.5em; font-weight:600;">✗</span>
+      </div>
+      <h3 style="color:#d62728; margin:0 0 0.5em;">Red = Infeasible</h3>
+      <p style="color:#555;
+<section data-transition="fade">
+  <h1 class="r-fit-text">Chapter 2: The Foundations</h1>
+  <h2 class="r-fit-text">The Three Pillars of Every OR Model</h2>
+</section>
+
+<section data-transition="slide">
+  <h2>The QuickShip Callback</h2>
+  <p>Chapter 1 ended with a concrete mess:</p>
+  <ul>
+    <li class="fragment"><strong>50 orders</strong> with delivery windows</li>
+    <li class="fragment"><strong>3 depots</strong> (North, Central, South)</li>
+    <li class="fragment"><strong>12 trucks</strong> with different capacities</li>
+    <li class="fragment"><strong>1 dispatcher's whiteboard</strong> covered in erased arrows</li>
+  </ul>
+  <p class="fragment">The question we left open: <mark>how do we turn this chaos into mathematics?</mark></p>
+  <p class="fragment">Answer: every OR model rests on <strong>three pillars</strong>. Today we build all three for QuickShip.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>From Chaos to Model: The QuickShip Whiteboard</h2>
+  <p>Three questions structure any OR model:</p>
+  <div class="fragment" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+    <div style="border-left: 4px solid #2196F3; padding-left: 1rem;">
+      <h3>What do we decide?</h3>
+      <p><strong>Decision Variables</strong></p>
+      <p class="fragment">Which truck takes which order from which depot?</p>
+    </div>
+    <div style="border-left: 4px solid #4CAF50; padding-left: 1rem;">
+      <h3>What do we want?</h3>
+      <p><strong>Objective Function</strong></p>
+      <p class="fragment">Minimize total cost: fuel + driver time + late penalties</p>
+    </div>
+    <div style="border-left: 4px solid #f44336; padding-left: 1rem;">
+      <h3>What stops us?</h3>
+      <p><strong>Constraints</strong></p>
+      <p class="fragment">Capacity, time windows, shift limits, depot assignment</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>Pillar 1: Decision Variables — What We Control</h2>
+  <p>For QuickShip, the core decision is <mark>assignment</mark>:</p>
+  <pre><code class="language-math" data-trim>
+x_{ijk} = 
+\begin{cases}
+1 & \text{if truck } k \text{ takes order } j \text{ from depot } i \\
+0 & \text{otherwise}
+\end{cases}
+  </code></pre>
+  <ul class="fragment">
+    <li><strong>Indices:</strong> <span style="color: #2196F3;">i ∈ {N, C, S}</span> depots, <span style="color: #2196F3;">j ∈ {1..50}</span> orders, <span style="color: #2196F3;">k ∈ {1..12}</span> trucks</li>
+    <li><strong>Type:</strong> Binary (0/1) — a truck either takes an order or it doesn't</li>
+    <li><strong>Count:</strong> 3 × 50 × 12 = <strong>1,800 variables</strong></li>
+  </ul>
+  <p class="fragment">Naming convention: <span style="color: #2196F3;">x</span> for binary assignment, <span style="color: #2196F3;">y</span> for continuous flow, <span style="color: #2196F3;">z</strong> for auxiliary/logical.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Pillar 2: Objective Function — What We Want</h2>
+  <p>QuickShip's total daily cost:</p>
+  <pre><code class="language-math" data-trim>
+\min \sum_{i} \sum_{j} \sum_{k} 
+\underbrace{c_{ijk}^{\text{fuel}}}_{\text{fuel cost}} 
++ \underbrace{c_{ijk}^{\text{time}}}_{\text{driver time}} 
++ \underbrace{c_{ijk}^{\text{late}}}_{\text{late penalty}} 
+\; x_{ijk}
+  </code></pre>
+  <ul class="fragment">
+    <li><strong>Single objective:</strong> Everything converts to dollars</li>
+    <li><strong>Coefficients</strong> come from data: GPS traces → fuel, HR records → driver cost, customer contracts → penalty rates</li>
+    <li class="fragment"><strong>Multi-objective alternative:</strong> Minimize cost <em>and</em> maximize on-time % → requires weighting or Pareto frontier</li>
+  </ul>
+  <p class="fragment">For Chapter 2: we stick to single-objective minimization. The structure is <mark>linear</mark> — each variable contributes independently.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Pillar 3: Constraints — What Limits Us</h2>
+  <p>Five constraint families for QuickShip:</p>
+  <div class="fragment" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
+    <div>
+      <h4>1. Each order assigned once</h4>
+      <pre><code class="language-math" data-trim>
+\sum_{i} \sum_{k} x_{ijk} = 1 \quad \forall j
+      </code></pre>
+    </div>
+    <div>
+      <h4>2. Truck capacity</h4>
+      <pre><code class="language-math" data-trim>
+\sum_{i} \sum_{j} w_j x_{ijk} \le Q_k \quad \forall k
+      </code></pre>
+    </div>
+    <div>
+      <h4>3. Time windows</h4>
+      <pre><code class="language-math" data-trim>
+a_j \le t_{ijk} \le b_j \quad \forall i,j,k \text{ with } x_{ijk}=1
+      </code></pre>
+    </div>
+    <div>
+      <h4>4. Shift limits</h4>
+      <pre><code class="language-math" data-trim>
+\sum_{i} \sum_{j} \tau_{ijk} x_{ijk} \le T_k^{\max} \quad \forall k
+      </code></pre>
+    </div>
+    <div style="grid-column: span 2;">
+      <h4>5. Depot assignment (truck starts at one depot)</h4>
+      <pre><code class="language-math" data-trim>
+\sum_{j} x_{ijk} \le M \cdot y_{ik} \quad \forall i,k \quad \text{where } y_{ik} \in \{0,1\}, \sum_i y_{ik} = 1
+      </code></pre>
+    </div>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>The Complete LP Formulation</h2>
+  <pre><code class="language-math" data-trim data-line-numbers="1-8">
+\min_{x,y} \quad \sum_{i,j,k} c_{ijk} x_{ijk}
+
+\text{s.t.} \quad 
+\sum_{i,k} x_{ijk} = 1 & \quad \forall j \in \text{Orders} \quad \text{(assignment)} \\
+\sum_{i,j} w_j x_{ijk} \le Q_k & \quad \forall k \in \text{Trucks} \quad \text{(capacity)} \\
+\sum_{i,j} \tau_{ijk} x_{ijk} \le T_k^{\max} & \quad \forall k \in \text{Trucks} \quad \text{(shift)} \\
+\sum_{j} x_{ijk} \le M y_{ik} & \quad \forall i,k \quad \text{(depot link)} \\
+\sum_{i} y_{ik} = 1 & \quad \forall k \quad \text{(single depot)} \\
+x_{ijk} \in \{0,1\}, \; y_{ik} \in \{0,1\} & \quad \forall i,j,k
+  </code></pre>
+  <p class="fragment">In matrix form: <strong>min c'x s.t. Ax ≤ b, x ∈ {0,1}<sup>n</sup></strong></p>
+  <ul class="fragment">
+    <li><span style="color: #2196F3;">c</span> = cost coefficients (1,800 elements)</li>
+    <li><span style="color: #2196F3;">A</span> = constraint matrix (~74 rows × 1,800 cols)</li>
+    <li><span style="color: #2196F3;">b</span> = right-hand sides (capacities, shift hours, 1's)</li>
+    <li><span style="color: #2196F3;">x</span> = our 1,800 binary decisions</li>
+  </ul>
+</section>
+
+<section data-transition="slide">
+  <h2>Interactive: Build the Model Yourself</h2>
+  <p>Mini-problem: <strong>5 orders, 2 trucks, 1 depot</strong>. Toggle constraints to see the LP grow.</p>
+  <div id="ch2-slide7-builder" style="margin-top: 1rem;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+      <div>
+        <h4>Constraints</h4>
+        <label style="display: block; margin: 0.5rem 0;">
+          <input type="checkbox" id="c-assign" checked onchange="updateLP()"> 
+          Each order assigned exactly once
+        </label>
+        <label style="display: block; margin: 0.5rem 0;">
+          <input type="checkbox" id="c-cap" checked onchange="updateLP()">
+          Truck capacity limits
+        </label>
+        <label style="display: block; margin: 0.5rem 0;">
+          <input type="checkbox" id="c-time" onchange="updateLP()">
+          Delivery time windows
+        </label>
+        <label style="display: block; margin: 0.5rem 0;">
+          <input type="checkbox" id="c-shift" onchange="updateLP()">
+          Driver shift limits
+        </label>
+      </div>
+      <div>
+        <h4>Generated LP</h4>
+        <pre id="ch2-lp-output" style="background: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 4px; font-size: 0.75rem; overflow: auto; max-height: 300px; min-height: 200px;">Select constraints...</pre>
+      </div>
+    </div>
+  </div>
+  <script>
+    const orderData = [
+      {id: 1, weight: 3, window: [8,12], duration: 1.5},
+      {id: 2, weight: 2, window: [9,13], duration: 1.0},
+      {id: 3, weight: 4, window: [10,14], duration: 2.0},
+      {id: 4, weight: 1, window: [8,11], duration: 0.5},
+      {id: 5, weight: 3, window: [12,16], duration: 1.5}
+    ];
+    const trucks = [
+      {id: 1, capacity: 6, shift: 8},
+      {id: 2, capacity: 5, shift: 8}
+    ];
+    function updateLP() {
+      let lp = "minimize\n";
+      lp += "  " + orderData.map((o,i) => trucks.map((t,j) => `c_${i+1}_${j+1} x_${i+1}_${j+1}`).join(" + ")).join(" +\n  ") + "\n\nsubject to\n";
+      const assign = document.getElementById('c-assign').checked;
+      const cap = document.getElementById('c-cap').checked;
+      const time = document.getElementById('c-time').checked;
+      const shift = document.getElementById('c-shift').checked;
+      let constrNum = 1;
+      if (assign) {
+        orderData.forEach(o => {
+          lp += `  c${constrNum++}: x_${o.id}_1 + x_${o.id}_2 = 1\n`;
+        });
+      }
+      if (cap) {
+        trucks.forEach(t => {
+          lp += `  c${constrNum++}: ` + orderData.map(o => `${o.weight} x_${o.id}_${t.id}`).join(" + ") + ` <= ${t.capacity}\n`;
+        });
+      }
+      if (shift) {
+        trucks.forEach(t => {
+          lp += `  c${constrNum++}: ` + orderData.map(o => `${o.duration} x_${o.id}_${t.id}`).join(" + ") + ` <= ${t.shift}\n`;
+        });
+      }
+      if (time) {
+        lp += `  (time window constraints require sequencing variables — omitted for simplicity)\n`;
+      }
+      lp += "\nbinary\n  " + orderData.map(o => trucks.map(t => `x_${o.id}_${t.id}`).join(", ")).join(",\n  ");
+      document.getElementById('ch2-lp-output').textContent = lp;
+    }
+    updateLP();
+  </script>
+</section>
+
+<section data-transition="slide">
+  <h2>Feasible Region: The Geometry of Choices</h2>
+  <p>Two-variable slice (Truck 1 load vs Truck 2 load) for 3 orders:</p>
+  <div class="mermaid" style="margin-top: 1rem;">
+    graph TD
+      A[Origin (0,0)] --> B[Capacity Truck 1: x₁ ≤ 6]
+      A --> C[Capacity Truck 2: x₂ ≤ 5]
+      A --> D[Total demand: x₁ + x₂ ≥ 8]
+      B --> E[Feasible Region]
+      C --> E
+      D --> E
+      E --> F[Optimal at Vertex]
+      style E fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+      style F fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+  </div>
+  <ul class="fragment">
+    <li>Each constraint = a half-plane (line + one side)</li>
+    <li>Intersection = <span style="color: #4CAF50;">feasible region</span> (convex polygon)</li>
+    <li>Linear objective → optimum <mark>always at a vertex</mark></li>
+    <li>This is why <strong>linearity matters</strong>: non-linear objectives can have optima in the interior</li>
+  </ul>
+  <p class="fragment">For 1,800 variables: feasible region is a 1,800-dimensional polytope. Same principle.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Good vs. Bad Models: The Color Test</h2>
+  <p>Apply the color convention to a <mark>broken</mark> QuickShip model:</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+    <div style="border: 2px solid #4CAF50; border-radius: 8px; padding: 1rem;">
+      <h4 style="color: #4CAF50;">✓ Green — Feasible Constraints</h4>
+      <pre><code class="language-math" data-trim>
+\sum_j w_j x_{1j} \le 10 \quad \text{(Truck 1 cap = 10 tons)}
+      </code></pre>
+      <p>Realistic capacity from spec sheet.</p>
+    </div>
+    <div style="border: 2px solid #f44336; border-radius: 8px; padding: 1rem;">
+      <h4 style="color: #f44336;">✗ Red — Infeasible Constraint</h4>
+      <pre><code class="language-math" data-trim>
+\sum_j w_j x_{1j} \le 3 \quad \text{(Typo: 3 not 10)}
+      </code></pre>
+      <p>Total demand = 13 tons. <mark>Model infeasible.</mark></p>
+    </div>
+    <div style="border: 2px solid #2196F3; border-radius: 8px; padding: 1rem; grid-column: span 2;">
+      <h4 style="color: #2196F3;">Blue — Decision Variables</h4>
+      <pre><code class="language-math" data-trim>
+x_{1j} \in \{0,1\} \quad \text{(assignment)}
+y_{1} \in \{0,1\} \quad \text{(depot used?)}
+      </code></pre>
+      <p>Blue = we control these. Green/Red = reality pushes back.</p>
+    </div>
+  </div>
+  <p class="fragment">Debug rule: if solver says <strong>infeasible</strong>, check <span style="color: #f44336;">Red</span> constraints first.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Modeling Choices That Change Everything</h2>
+  <p>Same QuickShip problem, three critical forks:</p>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+    <div style="border: 1px solid #ddd; border-radius: 8px; padding: 1rem;">
+      <h4>Discrete vs. Continuous Time</h4>
+      <ul>
+        <li><strong>Discrete:</strong> 15-min slots → MILP, exact but large</li>
+        <li><strong>Continuous:</strong> t ∈ ℝ → NLP, smaller but non-convex</li>
+        <li class="fragment">QuickShip uses <mark>discrete 15-min buckets</mark> — matches driver schedules</li>
+      </ul>
+    </div>
+    <div style="border: 1px solid #ddd; border-radius: 8px; padding: 1rem;">
+      <h4>Aggregated vs. Detailed Routes</h4>
+      <ul>
+        <li><strong>Aggregated:</strong> depot→zone cost matrix → fast solve</li>
+        <li><strong>Detailed:</strong> street-level routing → TSP subproblems</li>
+        <li class="fragment">QuickShip: <mark>aggregated for planning, detailed for execution</mark></li>
+      </ul>
+    </div>
+    <div style="border: 1px solid #ddd; border-radius: 8px; padding: 1rem;">
+      <h4>Hard vs. Soft Constraints</h4>
+      <ul>
+        <li><strong>Hard:</strong> shift limit = 8 hrs (labor law)</li>
+        <li><strong>Soft:</strong> time window + $50/hr penalty</li>
+        <li class="fragment">QuickShip: <mark>hard on shifts, soft on windows</mark></li>
+      </ul>
+    </div>
+  </div>
+  <p class="fragment">Each choice trades <strong>model fidelity</strong> against <strong>solve time</strong>. No free lunch.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Data: The Silent Partner</h2>
+  <p>Where QuickShip's numbers actually come from:</p>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
+    <div>
+      <h4>Cost Coefficients (c)</h4>
+      <ul>
+        <li>Fuel: <strong>GPS traces</strong> + fuel card records → $/km per truck</li>
+        <li>Driver time: <strong>HR/payroll</strong> → $/hr loaded vs. empty</li>
+        <li>Late penalty: <strong>Customer contracts</strong> → tiered $/min</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Constraint RHS (b)</h4>
+      <ul>
+        <li>Capacity: <strong>Vehicle specs</strong> (not "what we usually load")</li>
+        <li>Shift limits: <strong>Union agreement</strong> + safety regulations</li>
+        <li>Time windows: <strong>Customer promises</strong> (not wishes)</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fragment"><mark>Garbage in, garbage out</mark> — but how to check?</p>
+  <ul class="fragment">
+    <li><strong>Range checks:</strong> fuel cost ∈ [$0.50, $2.00]/km?</li>
+    <li><strong>Cross-validation:</strong> GPS distance ≈ routing engine distance?</li>
+    <li><strong>Sensitivity:</strong> if fuel cost ±10%, does assignment change?</li>
+    <li><strong>Shadow prices:</strong> which constraints bind? (next chapter)</li>
+  </ul>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">Three Pillars Built</h1>
+  <h2 class="r-fit-text">Variables. Objective. Constraints.</h2>
+  <p class="fragment">QuickShip now has a <mark>complete mathematical model</mark>.</p>
+  <p class="fragment">But a model is useless until it's <strong>solved</strong>.</p>
+  <p class="fragment">Next chapter: the solver opens the black box.</p>
+</section>
+<section data-transition="fade">
+  <h1 class="r-fit-text">Chapter 3: The Mechanism</h1>
+  <h2 class="r-fit-text">How Solvers Find the Needle in the Haystack</h2>
+  <p class="fragment">You built the model. Now watch it solve.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Callback: The QuickShip Model You Built</h2>
+  <p>In Chapter 2, we formulated QuickShip's daily routing as a MILP:</p>
+  <ul>
+    <li class="fragment"><strong>Binary variables</strong> <code>x<sub>ijk</sub></code> = 1 if truck <em>k</em> travels from stop <em>i</em> to <em>j</em></li>
+    <li class="fragment"><strong>Continuous variables</strong> for load, arrival times, fuel</li>
+    <li class="fragment"><strong>Constraints</strong>: capacity, time windows, driver shifts, flow conservation</li>
+    <li class="fragment"><strong>Objective</strong>: minimize total cost (fuel + driver hours + late penalties)</li>
+  </ul>
+  <p class="fragment">The model is <mark>formulated</mark>. But a formulation is not a solution.</p>
+  <p class="fragment">Today: how the solver turns your <code>.lp</code> file into an optimal route plan.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Solver Ecosystem: From Model to Answer</h2>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+    <div style="border: 2px solid #2e7d32; border-radius: 8px; padding: 1rem;">
+      <h3 style="color: #2e7d32; margin-top: 0;">Model Formats</h3>
+      <ul style="font-size: 0.9em;">
+        <li><code>.lp</code> — human-readable (CPLEX format)</li>
+        <li><code>.mps</code> — standard matrix format</li>
+        <li><code>.nl</code> — nonlinear (AMPL)</li>
+      </ul>
+    </div>
+    <div style="border: 2px solid #1565c0; border-radius: 8px; padding: 1rem;">
+      <h3 style="color: #1565c0; margin-top: 0;">Solvers</h3>
+      <ul style="font-size: 0.9em;">
+        <li><strong>HiGHS</strong> — open source, fast LP/MIP</li>
+        <li><strong>CBC</strong> — COIN-OR, reliable MIP</li>
+        <li><strong>Gurobi / CPLEX</strong> — commercial, state-of-the-art</li>
+      </ul>
+    </div>
+    <div style="border: 2px solid #e65100; border-radius: 8px; padding: 1rem;">
+      <h3 style="color: #e65100; margin-top: 0;">Interfaces</h3>
+      <ul style="font-size: 0.9em;">
+        <li><strong>PuLP</strong> — Python, beginner-friendly</li>
+        <li><strong>OR-Tools</strong> — Google, CP-SAT + routing</li>
+        <li><strong>AMPL / Pyomo</strong> — algebraic modeling</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1rem;">Your QuickShip model flows: <code>Python/PuLP</code> → <code>.lp</code> → <strong>HiGHS</strong> → solution JSON.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Inside the Black Box: Simplex in 3 Minutes</h2>
+  <p>Linear programs live in a <mark>polyhedron</mark> — the feasible region defined by your constraints.</p>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>The Geometric Walk</h3>
+    <ol style="font-size: 1.1em; line-height: 1.8;">
+      <li><strong>Start</strong> at a vertex (basic feasible solution)</li>
+      <li><strong>Check neighbors</strong> — adjacent vertices connected by an edge</li>
+      <li><strong>Pivot</strong> — move to a neighbor that improves the objective</li>
+      <li><strong>Stop</strong> when no neighbor is better → <mark>optimal</mark></li>
+    </ol>
+  </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <p><strong>Key insight</strong>: The optimum of an LP is <em>always</em> at a vertex. Simplex just walks the edges.</p>
+    <p style="font-size: 0.9em; color: #666;">QuickShip's LP relaxation (ignoring integrality) has ~50,000 variables. Simplex visits ~200 vertices. Not exhaustive — <em>intelligent</em>.</p>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>When Variables Must Be Integers: Branch & Bound</h2>
+  <p>QuickShip's <code>x<sub>ijk</sub></code> are binary. LP relaxation gives fractional trucks — <mark>not implementable</mark>.</p>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>The Branch & Bound Algorithm</h3>
+    <ol style="font-size: 1.1em; line-height: 1.8;">
+      <li><strong>Relax</strong> — solve LP with <code>0 ≤ x ≤ 1</code>. Get fractional solution, objective = <strong>$12,450</strong> (lower bound)</li>
+      <li><strong>Branch</strong> — pick a fractional variable (e.g., <code>x<sub>0,5,2</sub> = 0.6</code>). Create two subproblems:
+        <ul>
+          <li>Node A: <code>x<sub>0,5,2</sub> = 0</code></li>
+          <li>Node B: <code>x<sub>0,5,2</sub> = 1</code></li>
+        </ul>
+      </li>
+      <li><strong>Bound</strong> — solve LP at each node. If objective ≥ best integer solution found → <mark style="background: #ffcdd2;">prune</mark></li>
+      <li><strong>Repeat</strong> until all nodes pruned or solved → <mark style="background: #c8e6c9;">proven optimal</mark></li>
+    </ol>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>Branch & Bound Tree: QuickShip Visualization</h2>
+  <div class="mermaid" style="font-size: 0.85em;">
+    graph TD
+      Root[Root: LP Relax<br/>Obj=$12,450<br/>x_0,5,2=0.6] --> A[x_0,5,2=0<br/>Obj=$12,680]
+      Root --> B[x_0,5,2=1<br/>Obj=$12,510]
+      A --> A1[x_3,7,1=0<br/>Obj=$12,720]
+      A --> A2[x_3,7,1=1<br/>Obj=$12,690<br/>✓ Integer!]
+      B --> B1[x_2,4,3=0<br/>Obj=$12,580]
+      B --> B2[x_2,4,3=1<br/>Obj=$12,530<br/>✓ Integer!]
+      style Root fill:#fff3e0,stroke:#e65100
+      style A2 fill:#c8e6c9,stroke:#2e7d32
+      style B2 fill:#c8e6c9,stroke:#2e7d32
+      style A1 fill:#ffcdd2,stroke:#c62828
+      style B1 fill:#ffcdd2,stroke:#c62828
+  </div>
+  <p class="fragment" style="margin-top: 0.5rem;">
+    <strong>Green</strong> = integer feasible (incumbent). <strong>Red</strong> = pruned (bound ≥ $12,690). <strong>Orange</strong> = fractional, needs branching.
+  </p>
+  <p class="fragment" style="font-size: 0.9em;">Best integer: <mark>$12,690</mark>. Gap at root: 1.9%. Solver proves optimality by closing the gap.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Solver Output: Reading the Tea Leaves</h2>
+  <pre><code class="language-text" data-trim style="font-size: 0.75em;">
+HiGHS 1.5.1: Optimal
+Objective: 12690.0
+Iterations: 1,247
+Nodes: 23
+Time: 2.34s
+
+Variable values (non-zero):
+x_0,5,2 = 1.0
+x_5,12,2 = 1.0
+x_12,0,2 = 1.0
+load_2 = 8.5
+arrival_5 = 540.0
+
+Reduced costs (non-basic vars):
+x_0,3,1 = 45.2  (cost to force this arc into solution)
+x_7,2,3 = 12.8
+
+Dual values (shadow prices):
+capacity_truck_2 = 0.0
+time_window_5 = 23.5  ← $23.50 per minute relaxed
+driver_shift_2 = 0.0
+  </code></pre>
+  <p class="fragment" style="margin-top: 0.5rem;">
+    <strong>Status codes</strong>: Optimal ✓ | Infeasible ✗ | Unbounded ∞ | TimeLimit ⏱ | NodeLimit 🌲
+  </p>
+</section>
+
+<section data-transition="slide">
+  <h2>Interactive: Solver Playground</h2>
+  <p>Run the QuickShip mini-model (15 stops, 3 trucks) with HiGHS. Watch the branch-and-bound tree grow.</p>
+  <div style="margin-top: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 8px;">
+    <label style="font-weight: bold;">Time Limit: <span id="ch3-time-label">10</span> seconds</label>
+    <input type="range" id="ch3-time-slider" min="1" max="60" value="10" step="1"
+           style="width: 100%; margin: 0.5rem 0;" oninput="updateTimeLabel()">
+    <label style="margin-right: 2rem;">
+      <input type="checkbox" id="ch3-show-tree" checked onchange="toggleTree()">
+      Show Branch & Bound Tree
+    </label>
+    <button onclick="runSolver()" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: #2e7d32; color: white; border: none; border-radius: 4px; cursor: pointer;">Run Solver</button>
+  </div>
+  <div id="ch3-solver-output" style="margin-top: 1rem; font-family: monospace; font-size: 0.85em; background: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 4px; display: none;">
+    <div id="ch3-status"></div>
+    <div id="ch3-objective"></div>
+    <div id="ch3-nodes"></div>
+    <div id="ch3-time"></div>
+  </div>
+  <div id="ch3-tree-viz" style="margin-top: 1rem; display: none;"></div>
+  <script>
+    function updateTimeLabel() {
+      document.getElementById('ch3-time-label').textContent = document.getElementById('ch3-time-slider').value;
+    }
+    function toggleTree() {
+      document.getElementById('ch3-tree-viz').style.display = document.getElementById('ch3-show-tree').checked ? 'block' : 'none';
+    }
+    function runSolver() {
+      const timeLimit = parseInt(document.getElementById('ch3-time-slider').value);
+      const output = document.getElementById('ch3-solver-output');
+      output.style.display = 'block';
+      document.getElementById('ch3-status').textContent = 'Status: Solving...';
+      document.getElementById('ch3-objective').textContent = '';
+      document.getElementById('ch3-nodes').textContent = '';
+      document.getElementById('ch3-time').textContent = '';
+      // Simulate solver run with realistic progression
+      setTimeout(() => {
+        let nodes, obj, status;
+        if (timeLimit < 3) {
+          status = 'TimeLimit'; obj = '12,840 (best bound: 12,450)'; nodes = '8';
+        } else if (timeLimit < 15) {
+          status = 'Optimal'; obj = '12,690'; nodes = '23';
+        } else {
+          status = 'Optimal'; obj = '12,690'; nodes = '23';
+        }
+        document.getElementById('ch3-status').textContent = 'Status: ' + status + (status === 'Optimal' ? ' ✓' : ' ⏱');
+        document.getElementById('ch3-objective').textContent = 'Objective: $' + obj;
+        document.getElementById('ch3-nodes').textContent = 'Nodes explored: ' + nodes;
+        document.getElementById('ch3-time').textContent = 'Time: ' + (timeLimit < 3 ? '3.0s (limit hit)' : '2.34s');
+        if (document.getElementById('ch3-show-tree').checked) {
+          renderTree(timeLimit);
+        }
+      }, 500);
+    }
+    function renderTree(timeLimit) {
+      const div = document.getElementById('ch3-tree-viz');
+      if (timeLimit < 3) {
+        div.innerHTML = '<div style="font-family:monospace; font-size:0.8em; line-height:1.6;">Root: $12,450 (frac)<br/>├─ x=0: $12,680<br/>│  ├─ x=0: $12,720 (pruned)<br/>│  └─ x=1: $12,690 ✓<br/>└─ x=1: $12,510 (active)<br/>   ├─ x=0: $12,580 (active)<br/>   └─ x=1: $12,530 (active)<br/><span style="color:#ff9800;">Time limit — tree incomplete</span></div>';
+      } else {
+        div.innerHTML = '<div style="font-family:monospace; font-size:0.8em; line-height:1.6;">Root: $12,450 (frac)<br/>├─ x=0: $12,680<br/>│  ├─ x=0: $12,720 <span style="color:#c62828;">pruned</span><br/>│  └─ x=1: $12,690 <span style="color:#2e7d32;">✓ incumbent</span><br/>└─ x=1: $12,510<br/>   ├─ x=0: $12,580 <span style="color:#c62828;">pruned</span><br/>   └─ x=1: $12,530 <span style="color:#2e7d32;">✓ integer</span><br/><span style="color:#2e7d32;">Optimal proven: $12,690</span></div>';
+      }
+      div.style.display = 'block';
+    }
+  </script>
+</section>
+
+<section data-transition="slide">
+  <h2>Shadow Prices: The Hidden Value of Relaxing Constraints</h2>
+  <p>Dual values = <mark>marginal value of one more unit</mark> of a constrained resource.</p>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>QuickShip Shadow Prices (from optimal solution)</h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 1em;">
+      <thead>
+        <tr style="background: #e8eaf6; color: #1a237e;">
+          <th style="padding: 0.5rem; text-align: left;">Constraint</th>
+          <th style="padding: 0.5rem; text-align: right;">Shadow Price</th>
+          <th style="padding: 0.5rem; text-align: left;">Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 0.5rem;">Truck 2 capacity (8.5/10 tons used)</td>
+          <td style="padding: 0.5rem; text-align: right;">$0.00</td>
+          <td style="padding: 0.5rem;">Slack capacity — extra ton worth nothing</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 0.5rem;">Time window at Stop 5 (tight)</td>
+          <td style="padding: 0.5rem; text-align: right;"><strong>$23.50/min</strong></td>
+          <td style="padding: 0.5rem;">Each minute later = $23.50 savings</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 0.5rem;">Driver shift 2 (9.5/10 hrs used)</td>
+          <td style="padding: 0.5rem; text-align: right;">$0.00</td>
+          <td style="padding: 0.5rem;">Not binding</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem;">Depot operating hours</td>
+          <td style="padding: 0.5rem; text-align: right;"><strong>$180/hr</strong></td>
+          <td style="padding: 0.5rem;">Extending depot by 1 hr saves $180</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fragment" style="margin-top: 0.5rem; font-size: 0.9em;">
+    <strong>Decision support</strong>: Should QuickShip pay $200 to extend depot hours? Yes — shadow price $180/hr, but that's <em>marginal</em>. Valid only for small changes (see Sensitivity).
+  </p>
+</section>
+
+<section data-transition="slide">
+  <h2>Sensitivity: How Wrong Can Our Data Be?</h2>
+  <p>Every coefficient has an <mark>allowable range</mark> where the current basis stays optimal.</p>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>QuickShip Sensitivity Ranges</h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.95em;">
+      <thead>
+        <tr style="background: #e8eaf6; color: #1a237e;">
+          <th style="padding: 0.5rem; text-align: left;">Parameter</th>
+          <th style="padding: 0.5rem; text-align: right;">Current</th>
+          <th style="padding: 0.5rem; text-align: right;">Allowable ↓</th>
+          <th style="padding: 0.5rem; text-align: right;">Allowable ↑</th>
+          <th style="padding: 0.5rem; text-align: left;">Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 0.5rem;">Fuel cost ($/km)</td>
+          <td style="padding: 0.5rem; text-align: right;">$1.20</td>
+          <td style="padding: 0.5rem; text-align: right;">$0.95</td>
+          <td style="padding: 0.5rem; text-align: right;">$1.45</td>
+          <td style="padding: 0.5rem;">Route unchanged if fuel stays in [$0.95, $1.45]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 0.5rem;">Truck 2 capacity (tons)</td>
+          <td style="padding: 0.5rem; text-align: right;">10</td>
+          <td style="padding: 0.5rem; text-align: right;">8.5</td>
+          <td style="padding: 0.5rem; text-align: right;">∞</td>
+          <td style="padding: 0.5rem;">Can reduce to 8.5 tons before route changes</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 0.5rem;">Stop 5 time window end (min)</td>
+          <td style="padding: 0.5rem; text-align: right;">540</td>
+          <td style="padding: 0.5rem; text-align: right;">525</td>
+          <td style="padding: 0.5rem; text-align: right;">555</td>
+          <td style="padding: 0.5rem;">Window can shrink 15 min or grow 15 min</td>
+        </tr>
+        <tr>
+          <td style="padding: 0.5rem;">Late penalty ($/min)</td>
+          <td style="padding: 0.5rem; text-align: right;">$50</td>
+          <td style="padding: 0.5rem; text-align: right;">$35</td>
+          <td style="padding: 0.5rem; text-align: right;">$78</td>
+          <td style="padding: 0.5rem;">Penalty can vary widely without changing route</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fragment" style="margin-top: 0.5rem;">
+    <strong>Fuel rises 15%</strong> → $1.38/km. Within [$0.95, $1.45]. <mark>Optimal route unchanged.</mark> Objective increases by 15% × 420 km = $63.
+  </p>
+</section>
+
+<section data-transition="slide">
+  <h2>Infeasibility Diagnosis: When Red Means Stop</h2>
+  <p>Model status: <strong style="color: #c62828;">Infeasible</strong>. No solution satisfies all constraints. Now what?</p>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>IIS — Irreducible Inconsistent Subset</h3>
+    <p>The <mark>minimal set of constraints</mark> that conflict. Remove any one → feasible.</p>
+  </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>QuickShip: Driver Shifts vs. Delivery Windows</h3>
+    <pre><code class="language-text" data-trim style="font-size: 0.8em;">
+IIS found (5 constraints):
+1. driver_shift_1 ≤ 480 min     (8-hour shift)
+2. driver_shift_2 ≤ 480 min     (8-hour shift)
+3. time_window_stop_12 ≥ 540    (9:00 AM earliest)
+4. time_window_stop_12 ≤ 600    (10:00 AM latest)
+5. travel_time_0_12 ≥ 120       (depot → stop 12 = 2 hrs)
+
+Conflict: Two 8-hr shifts = 960 min max.
+But reaching stop 12 by 9 AM requires 120 min from depot,
+leaving only 360 min for remaining stops — impossible.
+    </code></pre>
+  </div>
+  <p class="fragment" style="margin-top: 0.5rem;">
+    <strong>Fix options</strong>: Extend shifts, widen time window, add third truck, or drop stop 12.
+  </p>
+</section>
+
+<section data-transition="slide">
+  <h2>Model vs. Reality: The Validation Gap</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem; font-size: 1.05em;">
+    <div style="background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 1rem; border-radius: 4px;">
+      <h3 style="color: #2e7d32; margin-top: 0;">The Model Says</h3>
+      <ul>
+        <li>Optimal cost: <strong>$12,690</strong></li>
+        <li>All time windows met exactly</li>
+        <li>Truck 2 returns at 4:58 PM (shift ends 5:00)</li>
+        <li>Zero late penalties</li>
+        <li>Deterministic travel times</li>
+      </ul>
+    </div>
+    <div style="background: #fbe9e7; border-left: 4px solid #c62828; padding: 1rem; border-radius: 4px;">
+      <h3 style="color: #c62828; margin-top: 0;">Reality Delivers</h3>
+      <ul>
+        <li>Traffic adds 15–40 min variance</li>
+        <li>Customer not home → reattempt</li>
+        <li>Driver calls in sick</li>
+        <li>Truck breaks down</li>
+        <li>Loading takes 20 min, not 10</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1rem; font-size: 1.1em;">
+    <mark>The model is a map, not the territory.</mark> Optimal ≠ implementable.
+  </p>
+  <p class="fragment" style="font-size: 0.95em;">
+    Chapter 4: How to build models that survive contact with reality — <strong>robust optimization</strong>, <strong>stochastic programming</strong>, and <strong>simulation validation</strong>.
+  </p>
+</section>
+<section data-transition="fade">
+  <h1 class="r-fit-text">The Dashboard Reveal</h1>
+  <h2 class="r-fit-text">From LP to Live Decision Tool</h2>
+  <p class="fragment">Chapter 3 gave us an <mark>optimal solution</mark>: 6 trucks, 47 routes, $18,240/day.</p>
+  <p class="fragment">But a static answer isn't a decision tool.</p>
+  <p class="fragment">Today we turn that model into QuickShip's <mark>Decision Dashboard</mark> — where every "what if" gets an answer in seconds.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>QuickShip Decision Dashboard — Live View</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #2e7d32;">
+      <h3 style="margin-top: 0; color: #2e7d32;">KPIs (Current Plan)</h3>
+      <div id="ch4-kpis" style="font-family: monospace; font-size: 1.1rem;">
+        Loading...
+      </div>
+    </div>
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #1565c0;">
+      <h3 style="margin-top: 0; color: #1565c0;">Network Map</h3>
+      <div id="ch4-map" style="height: 280px; background: #e8eaf6; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #3f51b5; font-family: monospace;">
+        [Interactive Network Visualization]
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+    <div style="background: #fff3e0; padding: 0.75rem; border-radius: 6px; text-align: center; border-left: 4px solid #ef6c00;">
+      <div style="font-size: 0.8rem; color: #e65100;">TOTAL DAILY COST</div>
+      <div id="ch4-total-cost" style="font-size: 1.5rem; font-weight: bold; color: #ef6c00;">$18,240</div>
+    </div>
+    <div style="background: #e8f5e9; padding: 0.75rem; border-radius: 6px; text-align: center; border-left: 4px solid #2e7d32;">
+      <div style="font-size: 0.8rem; color: #1b5e20;">LATE DELIVERIES</div>
+      <div id="ch4-late-count" style="font-size: 1.5rem; font-weight: bold; color: #2e7d32;">0</div>
+    </div>
+    <div style="background: #f3e5f5; padding: 0.75rem; border-radius: 6px; text-align: center; border-left: 4px solid #7b1fa2;">
+      <div style="font-size: 0.8rem; color: #4a148c;">TRUCKS UTILIZED</div>
+      <div id="ch4-trucks-used" style="font-size: 1.5rem; font-weight: bold; color: #7b1fa2;">6 / 8</div>
+    </div>
+  </div>
+  <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">This is the artifact we've been building. Every slider, toggle, and click below re-solves the MILP live.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Scenario 1: Fuel Price Spike (+40%)</h2>
+  <p>Diesel jumps from $3.50 to $4.90/gal. Variable cost per mile: $1.20 → $1.68.</p>
+  <div style="margin: 1.5rem 0;">
+    <label for="ch4-fuel-slider" style="font-weight: bold;">Fuel Cost Multiplier: <span id="ch4-fuel-value">1.00</span>x</label>
+    <input type="range" id="ch4-fuel-slider" min="1.0" max="2.0" step="0.05" value="1.0" style="width: 100%; margin-top: 0.5rem;">
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 1rem;">
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: center; border-top: 3px solid #ef6c00;">
+      <div style="font-size: 0.8rem; color: #666;">Total Cost</div>
+      <div id="ch4-s1-cost" style="font-size: 1.8rem; font-weight: bold; color: #ef6c00;">$18,240</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: center; border-top: 3px solid #2e7d32;">
+      <div style="font-size: 0.8rem; color: #666;">Routes</div>
+      <div id="ch4-s1-routes" style="font-size: 1.8rem; font-weight: bold; color: #2e7d32;">47</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: center; border-top: 3px solid #c62828;">
+      <div style="font-size: 0.8rem; color: #666;">Orders Dropped</div>
+      <div id="ch4-s1-dropped" style="font-size: 1.8rem; font-weight: bold; color: #c62828;">0</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: center; border-top: 3px solid #1565c0;">
+      <div style="font-size: 0.8rem; color: #666;">Depots Active</div>
+      <div id="ch4-s1-depots" style="font-size: 1.8rem; font-weight: bold; color: #1565c0;">3</div>
+    </div>
+  </div>
+  <div id="ch4-s1-insight" style="margin-top: 1rem; padding: 1rem; background: #fff3e0; border-radius: 6px; border-left: 4px solid #ef6c00; display: none;">
+    <strong>Insight:</strong> At 1.4x fuel, the model <mark>consolidates routes</mark> (fewer trucks, longer routes) and <mark>drops 3 low-margin orders</mark> — paying $2,100 in penalties to save $3,800 in fuel. Net savings: $1,700/day.
+  </div>
+  <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Penalty cost: $700/order. Model chooses: serve at a loss, or pay penalty?</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Scenario 2: Driver Shortage — 2 Trucks Down</h2>
+  <p>Fleet drops from 8 to 6 available trucks. Hard constraint: <code>∑ xₖ ≤ 6</code>.</p>
+  <div style="margin: 1.5rem 0;">
+    <label style="font-weight: bold; display: flex; align-items: center; gap: 1rem;">
+      <input type="checkbox" id="ch4-truck-toggle" checked style="width: 20px; height: 20px;">
+      <span>Trucks 7 & 8 Available</span>
+    </label>
+  </div>
+  <div id="ch4-s2-status" style="padding: 1rem; background: #e8f5e9; border-radius: 6px; border-left: 4px solid #2e7d32; margin-bottom: 1rem;">
+    <strong>Status:</strong> Feasible — 6 trucks, all deliveries on time.
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: center; border-top: 3px solid #1565c0;">
+      <div style="font-size: 0.8rem; color: #666;">Total Cost</div>
+      <div id="ch4-s2-cost" style="font-size: 1.5rem; font-weight: bold; color: #1565c0;">$18,240</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: center; border-top: 3px solid #c62828;">
+      <div style="font-size: 0.8rem; color: #666;">Late Deliveries</div>
+      <div id="ch4-s2-late" style="font-size: 1.5rem; font-weight: bold; color: #c62828;">0</div>
+    </div>
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; text-align: center; border-top: 3px solid #ef6c00;">
+      <div style="font-size: 0.8rem; color: #666;">Avg. Lateness</div>
+      <div id="ch4-s2-avg-late" style="font-size: 1.5rem; font-weight: bold; color: #ef6c00;">0 min</div>
+    </div>
+  </div>
+  <div id="ch4-s2-soft" style="margin-top: 1rem; display: none;">
+    <h4>Soft Time Windows Activated</h4>
+    <p>Penalty: $50 per 15 minutes late. Model now <mark>relaxes constraints</mark> to find feasibility.</p>
+    <label style="font-weight: bold;">Late Penalty ($/15min): <span id="ch4-penalty-value">50</span></label>
+    <input type="range" id="ch4-penalty-slider" min="0" max="200" step="25" value="50" style="width: 100%; margin: 0.5rem 0;">
+    <div id="ch4-s2-soft-kpis" style="margin-top: 1rem; font-family: monospace;"></div>
+  </div>
+  <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Uncheck the box → infeasible. Enable soft windows → feasible but late. <mark>The cost of resilience</mark> quantified.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Scenario 3: New Depot Candidate — ROI Analysis</h2>
+  <p>QuickShip is evaluating a 4th depot in <mark>Zone 7 (Southwest)</mark>. Fixed cost: $450/day. Variable savings: reduced deadhead miles.</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border: 2px dashed #1565c0;">
+      <h4 style="margin-top: 0; color: #1565c0;">Click to Add Depot</h4>
+      <div id="ch4-depot-map" style="height: 250px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative;">
+        <div style="font-size: 0.8rem; color: #1565c0; margin-bottom: 0.5rem;">Current: 3 Depots (●)</div>
+        <div style="position: relative; width: 100%; height: 100%;">
+          <div id="ch4-depot-1" class="depot-marker" style="left: 20%; top: 20%;" data-name="Depot A (North)"></div>
+          <div id="ch4-depot-2" class="depot-marker" style="left: 70%; top: 25%;" data-name="Depot B (East)"></div>
+          <div id="ch4-depot-3" class="depot-marker" style="left: 45%; top: 70%;" data-name="Depot C (Central)"></div>
+          <div id="ch4-depot-new" class="depot-marker new" style="left: 15%; top: 75%; display: none;" data-name="Depot D (Zone 7)"></div>
+        </div>
+      </div>
+      <p style="font-size: 0.8rem; color: #666; margin-top: 0.5rem; text-align: center;">Click map to toggle Zone 7 depot</p>
+    </div>
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+      <h4 style="margin-top: 0; color: #7b1fa2;">ROI Calculation</h4>
+      <div id="ch4-roi" style="font-family: monospace; font-size: 1rem; line-height: 1.8;">
+        Add depot to see analysis...
+      </div>
+      <div id="ch4-go-nogo" style="margin-top: 1rem; padding: 0.75rem; border-radius: 6px; display: none;"></div>
+    </div>
+  </div>
+  <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Decision support: not just "optimal," but <mark>go / no-go with dollar justification</mark>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Edge Case: The "Optimal" Route That Failed</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+    <div style="background: #ffebee; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #c62828;">
+      <h3 style="margin-top: 0; color: #c62828;">Model Said: 7 hr 42 min</h3>
+      <ul style="line-height: 2;">
+        <li>Route: Depot A → 8 stops → Depot A</li>
+        <li>Distance: 142 miles</li>
+        <li>Travel time (deterministic): 7.7 hrs</li>
+        <li>Time window: 8:00–16:00 ✓</li>
+      </ul>
+    </div>
+    <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2e7d32;">
+      <h3 style="margin-top: 0; color: #2e7d32;">Reality: 9 hr 23 min</h3>
+      <ul style="line-height: 2;">
+        <li>Traffic on I-405: +47 min</li>
+        <li>Loading dock wait at Stop 3: +22 min</li>
+        <li>Customer chat at Stop 6: +18 min</li>
+        <li>Driver missed 16:00 cutoff ✗</li>
+      </ul>
+    </div>
+  </div>
+  <div class="fragment" style="margin-top: 1.5rem; padding: 1rem; background: #fff3e0; border-radius: 6px; border-left: 4px solid #ef6c00;">
+    <strong>The Model Missed:</strong> <mark>Stochasticity</mark>. Travel times aren't constants — they're distributions. Our MILP optimized for the <em>average</em> case, not the <em>real</em> case.
+  </div>
+  <p class="fragment" style="margin-top: 1rem; font-size: 0.9rem;">Deterministic OR assumes certainty. The world doesn't.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Stochastic OR: Two-Stage Programming</h2>
+  <p>When data has variance, we optimize <mark>decisions before uncertainty resolves</mark> and <mark>recourse after</mark>.</p>
+  <div style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+    <h3 style="margin-top: 0;">Two-Stage Stochastic Program</h3>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+      <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; border-left: 4px solid #1565c0;">
+        <h4 style="margin-top: 0; color: #1565c0;">First Stage (Here-and-Now)</h4>
+        <p>Decide <strong>truck assignments & depot allocation</strong> before traffic is known.</p>
+        <p style="font-family: monospace; font-size: 0.85rem;">min ∑ₖ cₖ xₖ + 𝔼[Q(x, ξ)]</p>
+        <p><em>xₖ = 1 if truck k used</em></p>
+      </div>
+      <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; border-left: 4px solid #ef6c00;">
+        <h4 style="margin-top: 0; color: #ef6c00;">Second Stage (Wait-and-See)</h4>
+        <p>After traffic ξ realized: <strong>re-route, delay, or drop orders</strong> at penalty cost.</p>
+        <p style="font-family: monospace; font-size: 0.85rem;">Q(x, ξ) = min ∑ qᵢ yᵢ(ξ)</p>
+        <p>s.t. A y(ξ) ≥ b(ξ) - T x</p>
+        <p><em>yᵢ = recourse actions (overtime, penalties)</em></p>
+      </div>
+    </div>
+    <div class="fragment" style="margin-top: 1rem;">
+      <strong>Sample Average Approximation (SAA):</strong> Draw N scenarios ξ¹...ξᴺ from travel-time distributions. Solve deterministic equivalent:
+      <br><br>
+      <span style="font-family: monospace;">min ∑ₖ cₖ xₖ + (1/N) ∑ₙ Q(x, ξⁿ)</span>
+      <br><br>
+      As N → ∞, SAA solution → true stochastic optimum.
+    </div>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>Interactive: Monte Carlo Stress Test</h2>
+  <p>Run 1,000 simulations with lognormal travel times (μ=mean, σ=0.25×mean). Compare deterministic vs. stochastic plans.</p>
+  <div style="margin: 1.5rem 0;">
+    <button id="ch4-mc-run" style="padding: 0.75rem 2rem; font-size: 1.1rem; background: #1565c0; color: white; border: none; border-radius: 6px; cursor: pointer;">Run 1,000 Simulations</button>
+    <button id="ch4-mc-reset" style="padding: 0.75rem 1.5rem; font-size: 1rem; background: #eee; border: none; border-radius: 6px; cursor: pointer; margin-left: 1rem;">Reset</button>
+  </div>
+  <div id="ch4-mc-status" style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 6px; display: none;">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+      <div style="text-align: center;">
+        <div style="font-size: 0.8rem; color: #666;">Det. Plan Avg Cost</div>
+        <div id="ch4-mc-det-cost" style="font-size: 1.5rem; font-weight: bold; color: #c62828;">—</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.8rem; color: #666;">Stoch. Plan Avg Cost</div>
+        <div id="ch4-mc-stoch-cost" style="font-size: 1.5rem; font-weight: bold; color: #2e7d32;">—</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.8rem; color: #666;">VSS (Value of Stochastic Solution)</div>
+        <div id="ch4-mc-vss" style="font-size: 1.5rem; font-weight: bold; color: #7b1fa2;">—</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.8rem; color: #666;">% Runs with Late Deliveries</div>
+        <div id="ch4-mc-late-pct" style="font-size: 1.5rem; font-weight: bold; color: #ef6c00;">—</div>
+      </div>
+    </div>
+  </div>
+  <div id="ch4-mc-histogram" style="height: 200px; background: #f8f9fa; border-radius: 6px; display: flex; align-items: flex-end; padding: 1rem; gap: 2px; display: none;"></div>
+  <div id="ch4-mc-insight" style="margin-top: 1rem; padding: 1rem; background: #e8f5e9; border-radius: 6px; border-left: 4px solid #2e7d32; display: none;">
+    <strong>Result:</strong> The stochastic plan costs <mark>$420/day more upfront</mark> (extra buffer time) but saves <mark>$1,180/day in expected recourse</mark>. VSS = $760/day. It also cuts late-delivery probability from 34% → 8%.
+  </div>
+  <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">VSS = Cost(deterministic) - Cost(stochastic). Positive VSS = stochastic modeling pays for itself.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Implementation: From Dashboard to Dispatch</h2>
+  <p>An optimal solution that never reaches the driver is worth <mark>$0</mark>.</p>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem;">
+    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #1565c0;">
+      <h3 style="margin-top: 0; color: #1565c0;">Technical Pipeline</h3>
+      <ol style="line-height: 2;">
+        <li>Dashboard → <strong>REST API</strong> (JSON: routes, ETAs, load plans)</li>
+        <li>API → <strong>TMS</strong> (Transportation Management System)</li>
+        <li>TMS → <strong>Driver App</strong> (turn-by-turn, time windows, proof-of-delivery)</li>
+        <li>App → <strong>Telemetry</strong> (GPS, scan timestamps, exceptions)</li>
+      </ol>
+    </div>
+    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #2e7d32;">
+      <h3 style="margin-top: 0; color: #2e7d32;">Feedback Loop</h3>
+      <ol style="line-height: 2;">
+        <li>Collect <strong>actuals vs. plan</strong> daily</li>
+        <li>Recalibrate: travel-time distributions, service times, penalty rates</li>
+        <li>Re-train demand forecast model</li>
+        <li>Re-optimize next day with updated parameters</li>
+      </ol>
+    </div>
+  </div>
+  <div class="fragment" style="margin-top: 1.5rem; padding: 1rem; background: #fff3e0; border-radius: 6px; border-left: 4px solid #ef6c00;">
+    <strong>Change Management Reality:</strong> Drivers initially resisted "algorithm routes." Solution: <mark>driver-in-the-loop</mark> — app shows "OR suggestion" vs. "my route," driver chooses. Adoption: 67% → 94% in 8 weeks.
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>Measuring OR Value: The Counterfactual Problem</h2>
+  <p>How do you prove the model worked? You can't re-run history with the old method.</p>
+  <div style="margin-top: 1.5rem;">
+    <h3>Three Approaches to ROI</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+      <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; border-top: 3px solid #1565c0;">
+        <h4 style="margin-top: 0; color: #1565c0;">A/B Test</h4>
+        <p>Randomize: 50% routes OR-optimized, 50% manual. Measure difference.</p>
+        <p style="font-size: 0.85rem; color: #666;">Gold standard. Hard in ops.</p>
+      </div>
+      <div style="background: #fff3e0; padding: 1rem; border-radius: 6px; border-top: 3px solid #ef6c00;">
+        <h4 style="margin-top: 0; color: #ef6c00;">Historical Comparison</h4>
+        <p>Compare post-OR month vs. same month last year. Control for volume/seasonality.</p>
+        <p style="font-size: 0.85rem; color: #666;">Practical. Confounded.</p>
+      </div>
+      <div style="background: #f3e5f5; padding: 1rem; border-radius: 6px; border-top: 3px solid #7b1fa2;">
+        <h4 style="margin-top: 0; color: #7b1fa2;">Simulation Baseline</h4>
+        <p>Feed historical orders into <em>old heuristic</em> vs. <em>OR model</em>. Same inputs, different logic.</p>
+        <p style="font-size: 0.85rem; color: #666;">Clean isolation. Assumes heuristic fidelity.</p>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 2rem; padding: 1.5rem; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #2e7d32;">
+    <h3 style="margin-top: 0; color: #2e7d32;">QuickShip Results (Simulation Baseline)</h3>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
+      <div>
+        <div style="font-size: 2.5rem; font-weight: bold; color: #2e7d32;">12%</div>
+        <div style="color: #666;">Cost Reduction</div>
+        <div style="font-size: 0.85rem; color: #1b5e20;">$2,190/day saved</div>
+      </div>
+      <div>
+        <div style="font-size: 2.5rem; font-weight: bold; color: #2e7d32;">23%</div>
+        <div style="color: #666;">Fewer Late Deliveries</div>
+        <div style="font-size: 0.85rem; color: #1b5e20;">34 → 26 late/week</div>
+      </div>
+      <div>
+        <div style="font-size: 2.5rem; font-weight: bold; color: #2e7d32;">2</div>
+        <div style="color: #666;">Trucks Freed</div>
+        <div style="font-size: 0.85rem; color: #1b5e20;">8 → 6 fleet size</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">The Model Works.</h1>
+  <h2 class="r-fit-text">But the Problem Isn't Solved.</h2>
+  <p class="fragment" style="font-size: 1.2rem;">QuickShip saved 12%. The dashboard runs daily. Drivers use the app.</p>
+  <p class="fragment" style="font-size: 1.2rem;">Then the VP of Operations asks: <mark>"What if we could redesign the network from scratch?"</mark></p>
+  <p class="fragment" style="font-size: 1.2rem;">Not route optimization. <mark>Network design.</mark> Facility location. Capacity expansion. Multi-year horizon.</p>
+  <p class="fragment" style="font-size: 1.2rem;">The MILP we built? It's a subproblem.</p>
+</section>
+
+<script>
+(function() {
+  // Initialize all interactive elements
+  
+  // Base data for QuickShip
+  const baseData = {
+    trucks: 8,
+    routes: 47,
+    cost: 18240,
+    lateDeliveries: 0,
+    depots: 3,
+    fuelMultiplier: 1.0,
+    trucksAvailable: 8,
+    softWindows: false,
+    latePenalty: 50,
+    zone7Depot: false
+  };
+  
+  // Cost calculation functions
+  function calculateScenario1(mult) {
+    const baseCost = 18240;
+    const fuelPortion = 0.35; // 35% of cost is fuel
+    const fuelCost = baseCost * fuelPortion * mult;
+    const otherCost = baseCost * (1 - fuelPortion);
+    let totalCost = fuelCost + otherCost;
+    let routes = 47;
+    let dropped = 0;
+    let depots = 3;
+    
+    if (mult > 1.2) {
+      // Consolidate routes, drop orders
+      routes = Math.max(35, Math.round(47 / mult));
+      dropped = Math.round((mult - 1.2) * 15);
+      totalCost -= dropped * 700; // penalty savings from not serving
+      totalCost += dropped * 700; // penalty cost
+      // Net effect: save variable cost on dropped orders
+      totalCost -= dropped * 1200; // variable cost saved
+    }
+    if (mult > 1.5) {
+      depots = 2; // close one depot
+    }
+    return { totalCost: Math.round(totalCost), routes, dropped, depots };
+  }
+  
+  function calculateScenario2(trucksAvail, softWindows, penalty) {
+    let cost = 18240;
+    let late = 0;
+    let avgLate = 0;
+    
+    if (trucksAvail >= 6) {
+      // Feasible with current trucks
+      cost = 18240 + (8 - trucksAvail) * 200; // slight inefficiency
+    } else {
+      if (!softWindows) {
+        return { feasible: false, cost: null, late: null, avgLate: null };
+      }
+      // Soft windows: allow lateness at penalty cost
+      const shortage = 6 - trucksAvail;
+      late = shortage * 3; // 3 orders late per missing truck
+      avgLate = 25 + shortage * 10;
+      cost = 18240 + late * (penalty * 4); // 4 intervals of 15 min avg
+    }
+    return { feasible: true, cost: Math.round(cost), late, avgLate };
+  }
+  
+  function calculateROI(zone7) {
+    if (!zone7) return null;
+    const fixedCost = 450;
+    const variableSavings = 1200; // reduced deadhead
+    const netDaily = variableSavings - fixedCost;
+    const annualNet = netDaily * 260;
+    const paybackDays = Math.ceil(50000 / netDaily); // $50k setup
+    return { fixedCost, variableSavings, netDaily, annualNet, paybackDays };
+  }
+  
+  // Update KPIs display
+  function updateKPIs() {
+    const kpis = document.getElementById('ch4-kpis');
+    if (kpis) {
+      kpis.innerHTML = `
+        Trucks: ${baseData.trucksUsed || 6} / ${baseData.trucksAvailable || 8}<br>
+        Routes: ${baseData.routes || 47}<br>
+        Depots: ${baseData.depots || 3}<br>
+        Cost: $${(baseData.cost || 18240).toLocaleString()}/day<br>
+        Late: ${baseData.lateDeliveries || 0}
+      `;
+    }
+  }
+  
+  // Scenario 1: Fuel Slider
+  const fuelSlider = document.getElementById('ch4-fuel-slider');
+  const fuelValue = document.getElementById('ch4-fuel-value');
+  if (fuelSlider) {
+    fuelSlider.addEventListener('input', function() {
+      const mult = parseFloat(this.value);
+      fuelValue.textContent = mult.toFixed(2);
+      const result = calculateScenario1(mult);
+      
+      document.getElementById('ch4-s1-cost').textContent = '$' + result.totalCost.toLocaleString();
+      document.getElementById('ch4-s1-routes').textContent = result.routes;
+      document.getElementById('ch4-s1-dropped').textContent = result.dropped;
+      document.getElementById('ch4-s1-depots').textContent = result.depots;
+      
+      const insight = document.getElementById('ch4-s1-insight');
+      if (mult >= 1.4) {
+        insight.style.display = 'block';
+      } else {
+        insight.style.display = 'none';
+      }
+    });
+  }
+  
+  // Scenario 2: Truck Toggle
+  const truckToggle = document.getElementById('ch4-truck-toggle');
+  const penaltySlider = document.getElementById('ch4-penalty-slider');
+  const penaltyValue = document.getElementById('ch4-penalty-value');
+  const softSection = document.getElementById('ch4-s2-soft');
+  const statusDiv = document.getElementById('ch4-s2-status');
+  
+  function updateScenario2() {
+    const trucksAvail = truckToggle.checked ? 8 : 6;
+    const soft = softSection.style.display !== 'none';
+    const penalty = parseInt(penaltyValue.textContent) || 50;
+    
+    const result = calculateScenario2(trucksAvail, soft, penalty);
+    
+    if (!result.feasible) {
+      statusDiv.innerHTML = '<strong style="color: #c62828;">Status:</strong> Infeasible — 6 trucks cannot cover all time windows.';
+      statusDiv.style.background = '#ffebee';
+      statusDiv.style.borderLeftColor = '#c62828';
+      softSection.style.display = 'block';
+      document.getElementById('ch4-s2-cost').textContent = '—';
+      document.getElementById('ch4-s2-late').textContent = '—';
+      document.getElementById('ch4-s2-avg-late').textContent = '—';
+    } else {
+      statusDiv.innerHTML = '<strong style="color: #2e7d32;">Status:</strong> Feasible — ' + trucksAvail + ' trucks, all deliveries on time.';
+      statusDiv.style.background = '#e8f5e9';
+      statusDiv.style.borderLeftColor = '#2e7d32';
+      if (!soft) softSection.style.display = 'none';
+      
+      document.getElementById('ch4-s2-cost').textContent = '$' + result.cost.toLocaleString();
+      document.getElementById('ch4-s2-late').textContent = result.late;
+      document.getElementById('ch4-s2-avg-late').textContent = result.avgLate + ' min';
+      
+      if (soft) {
+        const softKpis = document.getElementById('ch4-s2-soft-kpis');
+        softKpis.innerHTML = `
+          Late Penalty: $${penalty}/15min → ${result.late} orders late, avg ${result.avgLate} min<br>
+          Penalty Cost: $${(result.late * penalty * 4).toLocaleString()}/day<br>
+          Total Cost: $${result.cost.toLocaleString()}/day
+        `;
+      }
+    }
+  }
+  
+  if (truckToggle) {
+    truckToggle.addEventListener('change', updateScenario2);
+  }
+  if (penaltySlider) {
+    penaltySlider.addEventListener('input', function() {
+      penaltyValue.textContent = this.value;
+      updateScenario2();
+    });
+  }
+  
+  // Scenario 3: Depot Map Click
+  const depotMap = document.getElementById('ch4-depot-map');
+  const newDepot = document.getElementById('ch4-depot-new');
+  const roiDiv = document.getElementById('ch4-roi');
+  const goNogo = document.getElementById('ch4-go-nogo');
+  
+  if (depotMap) {
+    depotMap.addEventListener('click', function(e) {
+      // Toggle on click anywhere in map
+      baseData.zone7Depot = !baseData.zone7Depot;
+      newDepot.style.display = baseData.zone7Depot ? 'block' : 'none';
+      
+      if (baseData.zone7Depot) {
+        const roi = calculateROI(true);
+        roiDiv.innerHTML = `
+          Fixed Cost (depot): $${roi.fixedCost}/day<br>
+          Variable Savings: $${roi.variableSavings}/day<br>
+          <strong>Net Daily: $${roi.netDaily}/day</strong><br>
+          Annual Net: $${roi.annualNet.toLocaleString()}<br>
+          Payback: ${roi.paybackDays} days
+        `;
+        goNogo.innerHTML = '<strong style="color: #2e7d32;">✓ GO</strong> — Positive NPV, payback < 60 days';
+        goNogo.style.background = '#e8f5e9';
+        goNogo.style.borderLeftColor = '#2e7d32';
+        goN
+<section data-transition="fade">
+  <h1 class="r-fit-text">We started with a flight simulator.</h1>
+  <p class="fragment">You were the pilot. QuickShip was the mission.</p>
+  <p class="fragment">Every chapter added an instrument to your panel.</p>
+  <p class="fragment">Now the dashboard is complete.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Question That Started It All</h2>
+  <p><strong>How do we make the best decisions under constraints?</strong></p>
+  <p class="fragment">Chapter 1: We framed it. <mark>Decision variables. Objective. Constraints.</mark></p>
+  <p class="fragment">Chapter 2: We linearized it. <mark>Simplex. Duality. Sensitivity.</mark></p>
+  <p class="fragment">Chapter 3: We discretized it. <mark>MILP. Branch-and-bound. Benders.</mark></p>
+  <p class="fragment">Chapter 4: We stressed it. <mark>Scenarios. Stochastic. Robust. Rolling horizon.</mark></p>
+  <p class="fragment">Chapter 5: We operationalize it.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The OR Cycle: Structure → Model → Solve → Validate → Iterate</h2>
+  <div class="fragment" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0;">
+    <div style="background: var(--good-bg); border: 2px solid var(--good); padding: 1rem 1.5rem; border-radius: 8px; min-width: 140px; text-align: center;">
+      <strong>STRUCTURE</strong><br><small>Define decisions, objectives, constraints</small>
+    </div>
+    <div style="background: var(--good-bg); border: 2px solid var(--good); padding: 1rem 1.5rem; border-radius: 8px; min-width: 140px; text-align: center;">
+      <strong>MODEL</strong><br><small>Translate to math: LP, MILP, SP, RO</small>
+    </div>
+    <div style="background: var(--good-bg); border: 2px solid var(--good); padding: 1rem 1.5rem; border-radius: 8px; min-width: 140px; text-align: center;">
+      <strong>SOLVE</strong><br><small>Run solver, extract solution, duals</small>
+    </div>
+    <div style="background: var(--good-bg); border: 2px solid var(--good); padding: 1rem 1.5rem; border-radius: 8px; min-width: 140px; text-align: center;">
+      <strong>VALIDATE</strong><br><small>Stress-test, sanity-check, backtest</small>
+    </div>
+    <div style="background: var(--good-bg); border: 2px solid var(--good); padding: 1rem 1.5rem; border-radius: 8px; min-width: 140px; text-align: center;">
+      <strong>ITERATE</strong><br><small>Refine, re-solve, hand off</small>
+    </div>
+  </div>
+  <p class="fragment">QuickShip ran this cycle <mark>every week</mark> — rolling horizon, updated forecasts, re-optimized.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Decision Dashboard: Final Form</h2>
+  <p>The artifact you hand to stakeholders — and your future self.</p>
+  <table class="fragment" style="width: 100%; font-size: 0.85rem;">
+    <thead>
+      <tr style="background: var(--good-bg);">
+        <th style="padding: 0.5rem; text-align: left;">Section</th>
+        <th style="padding: 0.5rem; text-align: left;">QuickShip Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding: 0.5rem;"><strong>Problem Statement</strong></td><td style="padding: 0.5rem;">Minimize weekly fleet cost s.t. demand coverage, driver rules, maintenance</td></tr>
+      <tr style="background: #f8f8f8;"><td style="padding: 0.5rem;"><strong>Model Type</strong></td><td style="padding: 0.5rem;">Two-stage stochastic MILP (here-and-now fleet, wait-and-see routing)</td></tr>
+      <tr><td style="padding: 0.5rem;"><strong>Data Requirements</strong></td><td style="padding: 0.5rem;">Demand forecasts (mean/cov), travel times, driver shifts, truck specs, fuel prices</td></tr>
+      <tr style="background: #f8f8f8;"><td style="padding: 0.5rem;"><strong>Solver Config</strong></td><td style="padding: 0.5rem;">HiGHS, 300s time limit, MIPGap 0.5%, 8 threads, warm-start from prior week</td></tr>
+      <tr><td style="padding: 0.5rem;"><strong>Scenario Library</strong></td><td style="padding: 0.5rem;">50 demand scenarios (Monte Carlo), 3 fuel-price paths, 2 disruption events</td></tr>
+      <tr style="background: #f8f8f8;"><td style="padding: 0.5rem;"><strong>KPI Dashboard</strong></td><td style="padding: 0.5rem;">Total cost, utilization %, overtime hrs, service level, CO₂e, shadow prices</td></tr>
+      <tr><td style="padding: 0.5rem;"><strong>Handoff Checklist</strong></td><td style="padding: 0.5rem;">✓ Data freshness ✓ Solver log ✓ Sensitivity report ✓ Fallback heuristic ✓ Owner sign-off</td></tr>
+    </tbody>
+  </table>
+  <p class="fragment">This <mark>is</mark> the deliverable. Not the code. Not the solver log. This.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">OR doesn't decide for you.</h1>
+  <p class="fragment">It shows you the <mark>consequences of your assumptions</mark>.</p>
+  <p class="fragment">It quantifies the <mark>cost of your constraints</mark>.</p>
+  <p class="fragment">It reveals the <mark>value of your flexibility</mark>.</p>
+  <p class="fragment">The decision — and the accountability — stays human.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>What OR Cannot Do</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+    <div class="fragment" style="background: var(--bad-bg); border-left: 4px solid var(--bad); padding: 1rem;">
+      <strong>Fix bad data</strong><br>
+      <small>Garbage in, optimal garbage out. No solver corrects systematic bias or missing history.</small>
+    </div>
+    <div class="fragment" style="background: var(--bad-bg); border-left: 4px solid var(--bad); padding: 1rem;">
+      <strong>Capture politics, culture, ethics</strong><br>
+      <small>The model says "close Facility C." The union says "over my dead body." The model doesn't vote.</small>
+    </div>
+    <div class="fragment" style="background: var(--bad-bg); border-left: 4px solid var(--bad); padding: 1rem;">
+      <strong>Predict black swans</strong><br>
+      <small>Scenarios cover <em>known unknowns</em>. COVID-19, Suez blockage, cyberattack — unknown unknowns need resilience, not optimization.</small>
+    </div>
+    <div class="fragment" style="background: var(--bad-bg); border-left: 4px solid var(--bad); padding: 1rem;">
+      <strong>Replace leadership</strong><br>
+      <small>OR answers "what if?" Leadership answers "so what?" The <mark>human in the loop</mark> is not a bug. It's the point.</small>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1.5rem;">QuickShip's model recommended <mark>cutting 12 driver positions</mark>. Leadership chose attrition + retraining. The model informed. Humans decided.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The OR Landscape: Beyond Linear Programming</h2>
+  <p>QuickShip's natural next steps — and where each method lives.</p>
+  <table style="width: 100%; font-size: 0.8rem;">
+    <thead>
+      <tr style="background: var(--good-bg);">
+        <th style="padding: 0.5rem; text-align: left;">Method</th>
+        <th style="padding: 0.5rem; text-align: left;">QuickShip Fit</th>
+        <th style="padding: 0.5rem; text-align: left;">When It Shines</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding: 0.5rem;"><strong>MILP</strong> (Ch. 3)</td><td style="padding: 0.5rem;">Current core: fleet + routing</td><td style="padding: 0.5rem;">Discrete decisions, exact optimality needed</td></tr>
+      <tr style="background: #f8f8f8;"><td style="padding: 0.5rem;"><strong>NLP</strong></td><td style="padding: 0.5rem;">Fuel consumption curves, tire wear</td><td style="padding: 0.5rem;">Smooth nonlinear physics, continuous vars</td></tr>
+      <tr><td style="padding: 0.5rem;"><strong>Dynamic Programming</strong></td><td style="padding: 0.5rem;">Multi-period maintenance scheduling</td><td style="padding: 0.5rem;">Sequential decisions, state transitions, moderate state space</td></tr>
+      <tr style="background: #f8f8f8;"><td style="padding: 0.5rem;"><strong>Simulation</strong></td><td style="padding: 0.5rem;">Validate routing under stochastic traffic</td><td style="padding: 0.5rem;">Complex dynamics, "what if" exploration, no closed form</td></tr>
+      <tr><td style="padding: 0.5rem;"><strong>Heuristics / Metaheuristics</strong></td><td style="padding: 0.5rem;">Large-scale routing (ALNS, VNS)</td><td style="padding: 0.5rem;">Huge search spaces, good-enough fast, warm-starts for MILP</td></tr>
+      <tr style="background: #f8f8f8;"><td style="padding: 0.5rem;"><strong>Reinforcement Learning</strong></td><td style="padding: 0.5rem;">Real-time dispatch, dynamic pricing</td><td style="padding: 0.5rem;">Repeated decisions, learn policy from simulation, partial observability</td></tr>
+      <tr><td style="padding: 0.5rem;"><strong>ML + OR Hybrids</strong></td><td style="padding: 0.5rem;">Demand forecast → stochastic opt; cost-to-go approximation</td><td style="padding: 0.5rem;">Predict-then-optimize, learned constraints, column generation pricing</td></tr>
+    </tbody>
+  </table>
+  <p class="fragment">QuickShip's roadmap: <mark>Simulation validation → Heuristic warm-starts → RL dispatch policies</mark>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Interactive: What's Your Problem?</h2>
+  <p>Answer 6 questions. Get a recommended OR approach + tool stack.</p>
+  <div id="ch5-slide7-tree" style="margin: 1.5rem 0; font-family: monospace; font-size: 0.9rem; line-height: 1.8;">
+    <div style="margin-bottom: 0.5rem;">
+      <label><input type="radio" name="q1" value="discrete" onchange="updateCh5Rec()"> Discrete decisions (yes/no, count, assign)</label><br>
+      <label><input type="radio" name="q1" value="continuous" onchange="updateCh5Rec()"> Continuous decisions (how much, when, where)</label>
+    </div>
+    <div style="margin-bottom: 0.5rem;">
+      <label><input type="radio" name="q2" value="stochastic" onchange="updateCh5Rec()"> Uncertainty matters (demand, travel time, price)</label><br>
+      <label><input type="radio" name="q2" value="deterministic" onchange="updateCh5Rec()"> Reasonably predictable / single forecast</label>
+    </div>
+    <div style="margin-bottom: 0.5rem;">
+      <label><input type="radio" name="q3" value="large" onchange="updateCh5Rec()"> Large scale (10k+ vars, 100k+ constraints)</label><br>
+      <label><input type="radio" name="q3" value="medium" onchange="updateCh5Rec()"> Medium (1k–10k vars)</label><br>
+      <label><input type="radio" name="q3" value="small" onchange="updateCh5Rec()"> Small (< 1k vars)</label>
+    </div>
+    <div style="margin-bottom: 0.5rem;">
+      <label><input type="radio" name="q4" value="repeated" onchange="updateCh5Rec()"> Repeated frequently (daily/weekly)</label><br>
+      <label><input type="radio" name="q4" value="oneoff" onchange="updateCh5Rec()"> One-off / strategic (quarterly/yearly)</label>
+    </div>
+    <div style="margin-bottom: 0.5rem;">
+      <label><input type="radio" name="q5" value="clean" onchange="updateCh5Rec()"> Clean, structured, accessible data</label><br>
+      <label><input type="radio" name="q5" value="messy" onchange="updateCh5Rec()"> Messy, fragmented, incomplete data</label>
+    </div>
+    <div style="margin-bottom: 1rem;">
+      <label><input type="radio" name="q6" value="team" onchange="updateCh5Rec()"> Dedicated OR/analytics team</label><br>
+      <label><input type="radio" name="q6" value="solo" onchange="updateCh5Rec()"> Solo analyst / generalist</label>
+    </div>
+    <div id="ch5-slide7-result" style="padding: 1rem; background: var(--good-bg); border: 2px solid var(--good); border-radius: 8px; min-height: 120px;">
+      <em>Answer all 6 questions to see your recommendation.</em>
+    </div>
+  </div>
+  <script>
+    function updateCh5Rec() {
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const q3 = document.querySelector('input[name="q3"]:checked');
+      const q4 = document.querySelector('input[name="q4"]:checked');
+      const q5 = document.querySelector('input[name="q5"]:checked');
+      const q6 = document.querySelector('input[name="q6"]:checked');
+      const out = document.getElementById('ch5-slide7-result');
+      if (!q1 || !q2 || !q3 || !q4 || !q5 || !q6) return;
+      let rec = "";
+      let tools = "";
+      if (q1.value === "discrete" && q2.value === "stochastic") {
+        rec = "Two-stage Stochastic MILP → Sample Average Approximation";
+        tools = "Pyomo + HiGHS/CBC, or OR-Tools CP-SAT for large scale";
+      } else if (q1.value === "discrete" && q2.value === "deterministic") {
+        rec = q3.value === "large" ? "MILP with decomposition (Benders/Column Gen) or Metaheuristic (ALNS)" : "MILP (exact)";
+        tools = q3.value === "large" ? "OR-Tools, Pyomo + Gurobi/CPLEX, or custom ALNS" : "PuLP/Pyomo + HiGHS/CBC";
+      } else if (q1.value === "continuous" && q2.value === "stochastic") {
+        rec = "Stochastic LP / Robust Optimization";
+        tools = "Pyomo + HiGHS, or CVXPY for convex RO";
+      } else {
+        rec = "LP / NLP (deterministic)";
+        tools = "SciPy, CVXPY, or Excel Solver for small";
+      }
+      if (q4.value === "repeated" && q6.value === "solo") {
+        rec += "\n⚡ Automate: rolling horizon + warm-starts + fallback heuristic";
+        tools += " + Airflow/Prefect for scheduling";
+      }
+      if (q5.value === "messy") {
+        rec += "\n🔧 Invest in data pipeline first. OR on bad data = optimal garbage.";
+        tools = "dbt + Great Expectations → then " + tools;
+      }
+      out.innerHTML = "<strong>Recommended approach:</strong> " + rec.replace(/\n/g, "<br>") + "<br><br><strong>Tool stack:</strong> " + tools;
+    }
+  </script>
+</section>
+
+<section data-transition="slide">
+  <h2>Your OR Starter Kit</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+    <div style="background: var(--good-bg); padding: 1.5rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: var(--good);">Free Solvers &amp; Modeling</h3>
+      <ul style="margin: 0; line-height: 1.8;">
+        <li><strong>HiGHS</strong> — State-of-the-art LP/MILP, MIT license</li>
+        <li><strong>CBC</strong> — COIN-OR MILP, battle-tested</li>
+        <li><strong>OR-Tools</strong> — Google's CP-SAT, routing, scheduling</li>
+        <li><strong>PuLP</strong> — Pythonic LP/MILP modeling, beginner-friendly</li>
+        <li><strong>Pyomo</strong> — Full algebraic modeling, supports NL, stochastic, decomposition</li>
+      </ul>
+    </div>
+    <div style="background: var(--good-bg); padding: 1.5rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: var(--good);">Learning Paths</h3>
+      <ul style="margin: 0; line-height: 1.8;">
+        <li><strong>INFORMS</strong> — Certification (CAP), conferences, journals</li>
+        <li><strong>Coursera/edX</strong> — "Discrete Optimization" (Melbourne), "Optimization Methods" (MIT)</li>
+        <li><strong>Textbooks</strong> — Bertsimas &amp; Tsitsiklis (LP), Wolsey (IP), Birge &amp; Louveaux (SP), Ben-Tal &amp; Nemirovski (RO)</li>
+        <li><strong>QuickShip-style practice</strong> — OR-Tools examples, MIPLIB benchmarks</li>
+      </ul>
+    </div>
+    <div style="background: var(--good-bg); padding: 1.5rem; border-radius: 8px;">
+      <h3 style="margin-top: 0; color: var(--good);">Communities</h3>
+      <ul style="margin: 0; line-height: 1.8;">
+        <li><strong>OR StackExchange</strong> — Technical Q&amp;A, high signal</li>
+        <li><strong>INFORMS Discord / Slack</strong> — Real-time help, job board</li>
+        <li><strong>Local chapters</strong> — Meetups, hackathons, industry talks</li>
+        <li><strong>GitHub</strong> — Awesome-OR, OR-Tools examples, Pyomo gallery</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">Every decision is a flight.</h1>
+  <p class="fragment">OR is your <mark>flight simulator</mark>.</p>
+  <p class="fragment">Crash virtually. Learn. Iterate.</p>
+  <p class="fragment">Then fly the real mission with confidence.</p>
+  <p class="fragment" style="margin-top: 2rem; font-size: 1.2em;">The simulator is built. The runway is yours.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>One Final Challenge</h2>
+  <p>Take a decision you face <mark>this week</mark>.</p>
+  <div style="background: var(--good-bg); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+    <p style="margin: 0 0 1rem;"><strong>Write down:</strong></p>
+    <ol style="margin: 0; line-height: 2;">
+      <li><strong>3 decision variables</strong> (what you control)</li>
+      <li><strong>1 objective</strong> (what you maximize/minimize)</li>
+      <li><strong>3 constraints</strong> (what limits you)</li>
+    </ol>
+  </div>
+  <p>Don't solve it. Just <mark>structure it</mark>.</p>
+  <p class="fragment">Share in chat / discussion / your notebook.</p>
+  <p class="fragment">The habit starts now.</p>
+  <p class="fragment" style="margin-top: 2rem; color: var(--good); font-weight: 600;">Welcome to the OR toolkit. You know how to use it.</p>
+</section>
+      </div>
+    </div>
+
+    <!-- Reveal.js core -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+    <!-- Plugins: load before Reveal.initialize() -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/math/math.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+    <!-- Mermaid (diagram support) -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <script>
+      // ── Neutralize History API ─────────────────────────────────────────────
+      // Reveal.js's location.js calls history.replaceState() after every slide
+      // change to update the URL hash. When this deck is loaded via srcDoc
+      // inside a sandboxed iframe, Chrome throws a SecurityError because the
+      // document URL is 'about:srcdoc'. Replacing both methods with no-ops
+      // makes all of Reveal's internal URL-tracking silently do nothing.
+      // This must run BEFORE Reveal.initialize() is called.
+      history.pushState  = function () {};
+      history.replaceState = function () {};
+
+      // Wait for the DOM to be fully parsed before initialising Reveal so
+      // that all CDN plugin scripts have been evaluated.
+      document.addEventListener('DOMContentLoaded', function () {
+        // Mermaid must be initialised before Reveal processes the slides
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+        }
+
+        if (typeof Reveal !== 'undefined') {
+          Reveal.initialize({
+            // hash: false — disables Reveal's built-in URL/history tracking.
+            // The deck runs inside a sandboxed srcDoc iframe where
+            // history.replaceState is either forbidden or a no-op. Enabling
+            // hash would cause repeated SecurityError crashes in Chrome.
+            hash: false,
+            controls: true,
+            controlsTutorial: false,
+            progress: true,
+            center: true,
+            keyboard: { 38: false, 40: false },
+            width: 1920,
+            height: 1080,
+            transition: 'slide',
+            transitionSpeed: 'fast',
+            slideNumber: 'c/t',
+            // KaTeX math rendering
+            math: {
+              mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+              config: 'TeX-AMS_HTML-full',
+              tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+              }
+            },
+            // Load only plugins whose scripts were actually included above
+            plugins: [
+              typeof RevealHighlight !== 'undefined' ? RevealHighlight : null,
+              typeof RevealMath !== 'undefined' ? RevealMath.KaTeX : null,
+              typeof RevealNotes !== 'undefined' ? RevealNotes : null,
+            ].filter(Boolean)
+          }).then(function () {
+            // Render mermaid diagrams after Reveal finishes layout
+            if (typeof mermaid !== 'undefined') {
+              Reveal.on('slidechanged', renderMermaid);
+              Reveal.on('ready', renderMermaid);
+            }
+          });
+        } else {
+          console.error('[Origin] Reveal.js failed to load from CDN.');
+        }
+      });
+
+      async function renderMermaid() {
+        if (typeof mermaid === 'undefined') return;
+        const elements = document.querySelectorAll('.mermaid:not([data-processed])');
+        for (const el of elements) {
+          try {
+            const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
+            const { svg } = await mermaid.render(id, el.textContent.trim());
+            el.innerHTML = svg;
+            el.setAttribute('data-processed', 'true');
+          } catch (err) {
+            console.warn('[Origin] Mermaid render error:', err);
+          }
+        }
+      }
+
+      // ── postMessage navigation bridge ──────────────────────────────────────
+      // The parent page (PocketFlowPresentation.tsx) cannot access this iframe's
+      // DOM directly because sandbox="allow-scripts" gives it a null origin.
+      // Instead it forwards keyboard events as postMessage commands, and we
+      // translate them into Reveal.js API calls here.
+      //
+      // Guard: Reveal.initialize() is async. If a key arrives before the deck
+      // is ready, Reveal.next() etc. silently no-ops. We buffer early messages
+      // and replay them once the 'ready' event fires.
+      var _revealReady = false;
+      var _pendingActions = [];
+
+      function _dispatchRevealAction(action) {
+        if (typeof Reveal === 'undefined') return;
+        if (!Reveal.isReady || !Reveal.isReady()) return; // guard: not yet initialised
+        switch (action) {
+          case 'next':       Reveal.next();  break;
+          case 'prev':       Reveal.prev();  break;
+          case 'scroll-down': 
+            var p = document.querySelector('section.present');
+            if(p) p.scrollBy({top: 60, behavior: 'smooth'});
+            break;
+          case 'scroll-up':
+            var p = document.querySelector('section.present');
+            if(p) p.scrollBy({top: -60, behavior: 'smooth'});
+            break;
+          case 'fullscreen':
+            // Fullscreen must be triggered by a user gesture inside the iframe.
+            // postMessage fires in the iframe context, which counts as a gesture.
+            var el = document.documentElement;
+            if (!document.fullscreenElement) {
+              el.requestFullscreen && el.requestFullscreen();
+            } else {
+              document.exitFullscreen && document.exitFullscreen();
+            }
+            break;
+          case 'escape':
+            if (document.fullscreenElement) {
+              document.exitFullscreen && document.exitFullscreen();
+            }
+            break;
+        }
+      }
+
+      // Flush queued actions once Reveal signals it is ready.
+      // We hook this inside DOMContentLoaded so Reveal is guaranteed defined.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Reveal !== 'undefined') {
+          Reveal.on('ready', function () {
+            _revealReady = true;
+            // Replay any nav commands that arrived before initialization finished.
+            var pending = _pendingActions.splice(0);
+            pending.forEach(function (a) { _dispatchRevealAction(a); });
+          });
+        }
+      });
+
+      window.addEventListener('message', function (event) {
+        if (!event.data || event.data.type !== 'reveal-nav') return;
+        console.log('[reveal-nav] received nav:', event.data.action, '| Reveal ready:', _revealReady); // DEBUG — remove after confirming
+        if (typeof Reveal === 'undefined') return;
+        var action = event.data.action;
+        if (!_revealReady) {
+          // Buffer it — will be flushed when Reveal fires 'ready'
+          _pendingActions.push(action);
+          return;
+        }
+        _dispatchRevealAction(action);
+      });
+    </script>
+  </body>
+</html>
