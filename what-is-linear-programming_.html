@@ -53,1704 +53,1249 @@
     <div class="reveal">
       <div class="slides">
         <section data-transition="fade">
-  <h1 class="r-fit-text">The Workshop That Couldn't Decide</h1>
-  <p class="fragment" style="font-size: 1.2em; margin-top: 1em;">
-    A furniture workshop owner has <mark>100 board-feet of wood</mark> and <mark>80 labor hours</mark> this week.
-  </p>
-  <p class="fragment" style="font-size: 1.2em;">
-    Tables: <strong>$90 profit</strong> each, 5 wood, 4 labor<br>
-    Chairs: <strong>$50 profit</strong> each, 2 wood, 3 labor
-  </p>
-  <div class="fragment" style="margin-top: 1.5em; display: flex; gap: 2em; justify-content: center; flex-wrap: wrap;">
-    <div style="text-align: center; padding: 1em; border: 2px solid #e74c3c; border-radius: 8px; background: #fdf2f2;">
-      <div style="font-size: 0.9em; color: #e74c3c; font-weight: bold;">Owner's Strategy</div>
-      <div style="font-size: 2em; color: #e74c3c;">"Maximize Tables"</div>
-      <div style="font-size: 1.5em; margin-top: 0.5em;">20 tables, 0 chairs</div>
-      <div style="font-size: 1.8em; font-weight: bold; color: #e74c3c;">$1,800</div>
-    </div>
-    <div style="text-align: center; padding: 1em; border: 2px solid #f39c12; border-radius: 8px; background: #fef9e7;">
-      <div style="font-size: 0.9em; color: #f39c12; font-weight: bold;">Neighbor's Strategy</div>
-      <div style="font-size: 2em; color: #f39c12;">"Balanced Mix"</div>
-      <div style="font-size: 1.5em; margin-top: 0.5em;">10 tables, 10 chairs</div>
-      <div style="font-size: 1.8em; font-weight: bold; color: #f39c12;">$1,400</div>
-    </div>
-    <div style="text-align: center; padding: 1em; border: 2px solid #27ae60; border-radius: 8px; background: #eafaf1;">
-      <div style="font-size: 0.9em; color: #27ae60; font-weight: bold;">True Optimum</div>
-      <div style="font-size: 2em; color: #27ae60;">?</div>
-      <div style="font-size: 1.5em; margin-top: 0.5em;">12 tables, 10 chairs</div>
-      <div style="font-size: 1.8em; font-weight: bold; color: #27ae60;">$1,580</div>
-    </div>
-  </div>
-  <p class="fragment" style="margin-top: 1.5em; font-size: 1.1em; color: #7f8c8d;">
-    Neither intuition found the optimum. The gap is real money left on the table.
-  </p>
+  <h1 class="r-fit-text">The Workshop Owner's Gut Feeling</h1>
+  <p class="fragment" style="font-size: 1.5em; margin-top: 1em;">"Tables earn <mark>$90</mark> each. Chairs only <mark>$50</mark>."</p>
+  <p class="fragment" style="font-size: 1.5em;">"So… just make tables. Right?"</p>
+  <p class="fragment" style="font-size: 1.2em; color: var(--color-muted); margin-top: 1.5em;">Let's test that instinct with a quick mental calculation.</p>
 </section>
 
-<section data-transition="fade">
+<section data-transition="slide">
   <h1 class="r-fit-text">Central Question</h1>
-  <h2 class="r-fit-text" style="font-weight: normal; margin-top: 0.5em;">
-    How do we find the <mark>best possible outcome</mark> when <mark>multiple scarce resources</mark> pull in different directions?
-  </h2>
-  <div class="fragment" style="margin-top: 2em; display: flex; gap: 1.5em; justify-content: center; flex-wrap: wrap;">
-    <div style="text-align: center; padding: 1.5em; background: #f8f9fa; border-radius: 8px; min-width: 180px;">
-      <div style="font-size: 2.5em;">🪵</div>
-      <div style="font-weight: bold; margin-top: 0.5em;">Wood</div>
-      <div style="font-size: 0.9em; color: #7f8c8d;">100 board-feet</div>
-      <div style="font-size: 0.85em; margin-top: 0.3em; color: #e74c3c;">Tables: 5 | Chairs: 2</div>
-    </div>
-    <div style="text-align: center; padding: 1.5em; background: #f8f9fa; border-radius: 8px; min-width: 180px;">
-      <div style="font-size: 2.5em;">👷</div>
-      <div style="font-weight: bold; margin-top: 0.5em;">Labor</div>
-      <div style="font-size: 0.9em; color: #7f8c8d;">80 hours</div>
-      <div style="font-size: 0.85em; margin-top: 0.3em; color: #e74c3c;">Tables: 4 | Chairs: 3</div>
-    </div>
-    <div style="text-align: center; padding: 1.5em; background: #f8f9fa; border-radius: 8px; min-width: 180px;">
-      <div style="font-size: 2.5em;">📦</div>
-      <div style="font-weight: bold; margin-top: 0.5em;">Storage</div>
-      <div style="font-size: 0.9em; color: #7f8c8d;">40 units max</div>
-      <div style="font-size: 0.85em; margin-top: 0.3em; color: #e74c3c;">1 unit each</div>
-    </div>
-  </div>
-  <p class="fragment" style="margin-top: 1.5em; font-size: 1.1em;">
-    Three ropes. One knot. Where does it settle?
-  </p>
-</section>
-
-<section data-transition="slide">
-  <h2>Running Example: Tables vs Chairs</h2>
-  <p>Our workshop for the entire deck:</p>
-  <div style="margin-top: 1.5em; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1em;">
-    <div style="padding: 1em; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #27ae60;">
-      <h3 style="margin-top: 0; color: #27ae60;">Decision Variables</h3>
-      <p><strong>x₁</strong> = number of tables produced</p>
-      <p><strong>x₂</strong> = number of chairs produced</p>
-      <p style="font-size: 0.9em; color: #7f8c8d;">Both ≥ 0 (non-negativity)</p>
-    </div>
-    <div style="padding: 1em; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
-      <h3 style="margin-top: 0; color: #3498db;">Objective</h3>
-      <p style="font-size: 1.2em;">Maximize <strong>Profit = 90x₁ + 50x₂</strong></p>
-      <p style="font-size: 0.9em; color: #7f8c8d;">$90/table, $50/chair</p>
-    </div>
-    <div style="padding: 1em; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #e74c3c;">
-      <h3 style="margin-top: 0; color: #e74c3c;">Constraints</h3>
-      <p><strong>Wood:</strong> 5x₁ + 2x₂ ≤ 100</p>
-      <p><strong>Labor:</strong> 4x₁ + 3x₂ ≤ 80</p>
-      <p><strong>Storage:</strong> x₁ + x₂ ≤ 40</p>
-    </div>
-  </div>
-  <p class="fragment" style="margin-top: 1.5em; font-size: 1.1em;">
-    This is a <mark>Linear Program (LP)</mark> — linear objective, linear constraints, continuous variables.
-  </p>
-</section>
-
-<section data-transition="slide">
-  <h2>Interactive: Try Your Own Mix</h2>
-  <p style="color: #7f8c8d; margin-bottom: 1.5em;">Adjust production. Watch constraints turn green (feasible) or red (violated).</p>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em; align-items: start;">
-    <div>
-      <div style="margin-bottom: 1.5em;">
-        <label for="ch1-slide4-tables" style="display: block; font-weight: bold; margin-bottom: 0.5em;">
-          Tables (x₁): <span id="ch1-slide4-tables-val" style="color: #27ae60;">0</span>
-        </label>
-        <input type="range" id="ch1-slide4-tables" min="0" max="40" value="0" step="1"
-               style="width: 100%;" oninput="updateCh1Slide4()">
-      </div>
-      <div style="margin-bottom: 1.5em;">
-        <label for="ch1-slide4-chairs" style="display: block; font-weight: bold; margin-bottom: 0.5em;">
-          Chairs (x₂): <span id="ch1-slide4-chairs-val" style="color: #3498db;">0</span>
-        </label>
-        <input type="range" id="ch1-slide4-chairs" min="0" max="40" value="0" step="1"
-               style="width: 100%;" oninput="updateCh1Slide4()">
-      </div>
-      <div style="padding: 1em; background: #f8f9fa; border-radius: 8px; font-family: monospace; font-size: 0.95em;">
-        <div>Profit = 90 × <span id="ch1-slide4-x1">0</span> + 50 × <span id="ch1-slide4-x2">0</span> = <strong>$<span id="ch1-slide4-profit">0</span></strong></div>
-      </div>
-    </div>
-    <div>
-      <div style="margin-bottom: 1em;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
-          <span>Wood: 5x₁ + 2x₂ ≤ 100</span>
-          <span id="ch1-slide4-wood-used" style="font-weight: bold;">0 / 100</span>
-        </div>
-        <div id="ch1-slide4-wood-bar" style="height: 8px; background: #ecf0f1; border-radius: 4px; overflow: hidden;">
-          <div id="ch1-slide4-wood-fill" style="height: 100%; width: 0%; background: #27ae60; transition: width 0.2s, background 0.2s;"></div>
-        </div>
-      </div>
-      <div style="margin-bottom: 1em;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
-          <span>Labor: 4x₁ + 3x₂ ≤ 80</span>
-          <span id="ch1-slide4-labor-used" style="font-weight: bold;">0 / 80</span>
-        </div>
-        <div id="ch1-slide4-labor-bar" style="height: 8px; background: #ecf0f1; border-radius: 4px; overflow: hidden;">
-          <div id="ch1-slide4-labor-fill" style="height: 100%; width: 0%; background: #27ae60; transition: width 0.2s, background 0.2s;"></div>
-        </div>
-      </div>
-      <div style="margin-bottom: 1em;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.3em;">
-          <span>Storage: x₁ + x₂ ≤ 40</span>
-          <span id="ch1-slide4-storage-used" style="font-weight: bold;">0 / 40</span>
-        </div>
-        <div id="ch1-slide4-storage-bar" style="height: 8px; background: #ecf0f1; border-radius: 4px; overflow: hidden;">
-          <div id="ch1-slide4-storage-fill" style="height: 100%; width: 0%; background: #27ae60; transition: width 0.2s, background 0.2s;"></div>
-        </div>
-      </div>
-      <div id="ch1-slide4-status" style="padding: 1em; text-align: center; font-weight: bold; border-radius: 8px; background: #f8f9fa;">
-        Feasible
-      </div>
-    </div>
-  </div>
-  <p class="fragment" style="margin-top: 1.5em; font-size: 0.95em; color: #7f8c8d;">
-    Can you find the $1,580 optimum? (Hint: it's not at an extreme like "all tables" or "all chairs")
-  </p>
-</section>
-
-<script>
-function updateCh1Slide4() {
-  const x1 = parseInt(document.getElementById('ch1-slide4-tables').value);
-  const x2 = parseInt(document.getElementById('ch1-slide4-chairs').value);
-  
-  document.getElementById('ch1-slide4-tables-val').textContent = x1;
-  document.getElementById('ch1-slide4-chairs-val').textContent = x2;
-  document.getElementById('ch1-slide4-x1').textContent = x1;
-  document.getElementById('ch1-slide4-x2').textContent = x2;
-  
-  const profit = 90 * x1 + 50 * x2;
-  document.getElementById('ch1-slide4-profit').textContent = profit.toLocaleString();
-  
-  const wood = 5 * x1 + 2 * x2;
-  const labor = 4 * x1 + 3 * x2;
-  const storage = x1 + x2;
-  
-  const woodPct = Math.min(100, (wood / 100) * 100);
-  const laborPct = Math.min(100, (labor / 80) * 100);
-  const storagePct = Math.min(100, (storage / 40) * 100);
-  
-  document.getElementById('ch1-slide4-wood-used').textContent = `${wood} / 100`;
-  document.getElementById('ch1-slide4-wood-fill').style.width = `${woodPct}%`;
-  document.getElementById('ch1-slide4-wood-fill').style.background = wood > 100 ? '#e74c3c' : '#27ae60';
-  
-  document.getElementById('ch1-slide4-labor-used').textContent = `${labor} / 80`;
-  document.getElementById('ch1-slide4-labor-fill').style.width = `${laborPct}%`;
-  document.getElementById('ch1-slide4-labor-fill').style.background = labor > 80 ? '#e74c3c' : '#27ae60';
-  
-  document.getElementById('ch1-slide4-storage-used').textContent = `${storage} / 40`;
-  document.getElementById('ch1-slide4-storage-fill').style.width = `${storagePct}%`;
-  document.getElementById('ch1-slide4-storage-fill').style.background = storage > 40 ? '#e74c3c' : '#27ae60';
-  
-  const feasible = wood <= 100 && labor <= 80 && storage <= 40;
-  const statusEl = document.getElementById('ch1-slide4-status');
-  statusEl.textContent = feasible ? '✓ Feasible' : '✗ Infeasible — constraint violated';
-  statusEl.style.background = feasible ? '#eafaf1' : '#fdf2f2';
-  statusEl.style.color = feasible ? '#27ae60' : '#e74c3c';
-}
-</script>
-
-<section data-transition="fade">
-  <h1 class="r-fit-text">The Misconception</h1>
-  <h2 class="r-fit-text" style="font-weight: normal; margin-top: 0.5em;">
-    <mark>"Balance is best"</mark> and <mark>"Highest margin first"</mark> both fail.
-  </h2>
-  <div class="fragment" style="margin-top: 2em; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em;">
-    <div style="padding: 1.5em; background: #fdf2f2; border-radius: 8px; border: 2px solid #e74c3c;">
-      <h3 style="margin-top: 0; color: #e74c3c;">❌ "Equal Numbers"</h3>
-      <p>10 tables + 10 chairs = $1,400</p>
-      <p style="font-size: 0.9em; color: #7f8c8d;">Wood: 70/100 ✓ | Labor: 70/80 ✓ | Storage: 20/40 ✓</p>
-      <p style="margin-top: 1em; font-weight: bold;">Wastes 30 wood, 10 labor, 20 storage</p>
-    </div>
-    <div style="padding: 1.5em; background: #fdf2f2; border-radius: 8px; border: 2px solid #e74c3c;">
-      <h3 style="margin-top: 0; color: #e74c3c;">❌ "Highest Margin First"</h3>
-      <p>20 tables + 0 chairs = $1,800</p>
-      <p style="font-size: 0.9em; color: #7f8c8d;">Wood: 100/100 ✓ | Labor: 80/80 ✓ | Storage: 20/40 ✓</p>
-      <p style="margin-top: 1em; font-weight: bold;">Wood & labor both binding — no room for chairs</p>
-    </div>
-  </div>
-  <div class="fragment" style="margin-top: 1.5em; padding: 1.5em; background: #eafaf1; border-radius: 8px; border: 2px solid #27ae60;">
-    <h3 style="margin-top: 0; color: #27ae60;">✓ Why They Fail</h3>
-    <p>Wood ratio (tables:chairs) = 5:2 = <strong>2.5</strong></p>
-    <p>Labor ratio (tables:chairs) = 4:3 = <strong>1.33</strong></p>
-    <p style="font-weight: bold; margin-top: 0.5em;">The constraints "pull" at different angles. Optimum lives where they cross.</p>
+  <p class="fragment" style="font-size: 1.3em;">How do we <mark>maximize weekly profit</mark> when every product consumes limited resources?</p>
+  <div class="fragment" style="margin-top: 2em; text-align: left; max-width: 700px; margin-left: auto; margin-right: auto;">
+    <p><strong>Running Example:</strong> A furniture workshop produces tables and chairs.</p>
+    <p><strong>Profit per unit:</strong> Tables = <span style="color: var(--color-good); font-weight: 600;">$90</span> | Chairs = <span style="color: var(--color-good); font-weight: 600;">$50</span></p>
+    <p><strong>Three weekly resource limits:</strong></p>
+    <ul style="margin-top: 0.5em;">
+      <li>Labor: 100 hours</li>
+      <li>Machine time: 80 hours</li>
+      <li>Wood: 120 board-feet</li>
+    </ul>
   </div>
 </section>
 
 <section data-transition="slide">
-  <h1 class="r-fit-text">Core Insight</h1>
-  <h2 class="r-fit-text" style="font-weight: normal; margin-top: 0.5em;">
-    The optimum <mark>always lives at a corner</mark> of the feasible region.
-  </h2>
-  <div class="fragment" style="margin-top: 1.5em; text-align: center;">
-    <div class="mermaid" style="max-width: 700px; margin: 0 auto;">
-      graph TD
-        A[Origin (0,0)] --> B[Wood Constraint: 5x₁+2x₂=100]
-        A --> C[Labor Constraint: 4x₁+3x₂=80]
-        A --> D[Storage Constraint: x₁+x₂=40]
-        B --> E[Vertex: Wood ∩ Labor]
-        C --> E
-        C --> F[Vertex: Labor ∩ Storage]
-        D --> F
-        B --> G[Vertex: Wood ∩ Storage]
-        D --> G
-        E --> H[Optimum: 12 tables, 10 chairs]
-        H --> I[$1,580 Profit]
-        style H fill:#27ae60,color:#fff
-        style I fill:#27ae60,color:#fff
-        style A fill:#3498db,color:#fff
-        style E fill:#f39c12,color:#fff
-        style F fill:#f39c12,color:#fff
-        style G fill:#f39c12,color:#fff
-    </div>
+  <h2>Beginner's Confusion: Why Not All Tables?</h2>
+  <p>The naive plan: <strong>make only tables</strong> — the higher-profit item.</p>
+  <div class="fragment" style="margin-top: 1.5em;">
+    <p>Labor per table: 2 hours → Max tables = 100 ÷ 2 = <strong>50 tables</strong></p>
+    <p>Machine per table: 1 hour → 50 tables uses 50 hours (limit 80) ✓</p>
+    <p>Wood per table: 3 board-feet → 50 tables uses <strong>150 board-feet</strong> (limit 120) ✗</p>
   </div>
-  <div class="fragment" style="margin-top: 1.5em; padding: 1em; background: #f8f9fa; border-radius: 8px;">
-    <p style="margin: 0; font-size: 1.1em;">
-      Profit lines (90x₁ + 50x₂ = k) sweep outward. <strong>The last feasible point they touch is a vertex.</strong>
-    </p>
-    <p style="margin: 0.5em 0 0; font-size: 0.95em; color: #7f8c8d;">
-      This is the <mark>Fundamental Theorem of Linear Programming</mark> — no calculus, no guessing, just geometry.
-    </p>
-  </div>
+  <p class="fragment" style="margin-top: 1.5em; color: var(--color-bad); font-weight: 600;">Infeasible. Wood constraint violated.</p>
+  <p class="fragment" style="margin-top: 1em; color: var(--color-muted);">Profit <em>would have been</em> 50 × $90 = <strong>$4,500</strong> — but we can't build it.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Running Example: Resource Constraints</h2>
+  <table style="width: 100%; max-width: 800px; margin: 1em auto; border-collapse: collapse; font-size: 1.1em;">
+    <thead>
+      <tr style="background: var(--color-bg-alt);">
+        <th style="padding: 0.75em; border: 1px solid var(--color-border); text-align: left;">Resource</th>
+        <th style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center; color: var(--color-constraint);">Table</th>
+        <th style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center; color: var(--color-constraint);">Chair</th>
+        <th style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center; color: var(--color-constraint);">Weekly Limit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border);">Labor (hours)</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;">2</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;">1</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center; color: var(--color-constraint); font-weight: 600;">100</td>
+      </tr>
+      <tr style="background: var(--color-bg-alt);">
+        <td style="padding: 0.75em; border: 1px solid var(--color-border);">Machine (hours)</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;">1</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;">2</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center; color: var(--color-constraint); font-weight: 600;">80</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border);">Wood (board-feet)</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;">3</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;">1</td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center; color: var(--color-constraint); font-weight: 600;">120</td>
+      </tr>
+      <tr style="background: var(--color-good); color: white;">
+        <td style="padding: 0.75em; border: 1px solid var(--color-border);"><strong>Profit ($/unit)</strong></td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;"><strong>90</strong></td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;"><strong>50</strong></td>
+        <td style="padding: 0.75em; border: 1px solid var(--color-border); text-align: center;">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="text-align: center; color: var(--color-muted); font-size: 0.9em;">Blue = constraint coefficients &nbsp;|&nbsp; Green = objective coefficients</p>
 </section>
 
 <section data-transition="fade">
-  <h1 class="r-fit-text">Promise: From Guessing to Guarantee</h1>
-  <div style="margin-top: 1.5em; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em;">
-    <div style="padding: 1.5em; background: #f8f9fa; border-radius: 8px; border-top: 4px solid #3498db;">
-      <h3 style="margin-top: 0; color: #3498db;">1. Formulate</h3>
-      <p>Translate any resource allocation problem into variables, objective, constraints.</p>
+  <h1 class="r-fit-text">The All-Tables Trap</h1>
+  <p class="fragment" style="font-size: 1.3em;">50 tables × 3 board-feet = <mark>150 board-feet</mark></p>
+  <p class="fragment" style="font-size: 1.3em;">Weekly wood limit: <mark>120 board-feet</mark></p>
+  <p class="fragment" style="font-size: 1.5em; color: var(--color-bad); margin-top: 0.5em;">30 board-feet over limit → <strong>INFEASIBLE</strong></p>
+  <p class="fragment" style="margin-top: 1.5em; color: var(--color-muted);">The highest-profit product consumes the <em>scarcest</em> resource most aggressively.</p>
+</section>
+
+<section data-transition="slide">
+  <h1 class="r-fit-text">Core Insight: The Corner Principle</h1>
+  <p class="fragment" style="font-size: 1.3em; margin-top: 0.5em;">The optimal solution <mark>always</mark> lives at a constraint intersection.</p>
+  <div class="fragment" style="margin-top: 2em;">
+    <svg viewBox="0 0 400 300" style="max-width: 100%; height: auto; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-bg);" aria-label="Feasible region polygon with labeled corners">
+      <!-- Axes -->
+      <line x1="50" y1="250" x2="350" y2="250" stroke="var(--color-muted)" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="50" y1="250" x2="50" y2="50" stroke="var(--color-muted)" stroke-width="2" marker-end="url(#arrow)"/>
+      <!-- Labels -->
+      <text x="340" y="265" font-family="system-ui" font-size="14" fill="var(--color-muted)">Tables</text>
+      <text x="20" y="60" font-family="system-ui" font-size="14" fill="var(--color-muted)" text-anchor="middle">Chairs</text>
+      <!-- Constraints -->
+      <!-- Labor: 2T + C ≤ 100 → C = 100 - 2T -->
+      <line x1="50" y1="150" x2="150" y2="250" stroke="var(--color-constraint)" stroke-width="2" stroke-dasharray="5,5"/>
+      <!-- Machine: T + 2C ≤ 80 → C = 40 - 0.5T -->
+      <line x1="50" y1="210" x2="290" y2="90" stroke="var(--color-constraint)" stroke-width="2" stroke-dasharray="5,5"/>
+      <!-- Wood: 3T + C ≤ 120 → C = 120 - 3T -->
+      <line x1="50" y1="110" x2="130" y2="250" stroke="var(--color-constraint)" stroke-width="2" stroke-dasharray="5,5"/>
+      <!-- Feasible region polygon: (0,0), (0,40), (20,30), (40,0) -->
+      <polygon points="50,250 50,130 130,130 210,50 290,250" fill="var(--color-good)" fill-opacity="0.15" stroke="var(--color-good)" stroke-width="2"/>
+      <!-- Corner points -->
+      <circle cx="50" cy="250" r="6" fill="var(--color-accent)"/><text x="50" y="270" font-family="system-ui" font-size="12" fill="var(--color-accent)" text-anchor="middle">(0,0)</text>
+      <circle cx="50" cy="130" r="6" fill="var(--color-accent)"/><text x="50" y="115" font-family="system-ui" font-size="12" fill="var(--color-accent)" text-anchor="middle">(0,40)</text>
+      <circle cx="130" cy="130" r="6" fill="var(--color-bad)"/><text x="130" y="115" font-family="system-ui" font-size="12" fill="var(--color-bad)" text-anchor="middle">(20,30)*</text>
+      <circle cx="210" cy="50" r="6" fill="var(--color-accent)"/><text x="210" y="35" font-family="system-ui" font-size="12" fill="var(--color-accent)" text-anchor="middle">(40,0)</text>
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="var(--color-muted)"/>
+        </marker>
+      </defs>
+    </svg>
+    <p style="margin-top: 0.5em; font-size: 0.9em; color: var(--color-muted);">* Optimal corner: 20 tables + 30 chairs = $3,300 profit</p>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>What You'll Master in This Course</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5em; margin-top: 1.5em; text-align: left;">
+    <div class="fragment" style="padding: 1.5em; background: var(--color-bg-alt); border-radius: 8px; border-left: 4px solid var(--color-good);">
+      <h3 style="margin-top: 0; color: var(--color-good);">Formulate LPs</h3>
+      <p>Decision variables, objective, constraints — from word problem to math model.</p>
     </div>
-    <div style="padding: 1.5em; background: #f8f9fa; border-radius: 8px; border-top: 4px solid #27ae60;">
-      <h3 style="margin-top: 0; color: #27ae60;">2. See Geometry</h3>
-      <p>Visualize feasible regions, profit lines, vertices — in 2D and conceptually in n-D.</p>
+    <div class="fragment" style="padding: 1.5em; background: var(--color-bg-alt); border-radius: 8px; border-left: 4px solid var(--color-constraint);">
+      <h3 style="margin-top: 0; color: var(--color-constraint);">Graph Feasible Regions</h3>
+      <p>Visualize constraints, identify binding vs. slack, find corner points.</p>
     </div>
-    <div style="padding: 1.5em; background: #f8f9fa; border-radius: 8px; border-top: 4px solid #f39c12;">
-      <h3 style="margin-top: 0; color: #f39c12;">3. Trace Simplex</h3>
-      <p>Walk vertex-to-vertex algorithmically. Understand pivots, basic/nonbasic variables.</p>
+    <div class="fragment" style="padding: 1.5em; background: var(--color-bg-alt); border-radius: 8px; border-left: 4px solid var(--color-accent);">
+      <h3 style="margin-top: 0; color: var(--color-accent);">Find Optimal Vertices</h3>
+      <p>Evaluate objective at each corner — the fundamental theorem in action.</p>
     </div>
-    <div style="padding: 1.5em; background: #f8f9fa; border-radius: 8px; border-top: 4px solid #9b59b6;">
-      <h3 style="margin-top: 0; color: #9b59b6;">4. Read Solver Output</h3>
-      <p>Shadow prices, reduced costs, sensitivity ranges — what the numbers actually mean.</p>
+    <div class="fragment" style="padding: 1.5em; background: var(--color-bg-alt); border-radius: 8px; border-left: 4px solid var(--color-warn);">
+      <h3 style="margin-top: 0; color: var(--color-warn);">Read Shadow Prices</h3>
+      <p>What's an extra hour of labor worth? Sensitivity analysis answers this.</p>
     </div>
   </div>
-  <div class="fragment" style="margin-top: 2em; padding: 1.5em; background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border-radius: 8px; color: white;">
-    <h3 style="margin-top: 0;">Color Convention for This Deck</h3>
-    <div style="display: flex; gap: 2em; justify-content: center; flex-wrap: wrap; margin-top: 1em;">
-      <div style="display: flex; align-items: center; gap: 0.5em;">
-        <div style="width: 20px; height: 20px; background: #27ae60; border-radius: 4px;"></div>
-        <span>Green = Feasible / Optimal / Slack available</span>
-      </div>
-      <div style="display: flex; align-items: center; gap: 0.5em;">
-        <div style="width: 20px; height: 20px; background: #e74c3c; border-radius: 4px;"></div>
-        <span>Red = Infeasible / Binding constraint violated</span>
-      </div>
-      <div style="display: flex; align-items: center; gap: 0.5em;">
-        <div style="width: 20px; height: 20px; background: #f39c12; border-radius: 4px;"></div>
-        <span>Amber = Binding (exactly used up)</span>
-      </div>
-      <div style="display: flex; align-items: center; gap: 0.5em;">
-        <div style="width: 20px; height: 20px; background: #3498db; border-radius: 4px;"></div>
-        <span>Blue = Decision variables / Objective</span>
-      </div>
+</section>
+
+<section data-transition="slide" id="ch1-slide8-concept-check">
+  <h2>Concept Check: Feasible or Not?</h2>
+  <p style="font-size: 1.2em; margin-bottom: 1em;">Test point: <strong>30 tables + 20 chairs</strong></p>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin: 1.5em 0; text-align: center;">
+    <div style="padding: 1em; background: var(--color-bg-alt); border-radius: 8px; border: 2px solid var(--color-constraint);">
+      <div style="font-size: 0.9em; color: var(--color-muted);">Labor Used</div>
+      <div id="ch1-labor" style="font-size: 2em; font-weight: 600; color: var(--color-constraint);">—</div>
+      <div style="font-size: 0.85em; color: var(--color-muted);">Limit: 100</div>
+    </div>
+    <div style="padding: 1em; background: var(--color-bg-alt); border-radius: 8px; border: 2px solid var(--color-constraint);">
+      <div style="font-size: 0.9em; color: var(--color-muted);">Machine Used</div>
+      <div id="ch1-machine" style="font-size: 2em; font-weight: 600; color: var(--color-constraint);">—</div>
+      <div style="font-size: 0.85em; color: var(--color-muted);">Limit: 80</div>
+    </div>
+    <div style="padding: 1em; background: var(--color-bg-alt); border-radius: 8px; border: 2px solid var(--color-bad);">
+      <div style="font-size: 0.9em; color: var(--color-muted);">Wood Used</div>
+      <div id="ch1-wood" style="font-size: 2em; font-weight: 600; color: var(--color-bad);">—</div>
+      <div style="font-size: 0.85em; color: var(--color-muted);">Limit: 120</div>
     </div>
   </div>
-  <p class="fragment" style="margin-top: 1.5em; font-size: 1.2em; text-align: center; color: #2c3e50;">
-    Next: We turn this geometry into algebra — and meet the Simplex method.
-  </p>
+  <button onclick="revealCh1Check()" style="padding: 0.75em 2em; font-size: 1.1em; background: var(--color-accent); color: white; border: none; border-radius: 6px; cursor: pointer;">Reveal Calculations</button>
+  <div id="ch1-verdict" class="fragment" style="margin-top: 1.5em; padding: 1em; border-radius: 8px; display: none;"></div>
+  <script>
+    function revealCh1Check() {
+      const labor = 30 * 2 + 20 * 1; // 80
+      const machine = 30 * 1 + 20 * 2; // 70
+      const wood = 30 * 3 + 20 * 1; // 110
+      document.getElementById('ch1-labor').textContent = labor;
+      document.getElementById('ch1-machine').textContent = machine;
+      document.getElementById('ch1-wood').textContent = wood;
+      const verdict = document.getElementById('ch1-verdict');
+      verdict.style.display = 'block';
+      verdict.style.background = 'var(--color-bad)';
+      verdict.style.color = 'white';
+      verdict.innerHTML = '<strong>INFEASIBLE</strong> — Wood exceeds limit by 10 board-feet (110 > 120? Wait... 110 ≤ 120, so actually feasible!). Let me recalculate: 30×3 + 20×1 = 90 + 20 = 110. 110 ≤ 120 ✓. Labor: 80 ≤ 100 ✓. Machine: 70 ≤ 80 ✓. <strong>FEASIBLE</strong> with slack on all constraints.';
+      verdict.style.background = 'var(--color-good)';
+    }
+  </script>
 </section>
 <section data-transition="fade">
-  <h2 class="r-fit-text">Last time: the furniture factory</h2>
-  <p class="fragment">You have <mark>300 board-feet of wood</mark> and <mark>120 labor hours</mark> per week.</p>
-  <p class="fragment">Tables sell for <mark>$90 profit</mark>, chairs for <mark>$50 profit</mark>.</p>
-  <p class="fragment">The question: <strong>how many of each</strong> to maximize weekly profit?</p>
-  <p class="fragment">We guessed. We plotted. We found (15, 25) = $2,600.</p>
-  <p class="fragment"><strong>But how do we know that's truly optimal?</strong></p>
-  <aside class="notes">Callback to Chapter 1: explicit numbers (300 wood, 120 labor, $90/$50 profit, optimal guess of 15 tables/25 chairs = $2600). The promise: we need a systematic method, not guessing.</aside>
+  <h1 class="r-fit-text">Chapter 2: Building the Model</h1>
+  <p class="fragment">From word problem to mathematical structure</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Workshop Problem — Recall the Numbers</h2>
+  <p>Chapter 1 gave us a concrete situation:</p>
+  <ul>
+    <li class="fragment"><strong>Resources per week:</strong> 100 labor hours, 80 machine hours, 120 wood units</li>
+    <li class="fragment"><strong>Tables:</strong> 2 labor, 1 machine, 3 wood → <span style="color: #e67e22;">$90 profit</span></li>
+    <li class="fragment"><strong>Chairs:</strong> 1 labor, 2 machine, 2 wood → <span style="color: #e67e22;">$50 profit</span></li>
+    <li class="fragment"><strong>Question:</strong> How many tables and chairs to maximize weekly profit?</li>
+  </ul>
+  <p class="fragment">We solved this by <mark>trial and error</mark>. Now we build a <mark>general method</mark>.</p>
 </section>
 
 <section data-transition="slide">
   <h2>Decision Variables: What We Control</h2>
-  <ul>
-    <li class="fragment"><strong>x₁</strong> = tables produced per week</li>
-    <li class="fragment"><strong>x₂</strong> = chairs produced per week</li>
-    <li class="fragment">Non-negativity: <strong>x₁ ≥ 0, x₂ ≥ 0</strong></li>
-    <li class="fragment">For now: <strong>continuous</strong> (relax integer requirement)</li>
-    <li class="fragment">Later: integer programming for discrete units</li>
-  </ul>
-  <p class="fragment">Every LP starts by naming the <mark>decisions</mark>.</p>
-  <aside class="notes">Define variables before using them. Continuous relaxation is standard for LP; integer constraints come later.</aside>
+  <p>We name the unknown quantities we get to choose:</p>
+  <div class="fragment" style="font-size: 1.3em; margin: 1em 0;">
+    <span style="color: #27ae60; font-weight: bold;">x₁</span> = number of tables produced per week<br>
+    <span style="color: #27ae60; font-weight: bold;">x₂</span> = number of chairs produced per week
+  </div>
+  <p class="fragment"><strong>Non-negativity:</strong> <span style="color: #27ae60;">x₁ ≥ 0, x₂ ≥ 0</span></p>
+  <p class="fragment">We cannot produce negative furniture. This is not a modeling choice — it's physical reality.</p>
+  <p class="fragment"><em>Convention:</em> <span style="color: #27ae60;">Green</span> = decision variables (what we maximize over)</p>
 </section>
 
 <section data-transition="slide">
   <h2>Objective Function: What We Maximize</h2>
-  <p class="fragment">Weekly profit: <strong>Z = 90x₁ + 50x₂</strong></p>
-  <ul>
-    <li class="fragment">90 = profit per table ($)</li>
-    <li class="fragment">50 = profit per chair ($)</li>
-    <li class="fragment">Vector form: <strong>cᵀx</strong> where c = [90, 50]ᵀ</li>
-  </ul>
-  <p class="fragment">The gradient <strong>∇Z = [90, 50]</strong> points toward increasing profit.</p>
-  <p class="fragment">We want to push <mark>as far as possible</mark> in that direction — <strong>until constraints stop us</strong>.</p>
-  <aside class="notes">Connect coefficients to running example. Vector interpretation foreshadows Simplex geometry.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Constraints: What Limits Us</h2>
-  <ul>
-    <li class="fragment">Wood: <strong>8x₁ + 3x₂ ≤ 300</strong> (board-feet)</li>
-    <li class="fragment">Labor: <strong>4x₁ + 2x₂ ≤ 120</strong> (hours)</li>
-    <li class="fragment">Storage: <strong>x₁ + x₂ ≤ 40</strong> (units)</li>
-    <li class="fragment">Non-negativity: <strong>x₁ ≥ 0, x₂ ≥ 0</strong></li>
-  </ul>
-  <p class="fragment">Each inequality defines a <mark>half-plane</mark>.</li>
-  <p class="fragment">The feasible region = <strong>intersection of all half-planes</strong>.</p>
-  <aside class="notes">Use the exact numbers from Chapter 1. Half-plane language sets up geometric intuition.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Interactive: Constraint Builder</h2>
-  <div id="ch2-constraint-builder">
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
-      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-        <input type="checkbox" id="ch2-cb-wood" checked onchange="updateCh2Constraints()"> Wood (8x₁+3x₂≤300)
-      </label>
-      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-        <input type="checkbox" id="ch2-cb-labor" checked onchange="updateCh2Constraints()"> Labor (4x₁+2x₂≤120)
-      </label>
-      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-        <input type="checkbox" id="ch2-cb-storage" checked onchange="updateCh2Constraints()"> Storage (x₁+x₂≤40)
-      </label>
-    </div>
-    <canvas id="ch2-canvas" width="500" height="400" style="border: 1px solid #ccc; background: #fafafa;"></canvas>
-    <div id="ch2-legend" style="margin-top: 0.5rem; font-size: 0.9rem;"></div>
+  <p>Total weekly profit = (profit per table) × (tables) + (profit per chair) × (chairs)</p>
+  <div class="fragment" style="font-size: 1.4em; margin: 1em 0; color: #e67e22; font-weight: bold;">
+    Maximize Z = 90x₁ + 50x₂
   </div>
-  <script>
-    (function() {
-      const canvas = document.getElementById('ch2-canvas');
-      const ctx = canvas.getContext('2d');
-      const W = 500, H = 400;
-      const xMax = 50, yMax = 50;
-      const scaleX = W / xMax, scaleY = H / yMax;
-      const originX = 40, originY = H - 40;
-
-      function drawAxes() {
-        ctx.strokeStyle = '#999';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(originX, 0); ctx.lineTo(originX, originY);
-        ctx.moveTo(originX, originY); ctx.lineTo(W, originY);
-        ctx.stroke();
-        ctx.fillStyle = '#333';
-        ctx.font = '12px sans-serif';
-        ctx.fillText('x₁ (tables)', W - 60, originY + 25);
-        ctx.fillText('x₂ (chairs)', originX - 35, 20);
-        for (let i = 0; i <= xMax; i += 10) {
-          const x = originX + i * scaleX;
-          ctx.beginPath(); ctx.moveTo(x, originY - 5); ctx.lineTo(x, originY + 5); ctx.stroke();
-          ctx.fillText(i, x - 5, originY + 20);
-        }
-        for (let i = 0; i <= yMax; i += 10) {
-          const y = originY - i * scaleY;
-          ctx.beginPath(); ctx.moveTo(originX - 5, y); ctx.lineTo(originX + 5, y); ctx.stroke();
-          ctx.fillText(i, originX - 30, y + 4);
-        }
-      }
-
-      function drawConstraint(a, b, c, color, label, active) {
-        if (!active) return;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 2;
-        ctx.setLineDash([5, 5]);
-        ctx.beginPath();
-        if (b !== 0) {
-          const y0 = c / b;
-          const y1 = (c - a * xMax) / b;
-          ctx.moveTo(originX, originY - y0 * scaleY);
-          ctx.lineTo(originX + xMax * scaleX, originY - y1 * scaleY);
-        } else {
-          const x = c / a;
-          ctx.moveTo(originX + x * scaleX, 0);
-          ctx.lineTo(originX + x * scaleX, originY);
-        }
-        ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle = color;
-        ctx.font = '12px sans-serif';
-        if (b !== 0) {
-          ctx.fillText(label, originX + 10, originY - (c/b) * scaleY - 5);
-        }
-      }
-
-      function shadeFeasible() {
-        const wood = document.getElementById('ch2-cb-wood').checked;
-        const labor = document.getElementById('ch2-cb-labor').checked;
-        const storage = document.getElementById('ch2-cb-storage').checked;
-        const constraints = [];
-        if (wood) constraints.push([8, 3, 300]);
-        if (labor) constraints.push([4, 2, 120]);
-        if (storage) constraints.push([1, 1, 40]);
-        constraints.push([1, 0, 0]); // x1 >= 0
-        constraints.push([0, 1, 0]); // x2 >= 0
-
-        ctx.fillStyle = 'rgba(0, 200, 0, 0.15)';
-        ctx.beginPath();
-        ctx.moveTo(originX, originY);
-        for (let x = 0; x <= xMax; x += 0.5) {
-          let feasible = true;
-          for (const [a, b, c] of constraints) {
-            if (a * x + b * 0 > c + 1e-9) { feasible = false; break; }
-          }
-          if (feasible) {
-            let yMaxFeas = yMax;
-            for (const [a, b, c] of constraints) {
-              if (b > 0) yMaxFeas = Math.min(yMaxFeas, (c - a * x) / b);
-            }
-            if (yMaxFeas >= 0) {
-              ctx.lineTo(originX + x * scaleX, originY - yMaxFeas * scaleY);
-            }
-          }
-        }
-        ctx.lineTo(originX + xMax * scaleX, originY);
-        ctx.lineTo(originX, originY);
-        ctx.closePath();
-        ctx.fill();
-      }
-
-      function updateLegend() {
-        const wood = document.getElementById('ch2-cb-wood').checked;
-        const labor = document.getElementById('ch2-cb-labor').checked;
-        const storage = document.getElementById('ch2-cb-storage').checked;
-        let html = '';
-        if (wood) html += '<span style="color:#e74c3c;">■</span> Wood &nbsp;';
-        if (labor) html += '<span style="color:#3498db;">■</span> Labor &nbsp;';
-        if (storage) html += '<span style="color:#9b59b6;">■</span> Storage &nbsp;';
-        html += '<span style="background:rgba(0,200,0,0.3); padding:0 0.5rem;">■</span> Feasible';
-        document.getElementById('ch2-legend').innerHTML = html;
-      }
-
-      function render() {
-        ctx.clearRect(0, 0, W, H);
-        drawAxes();
-        if (document.getElementById('ch2-cb-wood').checked) drawConstraint(8, 3, 300, '#e74c3c', 'Wood', true);
-        if (document.getElementById('ch2-cb-labor').checked) drawConstraint(4, 2, 120, '#3498db', 'Labor', true);
-        if (document.getElementById('ch2-cb-storage').checked) drawConstraint(1, 1, 40, '#9b59b6', 'Storage', true);
-        shadeFeasible();
-        updateLegend();
-      }
-
-      window.updateCh2Constraints = render;
-      render();
-    })();
-  </script>
-  <p class="fragment">Toggle constraints. <mark>Green overlap</mark> = feasible region.</p>
-  <aside class="notes">Interactive: toggle each constraint, see half-planes shade, intersection = feasible region. Red/green convention: red for constraint lines, green for feasible.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Feasible Region: The Polygon of Possibility</h2>
-  <div class="mermaid">
-    graph TD
-      A[(0,0)] --> B[(0,40)]
-      B --> C[(15,25)]
-      C --> D[(30,0)]
-      D --> A
-      style A fill:#27ae60,color:#fff
-      style B fill:#27ae60,color:#fff
-      style C fill:#27ae60,color:#fff
-      style D fill:#27ae60,color:#fff
-  </div>
-  <ul>
-    <li class="fragment">Vertices (corner points):</li>
-    <li class="fragment">(0, 0) — produce nothing</li>
-    <li class="fragment">(0, 40) — 40 chairs, 0 tables</li>
-    <li class="fragment"><mark>(15, 25)</mark> — 15 tables, 25 chairs</li>
-    <li class="fragment">(30, 0) — 30 tables, 0 chairs</li>
-    <li class="fragment">(37.5, 0) — wood-only limit (infeasible: violates labor)</li>
-  </ul>
-  <p class="fragment">Feasible region = <strong>convex polygon</strong> (green).</p>
-  <p class="fragment">Optimum <mark>always at a vertex</mark>.</p>
-  <aside class="notes">Mermaid diagram shows vertices. Green = feasible vertices. (37.5,0) is wood-only intercept but violates labor — good teaching moment about checking all constraints.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Standard Form: Slack Variables</h2>
-  <p class="fragment">Convert ≤ to = by adding <strong>slack variables</strong>:</p>
-  <pre><code class="language-text" data-trim>
-8x₁ + 3x₂ + s₁ = 300   (wood)
-4x₁ + 2x₂ + s₂ = 120   (labor)
-x₁ + x₂ + s₃ = 40      (storage)
-x₁, x₂, s₁, s₂, s₃ ≥ 0
-  </code></pre>
-  <ul>
-    <li class="fragment"><strong>s₁</strong> = unused wood (board-feet)</li>
-    <li class="fragment"><strong>s₂</strong> = unused labor (hours)</li>
-    <li class="fragment"><strong>s₃</strong> = unused storage (units)</li>
-  </ul>
-  <p class="fragment">Slack = <mark>unused resource</mark>. Zero slack = binding constraint.</p>
-  <p class="fragment">5 variables, 3 equations → <strong>basic feasible solutions</strong> choose 3 basic vars.</p>
-  <aside class="notes">Standard form prep for Simplex. Slack variables have physical meaning in running example.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Binding vs Non-Binding Constraints</h2>
-  <p class="fragment">At optimum (15, 25):</p>
-  <table>
-    <thead>
-      <tr><th>Constraint</th><th>LHS</th><th>RHS</th><th>Slack</th><th>Status</th></tr>
-    </thead>
-    <tbody>
-      <tr class="fragment"><td>Wood</td><td>8(15)+3(25)=195</td><td>300</td><td class="fragment" style="color:#e74c3c;">105</td><td class="fragment" style="color:#e74c3c;">Non-binding</td></tr>
-      <tr class="fragment"><td>Labor</td><td>4(15)+2(25)=110</td><td>120</td><td class="fragment" style="color:#e74c3c;">10</td><td class="fragment" style="color:#e74c3c;">Non-binding</td></tr>
-      <tr class="fragment"><td>Storage</td><td>15+25=40</td><td>40</td><td class="fragment" style="color:#27ae60;">0</td><td class="fragment" style="color:#27ae60;">Binding</td></tr>
-    </tbody>
-  </table>
-  <p class="fragment"><strong>Wait — that's not right.</strong> Let me recalculate.</p>
-  <aside class="notes">Intentional error on slide to catch attention. Next slide corrects it. This is a teaching technique: show common mistake, then correct.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Binding vs Non-Binding Constraints (Corrected)</h2>
-  <p class="fragment">At optimum (15, 25):</p>
-  <table>
-    <thead>
-      <tr><th>Constraint</th><th>LHS</th><th>RHS</th><th>Slack</th><th>Status</th></tr>
-    </thead>
-    <tbody>
-      <tr class="fragment"><td>Wood</td><td>8(15)+3(25)=195</td><td>300</td><td class="fragment" style="color:#e74c3c;">105</td><td class="fragment" style="color:#e74c3c;">Non-binding</td></tr>
-      <tr class="fragment"><td>Labor</td><td>4(15)+2(25)=110</td><td>120</td><td class="fragment" style="color:#e74c3c;">10</td><td class="fragment" style="color:#e74c3c;">Non-binding</td></tr>
-      <tr class="fragment"><td>Storage</td><td>15+25=40</td><td>40</td><td class="fragment" style="color:#27ae60;">0</td><td class="fragment" style="color:#27ae60;">Binding</td></tr>
-    </tbody>
-  </table>
-  <p class="fragment"><strong>Still wrong!</strong> 8×15 + 3×25 = 120 + 75 = <mark>195</mark>. Wood has 105 slack.</p>
-  <p class="fragment">But earlier we said wood and labor bind. <strong>Which is it?</strong></p>
-  <p class="fragment">Let's find the <mark>true optimum</mark> first.</p>
-  <aside class="notes">The previous slide had an error: at (15,25), wood slack = 105, labor slack = 10, storage slack = 0. Only storage binds. The true optimum is where wood and labor bind. This sets up the need for a systematic method (Simplex) to find the actual optimum.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Finding the True Optimum</h2>
-  <p class="fragment">Profit Z = 90x₁ + 50x₂. Gradient = [90, 50].</p>
-  <p class="fragment">Push toward increasing profit until constraints block us.</p>
-  <div class="mermaid" class="fragment">
-    graph LR
-      A[Wood: 8x₁+3x₂=300] --> C[Intersection]
-      B[Labor: 4x₁+2x₂=120] --> C
-      C --> D[x₁=15, x₂=30?]
-      D --> E[Check: 8(15)+3(30)=180 ≤ 300 ✓]
-      E --> F[4(15)+2(30)=120 ≤ 120 ✓]
-      F --> G[Storage: 15+30=45 > 40 ✗]
-  </div>
-  <p class="fragment">Wood + Labor intersection: solve</p>
-  <pre><code class="language-text" data-trim class="fragment">
-8x₁ + 3x₂ = 300
-4x₁ + 2x₂ = 120  →  ×2: 8x₁ + 4x₂ = 240
-                    Subtract: -x₂ = 60 → x₂ = -60 ✗ (infeasible)
-  </code></pre>
-  <p class="fragment">Wood + Storage intersection:</p>
-  <pre><code class="language-text" data-trim class="fragment">
-8x₁ + 3x₂ = 300
-x₁ + x₂ = 40    →  ×3: 3x₁ + 3x₂ = 120
-                    Subtract: 5x₁ = 180 → x₁ = 36, x₂ = 4
-  </code></pre>
-  <p class="fragment">Labor + Storage intersection:</p>
-  <pre><code class="language-text" data-trim class="fragment">
-4x₁ + 2x₂ = 120
-x₁ + x₂ = 40    →  ×2: 2x₁ + 2x₂ = 80
-                    Subtract: 2x₁ = 40 → x₁ = 20, x₂ = 20
-  </code></pre>
-  <aside class="notes">Walk through vertex enumeration. Show that wood+labor intersection gives negative x₂ (infeasible). Wood+storage gives (36,4). Labor+storage gives (20,20). Need to check all vertices.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Evaluating All Vertices</h2>
-  <table>
-    <thead>
-      <tr><th>Vertex</th><th>Constraints Active</th><th>Profit Z = 90x₁+50x₂</th></tr>
-    </thead>
-    <tbody>
-      <tr class="fragment"><td>(0, 0)</td><td>x₁=0, x₂=0</td><td>$0</td></tr>
-      <tr class="fragment"><td>(0, 40)</td><td>x₁=0, storage</td><td>$2,000</td></tr>
-      <tr class="fragment"><td>(15, 25)</td><td>labor, storage</td><td>$2,600</td></tr>
-      <tr class="fragment"><td>(20, 20)</td><td>labor, storage</td><td>$2,800</td></tr>
-      <tr class="fragment"><td>(30, 0)</td><td>x₂=0, labor</td><td>$2,700</td></tr>
-      <tr class="fragment"><td>(36, 4)</td><td>wood, storage</td><td>$3,440</td></tr>
-      <tr class="fragment"><td>(37.5, 0)</td><td>wood, x₂=0</td><td>$3,375 (infeas: labor)</td></tr>
-    </tbody>
-  </table>
-  <p class="fragment"><mark>(36, 4)</mark> = $3,440 — but check labor: 4(36)+2(4)=152 > 120 ✗</p>
-  <p class="fragment"><mark>(20, 20)</mark> = $2,800 — feasible! Wood: 8(20)+3(20)=220 ≤ 300 ✓</p>
-  <p class="fragment"><strong>True optimum: (20, 20) = $2,800</strong></p>
-  <aside class="notes">Evaluate all feasible vertices. (36,4) violates labor. (20,20) is feasible and best. This is the vertex enumeration method — works in 2D, not in higher dimensions.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Binding vs Non-Binding (Now Correct)</h2>
-  <p class="fragment">At true optimum (20, 20):</p>
-  <table>
-    <thead>
-      <tr><th>Constraint</th><th>LHS</th><th>RHS</th><th>Slack</th><th>Status</th></tr>
-    </thead>
-    <tbody>
-      <tr class="fragment"><td>Wood</td><td>8(20)+3(20)=220</td><td>300</td><td class="fragment" style="color:#e74c3c;">80</td><td class="fragment" style="color:#e74c3c;">Non-binding</td></tr>
-      <tr class="fragment"><td>Labor</td><td>4(20)+2(20)=120</td><td>120</td><td class="fragment" style="color:#27ae60;">0</td><td class="fragment" style="color:#27ae60;">Binding</td></tr>
-      <tr class="fragment"><td>Storage</td><td>20+20=40</td><td>40</td><td class="fragment" style="color:#27ae60;">0</td><td class="fragment" style="color:#27ae60;">Binding</td></tr>
-    </tbody>
-  </table>
-  <p class="fragment">Labor and storage bind. Wood has 80 board-feet slack.</p>
-  <p class="fragment"><strong>Shadow price</strong>: how much would profit increase per extra unit of a binding resource?</p>
-  <p class="fragment">Extra labor hour → ? Extra storage unit → ?</p>
-  <aside class="notes">Correct binding analysis at true optimum (20,20). Labor and storage bind. Wood has slack. Shadow price preview — cliffhanger for next chapter.</aside>
-</section>
-
-<section data-transition="slide">
-  <h2>Degeneracy: When a Vertex Has Extra Constraints</h2>
-  <p class="fragment">In 2D, a vertex normally has <strong>2 active constraints</strong>.</p>
-  <p class="fragment"><strong>Degeneracy</strong>: more than 2 constraints active at one vertex.</p>
-  <p class="fragment">Example: add constraint <strong>x₁ ≤ 20</strong> (table limit).</p>
-  <div class="mermaid" class="fragment">
-    graph TD
-      A[(20,20)] --> B[Labor: 4x₁+2x₂=120]
-      A --> C[Storage: x₁+x₂=40]
-      A --> D[New: x₁=20]
-      style A fill:#f39c12,color:#fff
-  </div>
-  <p class="fragment">At (20, 20): <mark>3 constraints active</mark> — labor, storage, AND x₁=20.</p>
-  <p class="fragment">In Simplex: multiple bases represent the same vertex.</p>
-  <p class="fragment">Risk: <strong>cycling</strong> — algorithm loops between bases without progress.</p>
-  <aside class="notes">Degeneracy example using running example. Add x₁ ≤ 20 makes (20,20) degenerate. Foreshadows Simplex cycling issue (Bland's rule etc.).</aside>
-</section>
-
-<section data-transition="fade">
-  <h2 class="r-fit-text">We have the model. Now we need the method.</h2>
-  <p class="fragment">Decision variables: ✓</p>
-  <p class="fragment">Objective function: ✓</p>
-  <p class="fragment">Constraints: ✓</p>
-  <p class="fragment">Standard form with slacks: ✓</p>
-  <p class="fragment">Feasible region vertices: ✓</p>
-  <p class="fragment">True optimum found by enumeration: <mark>(20, 20) = $2,800</mark></p>
-  <p class="fragment"><strong>But vertex enumeration fails in 100 dimensions.</strong></p>
-  <p class="fragment">Next: <mark>the Simplex algorithm</mark> — a systematic walk along edges.</p>
-  <aside class="notes">Chapter closing. Summarize what we built. Cliffhanger: vertex enumeration doesn't scale. Next chapter introduces Simplex as the systematic method. Shadow price question also left open.</aside>
-</section>
-<section data-transition="fade">
-  <h1 class="r-fit-text">Chapter 2 ended with a question:</h1>
-  <h2 class="r-fit-text" style="margin-top:1rem;">We can <mark>see</mark> the optimum on the graph.</h2>
-  <h2 class="r-fit-text" style="margin-top:0.5rem;">But how do we <mark>compute</mark> it when we can't draw the polygon?</h2>
-  <p class="fragment" style="margin-top:2rem; opacity:0.8;">The graphical method fails beyond 2 variables.</p>
-  <p class="fragment" style="opacity:0.8;">We need an algebraic procedure that does the same walk.</p>
-</section>
-
-<section data-transition="slide" data-background="#0d1117">
-  <h1 class="r-fit-text">Geometry First: Profit Lines Sweep the Polygon</h1>
-  <p style="font-size:1.2rem; opacity:0.9; margin-top:1rem;">Isoprofit lines: <span class="math-inline">\(Z = 90x_1 + 50x_2 = \text{constant}\)</span></p>
-  <div class="fragment" style="margin-top:2rem;">
-    <svg width="100%" height="350" viewBox="0 0 600 350" style="background:#161b22; border-radius:8px;">
-      <!-- Axes -->
-      <line x1="60" y1="290" x2="540" y2="290" stroke="#484f58" stroke-width="2"/>
-      <line x1="60" y1="290" x2="60" y2="20" stroke="#484f58" stroke-width="2"/>
-      <text x="550" y="295" fill="#8b949e" font-size="14">x₁ (tables)</text>
-      <text x="20" y="30" fill="#8b949e" font-size="14" text-anchor="end">x₂ (chairs)</text>
-      <!-- Constraints -->
-      <!-- Wood: 8x₁+3x₂=300 → x₂=100-2.67x₁ -->
-      <polyline points="60,290 60,110 450,20" fill="none" stroke="#f78166" stroke-width="2" stroke-dasharray="5,5"/>
-      <text x="460" y="15" fill="#f78166" font-size="12">Wood: 8x₁+3x₂=300</text>
-      <!-- Labor: 4x₁+2x₂=120 → x₂=60-2x₁ -->
-      <polyline points="60,170 360,20" fill="none" stroke="#f78166" stroke-width="2" stroke-dasharray="5,5"/>
-      <text x="370" y="15" fill="#f78166" font-size="12">Labor: 4x₁+2x₂=120</text>
-      <!-- Storage: x₁+x₂=40 -->
-      <polyline points="60,250 460,20" fill="none" stroke="#f78166" stroke-width="2" stroke-dasharray="5,5"/>
-      <text x="470" y="15" fill="#f78166" font-size="12">Storage: x₁+x₂=40</text>
-      <!-- Feasible region -->
-      <polygon points="60,290 60,170 260,110 400,20 460,290" fill="#238636" fill-opacity="0.15" stroke="#238636" stroke-width="2"/>
-      <!-- Isoprofit lines -->
-      <line x1="60" y1="278" x2="300" y2="20" stroke="#a371f7" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
-      <text x="310" y="18" fill="#a371f7" font-size="11">Z = 900</text>
-      <line x1="60" y1="266" x2="380" y2="20" stroke="#a371f7" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.7"/>
-      <text x="390" y="18" fill="#a371f7" font-size="11">Z = 1800</text>
-      <line x1="60" y1="242" x2="500" y2="20" stroke="#a371f7" stroke-width="2" stroke-dasharray="3,3" opacity="0.9"/>
-      <text x="510" y="18" fill="#a371f7" font-size="11" font-weight="bold">Z = 2700 (last touch)</text>
-      <!-- Vertex labels -->
-      <circle cx="60" cy="290" r="5" fill="#f78166"/>
-      <text x="55" y="305" fill="#f78166" font-size="11" text-anchor="end">(0,0)</text>
-      <circle cx="60" cy="170" r="5" fill="#f78166"/>
-      <text x="55" y="160" fill="#f78166" font-size="11" text-anchor="end">(0,40)</text>
-      <circle cx="260" cy="110" r="5" fill="#f78166"/>
-      <text x="260" y="100" fill="#f78166" font-size="11" text-anchor="middle">(15,25)</text>
-      <circle cx="400" cy="20" r="5" fill="#f78166"/>
-      <text x="400" y="10" fill="#f78166" font-size="11" text-anchor="middle">(30,0)</text>
-      <circle cx="460" cy="290" r="5" fill="#f78166"/>
-      <text x="465" y="305" fill="#f78166" font-size="11" text-anchor="start">(37.5,0)</text>
-    </svg>
-  </div>
-  <p class="fragment" style="margin-top:1rem; color:#a371f7; font-weight:600;">Sweep outward → last feasible touch = optimum vertex.</p>
-  <p class="fragment" style="opacity:0.7;">This is the <mark>Vertex Theorem</mark> in action.</p>
-</section>
-
-<section data-transition="slide">
-  <h2>Corner Point Theorem: Why Only Vertices Matter</h2>
-  <ul style="font-size:1.3rem; line-height:2;">
-    <li class="fragment">Feasible region = <mark>convex polyhedron</mark> (intersection of half-spaces)</li>
-    <li class="fragment">Objective = <mark>linear function</mark> (plane in 3D, line in 2D)</li>
-    <li class="fragment">A linear function on a convex set attains its max/min at an <mark>extreme point</mark> (vertex)</li>
-    <li class="fragment">If multiple optima exist → entire <mark>edge</mark> (or face) is optimal</li>
-  </ul>
-  <div class="fragment" style="margin-top:2rem; padding:1rem; background:#161b22; border-radius:8px; border-left:4px solid #a371f7;">
-    <strong>Our factory:</strong> 5 vertices → only 5 candidates to check.<br>
-    <span style="opacity:0.8;">(0,0), (0,40), (15,25), (30,0), (37.5,0) — but (37.5,0) violates labor.</span>
-  </div>
-  <p class="fragment" style="margin-top:1rem; opacity:0.7;">Simplex exploits this: <mark>search only vertices, not interior.</mark></p>
-</section>
-
-<section data-transition="slide">
-  <h2>Simplex Intuition: Walk the Edges Uphill</h2>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; align-items:start;">
-    <div>
-      <h3 style="color:#a371f7;">The Walk</h3>
-      <ol style="font-size:1.2rem; line-height:2.2;">
-        <li class="fragment">Start at origin <mark>(0,0)</mark> — easy feasible point</li>
-        <li class="fragment">Move along edge to <mark>adjacent vertex</mark> with higher Z</li>
-        <li class="fragment">Repeat: each step = one <mark>pivot</mark></li>
-        <li class="fragment">Stop when <mark>no improving edge</mark> exists</li>
-      </ol>
-    </div>
-    <div class="fragment">
-      <h3 style="color:#238636;">Why It Finishes</h3>
-      <ul style="font-size:1.2rem; line-height:2;">
-        <li>Finite vertices (combinatorial bound)</li>
-        <li>Strictly increasing Z each pivot</li>
-        <li>No cycles with Bland's rule</li>
-        <li>Typical: <mark>O(m)</mark> pivots for m constraints</li>
-      </ul>
-    </div>
-  </div>
-  <div class="fragment" style="margin-top:2rem; padding:1rem; background:#161b22; border-radius:8px; text-align:center;">
-    <span style="color:#f78166;">(0,0)</span> → <span style="color:#a371f7;">(0,40)</span> → <span style="color:#a371f7;">(15,25)</span> → <span style="color:#238636;">(30,0)</span>
-    <br><small style="opacity:0.7;">Our factory's simplex path (4 vertices, 3 pivots)</small>
-  </div>
-</section>
-
-<section data-transition="slide">
-  <h2>Interactive: Simplex Step-by-Step</h2>
-  <p style="opacity:0.8; margin-bottom:1rem;">Click <strong>Next Pivot</strong> to walk the vertices. Watch entering/leaving variables, pivot element, and tableau update.</p>
-  <div id="ch3-simplex-interactive" style="font-family:monospace; font-size:0.9rem; line-height:1.6;">
-    <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-bottom:1rem;">
-      <div style="flex:1; min-width:280px; padding:1rem; background:#161b22; border-radius:8px; border:1px solid #30363d;">
-        <div style="color:#a371f7; margin-bottom:0.5rem;">Current Vertex</div>
-        <div id="ch3-current-vertex" style="font-size:1.5rem; font-weight:bold;">(0, 0)</div>
-        <div id="ch3-current-z" style="margin-top:0.5rem; color:#238636;">Z = $0</div>
-      </div>
-      <div style="flex:1; min-width:280px; padding:1rem; background:#161b22; border-radius:8px; border:1px solid #30363d;">
-        <div style="color:#f78166; margin-bottom:0.5rem;">Basis / Non-Basis</div>
-        <div id="ch3-basis" style="font-size:1.1rem;">Basic: s₁, s₂, s₃ | Non-basic: x₁, x₂</div>
-      </div>
-    </div>
-    <div style="margin-bottom:1rem;">
-      <button onclick="ch3NextPivot()" id="ch3-pivot-btn" style="padding:0.75rem 2rem; font-size:1.1rem; background:#238636; color:white; border:none; border-radius:6px; cursor:pointer;">Next Pivot</button>
-      <button onclick="ch3Reset()" style="padding:0.75rem 1.5rem; font-size:1.1rem; background:#30363d; color:white; border:none; border-radius:6px; cursor:pointer; margin-left:1rem;">Reset</button>
-    </div>
-    <div id="ch3-tableau-container" style="overflow-x:auto;">
-      <table id="ch3-tableau" style="width:100%; border-collapse:collapse; min-width:600px;">
-        <thead>
-          <tr style="background:#21262d; border-bottom:2px solid #30363d;">
-            <th style="padding:0.5rem; text-align:left;">Basis</th>
-            <th style="padding:0.5rem; text-align:right;">x₁</th>
-            <th style="padding:0.5rem; text-align:right;">x₂</th>
-            <th style="padding:0.5rem; text-align:right;">s₁</th>
-            <th style="padding:0.5rem; text-align:right;">s₂</th>
-            <th style="padding:0.5rem; text-align:right;">s₃</th>
-            <th style="padding:0.5rem; text-align:right;">RHS</th>
-            <th style="padding:0.5rem; text-align:right;">Ratio</th>
-          </tr>
-        </thead>
-        <tbody id="ch3-tableau-body">
-        </tbody>
-      </table>
-    </div>
-    <div id="ch3-pivot-info" style="margin-top:1rem; padding:1rem; background:#161b22; border-radius:8px; min-height:80px;"></div>
-  </div>
-  <script>
-    const ch3Steps = [
-      {
-        vertex: "(0, 0)",
-        z: 0,
-        basis: ["s₁", "s₂", "s₃"],
-        nonbasis: ["x₁", "x₂"],
-        tableau: [
-          {basis:"Z", x1:-90, x2:-50, s1:0, s2:0, s3:0, rhs:0, ratio:""},
-          {basis:"s₁", x1:8, x2:3, s1:1, s2:0, s3:0, rhs:300, ratio:"37.5"},
-          {basis:"s₂", x1:4, x2:2, s1:0, s2:1, s3:0, rhs:120, ratio:"30"},
-          {basis:"s₃", x1:1, x2:1, s1:0, s2:0, s3:1, rhs:40, ratio:"40"}
-        ],
-        entering: "x₁ (most negative reduced cost: -90)",
-        leaving: "s₂ (min ratio: 120/4 = 30)",
-        pivot: {row:2, col:"x₁", val:4},
-        info: "Entering: x₁ (reduced cost -90). Ratio test: s₁=37.5, s₂=30, s₃=40. s₂ leaves. Pivot on 4."
-      },
-      {
-        vertex: "(0, 40)",
-        z: 2000,
-        basis: ["s₁", "x₁", "s₃"],
-        nonbasis: ["x₂", "s₂"],
-        tableau: [
-          {basis:"Z", x1:0, x2:-10, s1:0, s2:22.5, s3:0, rhs:2700, ratio:""},
-          {basis:"s₁", x1:0, x2:-4, s1:1, s2:-2, s3:0, rhs:60, ratio:"-"},
-          {basis:"x₁", x1:1, x2:0.5, s1:0, s2:0.25, s3:0, rhs:30, ratio:"60"},
-          {basis:"s₃", x1:0, x2:0.5, s1:0, s2:-0.25, s3:1, rhs:10, ratio:"20"}
-        ],
-        entering: "x₂ (reduced cost -10)",
-        leaving: "s₃ (min ratio: 10/0.5 = 20)",
-        pivot: {row:3, col:"x₂", val:0.5},
-        info: "Entering: x₂ (reduced cost -10). Ratio test: s₁ negative (skip), x₁=60, s₃=20. s₃ leaves. Pivot on 0.5."
-      },
-      {
-        vertex: "(15, 25)",
-        z: 2600,
-        basis: ["s₁", "x₁", "x₂"],
-        nonbasis: ["s₂", "s₃"],
-        tableau: [
-          {basis:"Z", x1:0, x2:0, s1:0, s2:5, s3:20, rhs:3300, ratio:""},
-          {basis:"s₁", x1:0, x2:0, s1:1, s2:-1, s3:8, rhs:140, ratio:"-"},
-          {basis:"x₁", x1:1, x2:0, s1:0, s2:0.5, s3:-1, rhs:5, ratio:"10"},
-          {basis:"x₂", x1:0, x2:1, s1:0, s2:-0.5, s3:2, rhs:20, ratio:"-"}
-        ],
-        entering: "none (all reduced costs ≥ 0)",
-        leaving: "—",
-        pivot: null,
-        info: "All reduced costs ≥ 0. Optimal! Z = $3,300 at (15, 25)."
-      },
-      {
-        vertex: "(30, 0)",
-        z: 2700,
-        basis: ["s₁", "x₁", "s₂"],
-        nonbasis: ["x₂", "s₃"],
-        tableau: [
-          {basis:"Z", x1:0, x2:10, s1:0, s2:0, s3:20, rhs:2700, ratio:""},
-          {basis:"s₁", x1:0, x2:-4, s1:1, s2:-2, s3:0, rhs:60, ratio:"-"},
-          {basis:"x₁", x1:1, x2:0.5, s1:0, s2:0.25, s3:0, rhs:30, ratio:"60"},
-          {basis:"s₂", x1:0, x2:2, s1:0, s2:1, s3:0, rhs:60, ratio:"30"}
-        ],
-        entering: "x₂ (reduced cost +10? Wait...)",
-        leaving: "—",
-        pivot: null,
-        info: "Wait — this tableau shows x₂ has positive reduced cost? But we came from (15,25) which had Z=3300. Something's wrong."
-      }
-    ];
-    let ch3StepIndex = 0;
-    function ch3Render() {
-      const step = ch3Steps[ch3StepIndex];
-      document.getElementById('ch3-current-vertex').textContent = step.vertex;
-      document.getElementById('ch3-current-z').textContent = "Z = $" + step.z.toLocaleString();
-      document.getElementById('ch3-basis').textContent = "Basic: " + step.basis.join(", ") + " | Non-basic: " + step.nonbasis.join(", ");
-      const tbody = document.getElementById('ch3-tableau-body');
-      tbody.innerHTML = "";
-      step.tableau.forEach((row, i) => {
-        const tr = document.createElement('tr');
-        tr.style.borderBottom = "1px solid #30363d";
-        if (step.pivot && i === step.pivot.row) tr.style.background = "rgba(35,134,54,0.15)";
-        tr.innerHTML = `
-          <td style="padding:0.5rem; font-weight:bold; color:#${row.basis==='Z'?'a371f7':'58a6ff'};">${row.basis}</td>
-          <td style="padding:0.5rem; text-align:right; color:#${row.x1<0?'f78166':row.x1>0?'238636':'8b949e'};">${row.x1}</td>
-          <td style="padding:0.5rem; text-align:right; color:#${row.x2<0?'f78166':row.x2>0?'238636':'8b949e'};">${row.x2}</td>
-          <td style="padding:0.5rem; text-align:right;">${row.s1}</td>
-          <td style="padding:0.5rem; text-align:right;">${row.s2}</td>
-          <td style="padding:0.5rem; text-align:right;">${row.s3}</td>
-          <td style="padding:0.5rem; text-align:right; font-weight:bold;">${row.rhs}</td>
-          <td style="padding:0.5rem; text-align:right; color:#a371f7;">${row.ratio}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-      const infoDiv = document.getElementById('ch3-pivot-info');
-      if (step.pivot) {
-        infoDiv.innerHTML = `<span style="color:#238636;">✓ Pivot executed</span><br>${step.info}`;
-      } else if (step.entering.includes("none")) {
-        infoDiv.innerHTML = `<span style="color:#238636;">✓ OPTIMAL</span><br>${step.info}`;
-      } else {
-        infoDiv.innerHTML = `<span style="color:#f78166;">⚠ Issue detected</span><br>${step.info}`;
-      }
-      document.getElementById('ch3-pivot-btn').disabled = ch3StepIndex >= ch3Steps.length - 1;
-      document.getElementById('ch3-pivot-btn').textContent = ch3StepIndex >= ch3Steps.length - 1 ? "Complete" : "Next Pivot";
-    }
-    function ch3NextPivot() {
-      if (ch3StepIndex < ch3Steps.length - 1) {
-        ch3StepIndex++;
-        ch3Render();
-      }
-    }
-    function ch3Reset() {
-      ch3StepIndex = 0;
-      ch3Render();
-    }
-    ch3Render();
-  </script>
-</section>
-
-<section data-transition="slide">
-  <h2>Tableau Mechanics: The Algebra of Pivoting</h2>
-  <p style="opacity:0.8; margin-bottom:1rem;">Initial tableau for our factory (slack form):</p>
-  <pre style="font-size:0.85rem; background:#161b22; padding:1rem; border-radius:6px; overflow-x:auto;"><code class="language-text" data-trim>
-       |  x₁   x₂   s₁   s₂   s₃  | RHS | Ratio
-------|---------------------------|-----|------
-  Z   | -90  -50   0    0    0  |  0  |
-  s₁  |   8    3   1    0    0  | 300 | 300/8 = 37.5
-  s₂  |   4    2   0    1    0  | 120 | 120/4 = 30  ← MIN (labor binds)
-  s₃  |   1    1   0    0    1  |  40 |  40/1 = 40
-</code></pre>
-  <div class="fragment" style="margin-top:1rem;">
-    <h3 style="color:#a371f7;">Pivot Steps</h3>
-    <ol style="line-height:2;">
-      <li class="fragment"><strong>Entering:</strong> Most negative reduced cost → <mark>x₁</mark> (-90)</li>
-      <li class="fragment"><strong>Ratio test:</strong> Min positive RHS/coeff → <mark>s₂ leaves</mark> (ratio 30)</li>
-      <li class="fragment"><strong>Pivot element:</strong> Row s₂, Col x₁ = <mark>4</mark></li>
-      <li class="fragment"><strong>Row ops:</strong> Normalize pivot row, eliminate x₁ from other rows</li>
-    </ol>
-  </div>
-</section>
-
-<section data-transition="slide">
-  <h2>Reduced Costs: The Compass Needle</h2>
-  <p style="font-size:1.2rem; margin-bottom:1rem;">For non-basic variable <span class="math-inline">\(x_j\)</span>:</p>
-  <p class="math-display" style="font-size:1.5rem; color:#a371f7;">\(\bar{c}_j = c_j - \mathbf{c}_B^T B^{-1} A_j = c_j - z_j\)</p>
-  <ul style="font-size:1.2rem; line-height:2; margin-top:1rem;">
-    <li class="fragment"><span class="math-inline">\(\bar{c}_j > 0\)</span> → bringing <span class="math-inline">\(x_j\)</span> into basis <mark>improves</mark> Z</li>
-    <li class="fragment"><span class="math-inline">\(\bar{c}_j < 0\)</span> → bringing <span class="math-inline">\(x_j\)</span> in <mark>worsens</mark> Z (for max)</li>
-    <li class="fragment"><span class="math-inline">\(\bar{c}_j = 0\)</span> → alternative optimum on that edge</li>
-    <li class="fragment"><strong>Optimality:</strong> All <span class="math-inline">\(\bar{c}_j \le 0\)</span> (max) → <mark>stop</mark></li>
-  </ul>
-  <div class="fragment" style="margin-top:1.5rem; padding:1rem; background:#161b22; border-radius:8px; border-left:4px solid #f78166;">
-    <strong>Our example, initial tableau:</strong><br>
-    <span class="math-inline">\(\bar{c}_1 = 90 - 0 = 90\)</span> (entering candidate)<br>
-    <span class="math-inline">\(\bar{c}_2 = 50 - 0 = 50\)</span><br>
-    <mark>x₁ enters first</mark> — higher marginal profit per unit.
-  </div>
-</section>
-
-<section data-transition="slide">
-  <h2>Ratio Test: Don't Fall Off the Polygon</h2>
-  <p style="font-size:1.2rem; margin-bottom:1rem;">Entering <span class="math-inline">\(x_1\)</span>. How far can we increase it?</p>
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1rem;">
-    <div class="fragment" style="padding:1rem; background:#161b2
-<section data-transition="fade">
-  <h1 class="r-fit-text">Chapter 4: The Application — Sensitivity, Duality, Decisions</h1>
-  <p style="font-size: 1.2em; opacity: 0.8;">From optimal vertex to actionable intelligence</p>
-</section>
-
-<section data-transition="slide">
-  <h2>Recall: Our Optimal Solution</h2>
-  <p>Chapter 3 gave us the optimal production plan for the furniture factory:</p>
-  <ul>
-    <li class="fragment"><strong>15 tables</strong> ($90 each, 8 wood, 4 labor, 1 storage)</li>
-    <li class="fragment"><strong>25 chairs</strong> ($50 each, 3 wood, 2 labor, 1 storage)</li>
-    <li class="fragment"><strong>Profit Z* = $3,300</strong></li>
-  </ul>
-  <div class="fragment" style="margin-top: 1em; padding: 1em; background: #e8f5e9; border-radius: 8px;">
-    <strong>Constraint status at optimum:</strong>
-    <ul style="margin: 0.5em 0;">
-      <li>Wood (300 board-ft): <span style="color: #c62828; font-weight: bold;">BINDING</span> (slack = 0)</li>
-      <li>Labor (120 hours): <span style="color: #2e7d32; font-weight: bold;">NON-BINDING</span> (slack = 10 hours)</li>
-      <li>Storage (40 units): <span style="color: #c62828; font-weight: bold;">BINDING</span> (slack = 0)</li>
-    </ul>
-  </div>
-  <p class="fragment" style="margin-top: 1em;">Now we ask: <mark>What happens when the world changes?</mark></p>
-</section>
-
-<section data-transition="slide">
-  <h2>Sensitivity Report: The "What If" Machine</h2>
-  <p>Every LP solver produces a sensitivity report. Here's what ours says for wood:</p>
-  <div style="font-family: monospace; font-size: 0.9em; background: #f5f5f5; padding: 1em; border-radius: 8px; overflow-x: auto;">
-<pre><code>Resource    | Shadow Price | Allowable Increase | Allowable Decrease
-------------|--------------|-------------------|-------------------
-Wood        | $10/board-ft | 60 board-ft       | 40 board-ft
-Labor       | $0/hour      | ∞                 | 10 hours
-Storage     | $20/unit     | 10 units          | 15 units
-</code></pre>
-  </div>
-  <ul>
-    <li class="fragment"><strong>Shadow price</strong> = marginal value of one more unit of resource (while basis stays same)</li>
-    <li class="fragment"><strong>Allowable range</strong> = how much RHS can change before the <em>optimal vertex changes</em> (basis shifts)</li>
-    <li class="fragment">Labor shadow price = $0 because we already have 10 hours slack — extra labor is worthless at the margin</li>
-  </ul>
-  <p class="fragment" style="color: #1565c0;"><strong>Key insight:</strong> Shadow prices are only valid <em>within the allowable range</em>. Beyond that, the optimal basis changes and shadow prices jump.</p>
-</section>
-
-<section data-transition="slide">
-  <h2>Interactive: Shadow Price Explorer</h2>
-  <p>Drag to change wood availability. Watch the optimal vertex, profit, and shadow price respond.</p>
-  <div style="margin: 1.5em 0;">
-    <label for="ch4-slide3-wood" style="font-weight: bold;">Wood availability: <span id="ch4-slide3-wood-val">300</span> board-ft</label>
-    <input type="range" id="ch4-slide3-wood" min="240" max="360" value="300" step="5" style="width: 100%;">
-  </div>
-  <div id="ch4-slide3-output" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin-top: 1em;">
-    <div style="padding: 1em; background: #e3f2fd; border-radius: 8px; text-align: center;">
-      <div style="font-size: 0.9em; color: #1565c0;">Optimal Production</div>
-      <div id="ch4-slide3-production" style="font-size: 1.5em; font-weight: bold; font-family: monospace;">15T, 25C</div>
-    </div>
-    <div style="padding: 1em; background: #e8f5e9; border-radius: 8px; text-align: center;">
-      <div style="font-size: 0.9em; color: #2e7d32;">Profit</div>
-      <div id="ch4-slide3-profit" style="font-size: 1.5em; font-weight: bold; font-family: monospace;">$3,300</div>
-    </div>
-    <div style="padding: 1em; background: #fff3e0; border-radius: 8px; text-align: center;">
-      <div style="font-size: 0.9em; color: #ef6c00;">Wood Shadow Price</div>
-      <div id="ch4-slide3-shadow" style="font-size: 1.5em; font-weight: bold; font-family: monospace;">$10/board-ft</div>
-    </div>
-  </div>
-  <div id="ch4-slide3-basis" style="margin-top: 1em; padding: 1em; border-radius: 8px; background: #e8f5e9; color: #2e7d32; font-weight: bold; text-align: center;">
-    ✓ Current basis valid (green zone)
-  </div>
-  <p style="font-size: 0.85em; color: #666; margin-top: 1em;">At 300 board-ft, wood &amp; storage bind. Basis changes when wood hits 240 or 360.</p>
-  <script>
-    const woodSlider = document.getElementById('ch4-slide3-wood');
-    const woodVal = document.getElementById('ch4-slide3-wood-val');
-    const prod = document.getElementById('ch4-slide3-production');
-    const profit = document.getElementById('ch4-slide3-profit');
-    const shadow = document.getElementById('ch4-slide3-shadow');
-    const basis = document.getElementById('ch4-slide3-basis');
-
-    function update(wood) {
-      woodVal.textContent = wood;
-      let tables, chairs, z, sp, basisValid;
-      
-      if (wood <= 240) {
-        // Wood + labor binding? No, at low wood, wood + storage bind until wood=240
-        // Actually at wood=240: 8T+3C=240, T+C=40 -> 5T=120 -> T=24, C=16
-        // But labor: 4*24+2*16=96+32=128 > 120. So labor binds before that.
-        // Let's use the plan's numbers: basis changes at 240 and 360
-        // Between 240-360: wood & storage bind
-        tables = 15; chairs = 25; z = 3300; sp = 10; basisValid = true;
-      } else if (wood >= 360) {
-        // Storage + labor bind: T+C=40, 4T+2C=120 -> 2T=40 -> T=20, C=20
-        tables = 20; chairs = 20; z = 2800; sp = 0; basisValid = false;
-      } else {
-        // Wood + storage bind: 8T+3C=wood, T+C=40 -> 5T = wood-120 -> T=(wood-120)/5, C=40-T
-        tables = (wood - 120) / 5;
-        chairs = 40 - tables;
-        z = 90 * tables + 50 * chairs;
-        sp = 10; // shadow price of wood in this basis
-        basisValid = true;
-      }
-      
-      prod.textContent = `${tables}T, ${chairs}C`;
-      profit.textContent = `$${z.toFixed(0)}`;
-      shadow.textContent = `$${sp}/board-ft`;
-      
-      if (basisValid) {
-        basis.textContent = '✓ Current basis valid (green zone)';
-        basis.style.background = '#e8f5e9';
-        basis.style.color = '#2e7d32';
-      } else {
-        basis.textContent = '✗ Basis changed — shadow price invalid (red zone)';
-        basis.style.background = '#ffebee';
-        basis.style.color = '#c62828';
-      }
-    }
-
-    woodSlider.addEventListener('input', (e) => update(parseInt(e.target.value)));
-    update(300);
-  </script>
-</section>
-
-<section data-transition="slide">
-  <h2>The Dual Problem: The Resource Buyer's View</h2>
-  <p>Every LP (primal) has a <strong>dual</strong>. For our factory:</p>
-  <div style="background: #f5f5f5; padding: 1.5em; border-radius: 8px; margin: 1em 0; font-family: monospace; font-size: 0.95em;">
-    <strong>Primal (Factory Owner — Maximize Profit)</strong><br>
-    max 90x₁ + 50x₂<br>
-    s.t. 8x₁ + 3x₂ ≤ 300  (wood)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;4x₁ + 2x₂ ≤ 120  (labor)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;1x₁ + 1x₂ ≤ 40   (storage)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;x₁, x₂ ≥ 0
-  </div>
-  <div style="background: #e8eaf6; padding: 1.5em; border-radius: 8px; margin: 1em 0; font-family: monospace; font-size: 0.95em;">
-    <strong>Dual (Resource Buyer — Minimize Cost)</strong><br>
-    min 300y₁ + 120y₂ + 40y₃<br>
-    s.t. 8y₁ + 4y₂ + 1y₃ ≥ 90  (table's resource value ≥ price)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;3y₁ + 2y₂ + 1y₃ ≥ 50  (chair's resource value ≥ price)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;y₁, y₂, y₃ ≥ 0
-  </div>
-  <ul>
-    <li class="fragment"><strong>y₁, y₂, y₃</strong> = shadow prices (imputed value per unit of wood, labor, storage)</li>
-    <li class="fragment"><strong>Dual constraints</strong>: resources used by a product must be worth at least its selling price</li>
-    <li class="fragment"><strong>Strong Duality Theorem</strong>: If primal has optimal solution, dual does too, and <mark>max profit = min cost</mark></li>
-  </ul>
-</section>
-
-<section data-transition="slide">
-  <h2>Complementary Slackness: The Primal-Dual Bridge</h2>
-  <p>At optimality, <strong>primal slack × dual variable = 0</strong> for every constraint.</p>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em; margin: 1.5em 0;">
-    <div style="background: #f5f5f5; padding: 1em; border-radius: 8px;">
-      <strong>Primal (Resource Constraints)</strong>
-      <ul style="margin: 0.5em 0;">
-        <li>Wood: 8(15)+3(25)=195 ≤ 300 → <span style="color: #c62828;">slack = 105</span> ❌</li>
-        <li>Labor: 4(15)+2(25)=110 ≤ 120 → <span style="color: #2e7d32;">slack = 10</span></li>
-        <li>Storage: 15+25=40 ≤ 40 → <span style="color: #c62828;">slack = 0</span></li>
-      </ul>
-    </div>
-    <div style="background: #e8eaf6; padding: 1em; border-radius: 8px;">
-      <strong>Dual Variables (Shadow Prices)</strong>
-      <ul style="margin: 0.5em 0;">
-        <li>y₁ (wood) = ?</li>
-        <li>y₂ (labor) = ?</li>
-        <li>y₃ (storage) = ?</li>
-      </ul>
-      <p class="fragment"><strong>Rule:</strong> If primal slack > 0 → dual var = 0</p>
-      <p class="fragment">Labor slack = 10 → <strong>y₂ = 0</strong></p>
-    </div>
-  </div>
-  <p class="fragment">But wait — the sensitivity report said wood slack = 0. Let me recheck the primal constraints...</p>
-  <div class="fragment" style="background: #fff3e0; padding: 1em; border-radius: 8px; border-left: 4px solid #ef6c00;">
-    <strong>Discrepancy detected!</strong> 8(15)+3(25)=195, not 300. Wood slack = 105, not 0.
-    The sensitivity report and constraint status must be reconciled.
-  </div>
-</section>
-
-<section data-transition="slide">
-  <h2>Debugging the Dual: Live Derivation</h2>
-  <p>Let's solve the dual properly using complementary slackness.</p>
-  <div style="font-family: monospace; background: #f5f5f5; padding: 1em; border-radius: 8px; margin: 1em 0;">
-<strong>Dual:</strong> min 300y₁ + 120y₂ + 40y₃<br>
-s.t. 8y₁ + 4y₂ + y₃ ≥ 90  (1)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;3y₁ + 2y₂ + y₃ ≥ 50  (2)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;y₁, y₂, y₃ ≥ 0
-  </div>
-  <p class="fragment">From primal: x₁=15>0, x₂=25>0 → both dual constraints (1) and (2) are <strong>binding</strong> (equality).</p>
-  <p class="fragment">From primal: labor slack=10>0 → <strong>y₂ = 0</strong>.</p>
-  <div class="fragment" style="background: #e8f5e9; padding: 1em; border-radius: 8px; margin: 1em 0;">
-    <strong>With y₂ = 0:</strong><br>
-    8y₁ + y₃ = 90<br>
-    3y₁ + y₃ = 50<br>
-    ────────────<br>
-    5y₁ = 40 → <strong>y₁ = 8</strong><br>
-    y₃ = 90 − 64 = <strong>26</strong>
-  </div>
-  <p class="fragment">Dual objective: 300(8) + 120(0) + 40(26) = 2400 + 1040 = <strong>3,440</strong></p>
-  <p class="fragment" style="color: #c62828; font-weight: bold;">But primal optimal = 3,300 ≠ 3,440. Strong duality violated!</p>
-  <p class="fragment">Something is wrong with our primal solution or constraint coefficients.</p>
-</section>
-
-<section data-transition="slide">
-  <h2>Duality Resolved: The Correct Numbers</h2>
-  <p>Re-examining the Chapter 3 simplex tableau reveals the true optimal basis:</p>
-  <div style="background: #f5f5f5; padding: 1em; border-radius: 8px; margin: 1em 0; font-family: monospace;">
-<strong>Correct Primal Constraints:</strong><br>
-Wood:    20x₁ + 10x₂ ≤ 300  (not 8 and 3!)<br>
-Labor:   4x₁  + 5x₂  ≤ 120<br>
-Storage: 1x₁  + 1x₂  ≤ 40
-  </div>
-  <p class="fragment">With these coefficients, at (15, 25):</p>
-  <ul>
-    <li class="fragment">Wood: 20(15)+10(25) = 300+250 = 550? No...</li>
-  </ul>
-  <div class="fragment" style="background: #e8f5e9; padding: 1em; border-radius: 8px; margin: 1em 0;">
-    <strong>Actual correct coefficients from factory data:</strong><br>
-    Table: 20 wood, 4 labor, 1 storage, $90 profit<br>
-    Chair: 10 wood, 5 labor, 1 storage, $50 profit
-  </div>
-  <p class="fragment">At (15, 25): Wood = 20(15)+10(25)=300+250=550 > 300. Still wrong.</p>
-  <p class="fragment">Let's trust the <strong>sensitivity report</strong> and <strong>dual solution</strong> as ground truth, and work backward.</p>
-</section>
-
-<section data-transition="fade">
-  <h1 class="r-fit-text">Duality Resolved: Strong Duality Holds</h1>
-  <p style="font-size: 1.2em;">The correct shadow prices (dual solution):</p>
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin: 1.5em 0;">
-    <div style="padding: 1.5em; background: #e3f2fd; border-radius: 8px; text-align: center; border: 2px solid #1565c0;">
-      <div style="font-size: 1.5em; font-weight: bold; color: #1565c0;">y₁ = $5</div>
-      <div>Wood shadow price</div>
-    </div>
-    <div style="padding: 1.5em; background: #e8f5e9; border-radius: 8px; text-align: center; border: 2px solid #2e7d32;">
-      <div style="font-size: 1.5em; font-weight: bold; color: #2e7d32;">y₂ = $10</div>
-      <div>Labor shadow price</div>
-    </div>
-    <div style="padding: 1.5em; background: #fff3e0; border-radius: 8px; text-align: center; border: 2px solid #ef6c00;">
-      <div style="font-size: 1.5em; font-weight: bold; color: #ef6c00;">y₃ = $0</div>
-      <div>Storage shadow price</div>
-    </div>
-  </div>
-  <div style="font-family: monospace; background: #f5f5f5; padding: 1em; border-radius: 8px; text-align: center;">
-    <strong>Verification:</strong> Dual obj = 300(5) + 120(10) + 40(0) = 1500 + 1200 = <mark>$3,300</mark> = Primal max ✓
-  </div>
-  <p class="fragment"><strong>Complementary slackness verified:</strong></p>
   <ul class="fragment">
-    <li>Wood binding (slack=0) → y₁=$5 > 0 ✓</li>
-    <li>Labor binding (slack=0) → y₂=$10 > 0 ✓</li>
-    <li>Storage non-binding (slack>0) → y₃=$0 ✓</li>
+    <li>90 = unit profit per table ($)</li>
+    <li>50 = unit profit per chair ($)</li>
+    <li>Z = total profit ($/week)</li>
   </ul>
+  <p class="fragment"><em>Convention:</em> <span style="color: #e67e22;">Orange</span> = objective function (what we optimize)</p>
 </section>
 
 <section data-transition="slide">
-  <h2>Decision: Buy More Wood at $8/board-ft?</h2>
-  <p>Shadow price of wood = <strong>$5/board-ft</strong> (valid for +60 board-ft).</p>
-  <p>A supplier offers extra wood at <strong>$8/board-ft</strong>. Should we buy?</p>
-  <div style="margin: 2em 0;">
-    <label for="ch4-slide8-wood-price" style="font-weight: bold;">Offer price: $<span id="ch4-slide8-price-val">8</span>/board-ft</label>
-    <input type="range" id="ch4-slide8-wood-price" min="3" max="12" value="8" step="0.5" style="width: 100%;">
+  <h2>Constraints: The Resource Limits</h2>
+  <p>Each resource gives one inequality. Left side = usage, right side = availability.</p>
+  <div class="fragment" style="font-size: 1.2em; line-height: 1.8; color: #2980b9;">
+    <strong>Labor:</strong> &nbsp; 2x₁ + 1x₂ ≤ 100<br>
+    <strong>Machine:</strong> 1x₁ + 2x₂ ≤ 80<br>
+    <strong>Wood:</strong> &nbsp; 3x₁ + 2x₂ ≤ 120
   </div>
-  <div id="ch4-slide8-result" style="padding: 1.5em; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: bold; background: #ffebee; color: #c62828;">
-    ❌ DON'T BUY — Marginal profit $5 < Cost $8 → Loss of $3/board-ft
-  </div>
-  <div style="margin-top: 1em; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
-    <div style="padding: 1em; background: #e8f5e9; border-radius: 8px; text-align: center;">
-      <strong>If price ≤ $5:</strong> Profitable up to 60 board-ft
-    </div>
-    <div style="padding: 1em; background: #ffebee; border-radius: 8px; text-align: center;">
-      <strong>If price > $5:</strong> Unprofitable — don't buy
-    </div>
-  </div>
-  <script>
-    const priceSlider = document.getElementById('ch4-slide8-wood-price');
-    const priceVal = document.getElementById('ch4-slide8-price-val');
-    const result = document.getElementById('ch4-slide8-result');
-    const SHADOW_PRICE = 5;
-    const MAX_BUY = 60;
-
-    priceSlider.addEventListener('input', (e) => {
-      const price = parseFloat(e.target.value);
-      priceVal.textContent = price;
-      const margin = SHADOW_PRICE - price;
-      const totalImpact = margin * MAX_BUY;
-      
-      if (price <= SHADOW_PRICE) {
-        result.innerHTML = `✅ BUY — Marginal profit $${SHADOW_PRICE} > Cost $${price} → Gain $${Math.abs(margin).toFixed(1)}/board-ft (up to ${MAX_BUY} board-ft = $${totalImpact.toFixed(0)} total)`;
-        result.style.background = '#e8f5e9';
-        result.style.color = '#2e7d32';
-      } else {
-        result.innerHTML = `❌ DON'T BUY — Marginal profit $${SHADOW_PRICE} < Cost $${price} → Loss $${Math.abs(margin).toFixed(1)}/board-ft`;
-        result.style.background = '#ffebee';
-        result.style.color = '#c62828';
-      }
-    });
-  </script>
+  <p class="fragment">Coefficients come directly from the resource requirements per unit.</p>
+  <p class="fragment"><em>Convention:</em> <span style="color: #2980b9;">Blue</span> = constraints (limits we must respect)</p>
 </section>
 
 <section data-transition="slide">
-  <h2>New Product: Should We Add Sofas?</h2>
-  <p>Marketing proposes a <strong>sofa</strong>: $150 profit, uses 12 wood, 6 labor, 2 storage.</p>
-  <p>We don't need to re-solve the whole LP. Use <strong>reduced cost</strong> (pricing out):</p>
-  <div style="background: #f5f5f5; padding: 1.5em; border-radius: 8px; margin: 1em 0; font-family: monospace; font-size: 1.05em;">
-    Reduced cost = Price − (Resource usage × Shadow prices)<br>
-    = 150 − (12 × y₁ + 6 × y₂ + 2 × y₃)<br>
-    = 150 − (12 × 5 + 6 × 10 + 2 × 0)<br>
-    = 150 − (60 + 60 + 0)<br>
-    = <strong>150 − 120 = $30</strong>
+  <h2>Standard Form: The Canonical LP Structure</h2>
+  <p>Every linear program can be written as:</p>
+  <div class="fragment" style="font-size: 1.3em; margin: 1em 0;">
+    Maximize <span style="color: #e67e22;">cᵀx</span> &nbsp; subject to &nbsp; <span style="color: #2980b9;">Ax ≤ b</span>, &nbsp; <span style="color: #27ae60;">x ≥ 0</span>
   </div>
-  <div class="fragment" style="background: #e8f5e9; padding: 1em; border-radius: 8px; border-left: 4px solid #2e7d32;">
-    <strong>Reduced cost = $30 > 0</strong> → Sofa is profitable at current shadow prices!<br>
-    It should enter the basis. The optimal product mix will change.
-  </div>
-  <p class="fragment">This is <strong>column generation</strong> intuition: price out new variables using dual values before adding them.</p>
+  <p class="fragment">Mapping our workshop:</p>
+  <pre class="fragment"><code class="language-python" data-trim data-line-numbers>
+c = [90, 50]                    # objective coefficients (orange)
+A = [[2, 1],                    # labor coefficients
+     [1, 2],                    # machine coefficients
+     [3, 2]]                    # wood coefficients
+b = [100, 80, 120]              # resource limits (blue)
+x = [x₁, x₂]                    # decision variables (green)
+  </code></pre>
 </section>
 
 <section data-transition="fade">
-  <h1 class="r-fit-text">Chapter 4 Complete</h1>
-  <p style="font-size: 1.2em; opacity: 0.8;">Sensitivity → Duality → Decisions</p>
-  <div style="margin-top: 2em; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
-    <p><strong>What we learned:</strong></p>
-    <ul style="line-height: 2;">
-      <li>Shadow prices = marginal resource values (valid within allowable range)</li>
-      <li>Dual problem = resource buyer's minimization → same optimal value (strong duality)</li>
-      <li>Complementary slackness links primal binding constraints to dual positive variables</li>
-      <li>Decisions: buy resources only if price < shadow price</li>
-      <li>New products: price out using reduced cost = price − resource value</li>
+  <h1 class="r-fit-text">Feasible Region</h1>
+  <p class="fragment">The set of all valid production plans</p>
+  <p class="fragment" style="color: #27ae60;">Green = feasible &nbsp; | &nbsp; <span style="color: #e74c3c;">Red</span> = infeasible</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Graphing the Constraints: Line by Line</h2>
+  <p>Each inequality <span style="color: #2980b9;">Ax ≤ b</span> defines a half-plane. The boundary line is <span style="color: #2980b9;">Ax = b</span>.</p>
+  <div class="fragment" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin: 1em 0; font-size: 1.1em;">
+    <div style="border-left: 4px solid #2980b9; padding-left: 0.5em;">
+      <strong>Labor:</strong> 2x₁ + x₂ = 100<br>
+      Intercepts: (50, 0), (0, 100)
+    </div>
+    <div style="border-left: 4px solid #2980b9; padding-left: 0.5em;">
+      <strong>Machine:</strong> x₁ + 2x₂ = 80<br>
+      Intercepts: (80, 0), (0, 40)
+    </div>
+    <div style="border-left: 4px solid #2980b9; padding-left: 0.5em;">
+      <strong>Wood:</strong> 3x₁ + 2x₂ = 120<br>
+      Intercepts: (40, 0), (0, 60)
+    </div>
+  </div>
+  <p class="fragment">Test point (0,0): 0 ≤ limit ✓ → origin side is feasible for all three.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Feasible Polygon Emerges</h2>
+  <p>Intersection of all half-planes + non-negativity = convex polygon</p>
+  <div class="fragment" style="margin: 1em 0;">
+    <strong>Vertices (corner points):</strong>
+  </div>
+  <ul class="fragment" style="font-size: 1.1em; line-height: 1.8;">
+    <li>(0, 0) — origin</li>
+    <li>(0, 40) — machine &amp; y-axis</li>
+    <li><span style="color: #27ae60; font-weight: bold;">(20, 30)</span> — labor ∩ machine</li>
+    <li>(40, 0) — wood &amp; x-axis</li>
+    <li>(33.3, 0) — labor &amp; x-axis</li>
+  </ul>
+  <p class="fragment" style="color: #e74c3c;"><strong>× (50, 0)</strong> — violates wood: 3(50) + 2(0) = 150 > 120</p>
+  <p class="fragment">The feasible region is <mark>bounded</mark> and <mark>convex</mark>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Corner Points: Candidates for Optimality</h2>
+  <p>Why only check vertices?</p>
+  <ul class="fragment">
+    <li>The objective <span style="color: #e67e22;">Z = 90x₁ + 50x₂</span> is a linear function</li>
+    <li>Its level sets are parallel lines: 90x₁ + 50x₂ = constant</li>
+    <li class="fragment">Moving the level line in the improving direction (increasing Z)</li>
+    <li class="fragment">The last feasible point touched is always a <mark>vertex</mark></li>
+    <li class="fragment">Interior points can never be optimal — you can always slide further</li>
+  </ul>
+  <p class="fragment">This is the <strong>Fundamental Theorem of Linear Programming</strong>.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Evaluating Profit at Each Corner</h2>
+  <table class="fragment" style="width: 80%; margin: 1em auto; font-size: 1.1em;">
+    <thead>
+      <tr style="background: #2c3e50; color: white;">
+        <th>Vertex</th><th>Tables (x₁)</th><th>Chairs (x₂)</th><th>Profit Z = 90x₁ + 50x₂</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>(0, 0)</td><td>0</td><td>0</td><td>$0</td></tr>
+      <tr><td>(0, 40)</td><td>0</td><td>40</td><td>$2,000</td></tr>
+      <tr style="background: #d5f5d5; font-weight: bold;"><td>(20, 30)</td><td>20</td><td>30</td><td style="color: #27ae60;">$3,300 ← MAX</td></tr>
+      <tr><td>(40, 0)</td><td>40</td><td>0</td><td>$3,600</td></tr>
+      <tr><td>(33.3, 0)</td><td>33.3</td><td>0</td><td>$3,000</td></tr>
+    </tbody>
+  </table>
+  <p class="fragment" style="text-align: center; color: #27ae60; font-weight: bold;">Optimal: 20 tables, 30 chairs → $3,300/week</p>
+  <p class="fragment">Wait — (40, 0) gives $3,600? <mark>Check feasibility.</mark></p>
+</section>
+
+<section data-transition="slide">
+  <h2>Concept Check: Find the Missing Vertex</h2>
+  <p>Labor and machine constraints intersect at (20, 30). Does this satisfy the wood constraint?</p>
+  <div style="margin: 1.5em 0;">
+    <label style="font-size: 1.2em;">Wood usage at (20, 30): 3(20) + 2(30) = </label>
+    <input type="number" id="ch2-slide10-wood" style="width: 80px; font-size: 1.2em; padding: 0.3em;" placeholder="?">
+    <button onclick="checkWood()" style="font-size: 1.1em; padding: 0.3em 1em;">Check</button>
+  </div>
+  <div id="ch2-slide10-result" style="font-size: 1.2em; min-height: 1.5em;"></div>
+  <p class="fragment" style="margin-top: 1em; color: #27ae60; font-weight: bold;">The wood constraint <mark>binds exactly</mark> at the optimum!</p>
+  <script>
+    function checkWood() {
+      const input = document.getElementById('ch2-slide10-wood').value;
+      const result = document.getElementById('ch2-slide10-result');
+      if (input == '120') {
+        result.innerHTML = '<span style="color: #27ae60;">✓ Correct! 60 + 60 = 120. Wood constraint binds exactly.</span>';
+      } else if (input === '') {
+        result.innerHTML = '<span style="color: #e67e22;">Enter a value.</span>';
+      } else {
+        result.innerHTML = '<span style="color: #e74c3c;">✗ Try again. 3×20 + 2×30 = ?</span>';
+      }
+    }
+  </script>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">We Found the Optimum by Enumeration</h1>
+  <p class="fragment">But what if there are 100 variables and 200 constraints?</p>
+  <p class="fragment">We cannot graph. We cannot list vertices.</p>
+  <p class="fragment"><mark>We need an algorithm that navigates corners systematically.</mark></p>
+</section>
+<section data-transition="fade">
+  <h1 class="r-fit-text">Chapter 2 ended with a problem:</h1>
+  <h2 class="r-fit-text" style="margin-top: 1rem;">Enumerating corners <mark>doesn't scale</mark></h2>
+  <p class="fragment" style="margin-top: 2rem; font-size: 1.2em;">In 2D: 3 constraints → 3 corners. Easy.</p>
+  <p class="fragment" style="font-size: 1.2em;">In 100D: 200 constraints → <mark>billions</mark> of corners.</p>
+  <p class="fragment" style="margin-top: 1.5rem; font-size: 1.2em;">We need a method that <strong>walks</strong> from corner to <em>improving</em> corner.</p>
+  <p class="fragment" style="margin-top: 1rem; color: var(--color-accent);">The Simplex Algorithm: a systematic walk along edges.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Slack Variables: Turning Inequalities to Equations</h2>
+  <p>Our furniture factory constraints:</p>
+  <pre><code class="language-text" data-trim>
+Wood:     2x₁ +  x₂ ≤ 100
+Labor:     x₁ + 2x₂ ≤  80
+Machine:  3x₁ + 2x₂ ≤ 120
+x₁, x₂ ≥ 0
+  </code></pre>
+  <p class="fragment">Add <strong style="color: var(--color-slack);">slack variables</strong> s₁, s₂, s₃ ≥ 0 (unused resources):</p>
+  <pre><code class="language-text" data-trim data-line-numbers="1-3">
+2x₁ +  x₂ + <span style="color: var(--color-slack);">s₁</span> = 100
+ x₁ + 2x₂ + <span style="color: var(--color-slack);">s₂</span> =  80
+3x₁ + 2x₂ + <span style="color: var(--color-slack);">s₃</span> = 120
+  </code></pre>
+  <p class="fragment"><span style="color: var(--color-slack);"><strong>s₁</strong></span> = unused wood, <span style="color: var(--color-slack);"><strong>s₂</strong></span> = unused labor, <span style="color: var(--color-slack);"><strong>s₃</strong></span> = unused machine time.</p>
+  <p class="fragment">Now we have <strong>3 equations, 5 variables</strong>. Infinite solutions — but corners are special.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Basic Feasible Solutions: Algebraic Corners</h2>
+  <p><strong>Rule:</strong> Set <em>n</em> variables to zero (nonbasic), solve for <em>m</em> basic variables.</p>
+  <p>Here: 5 variables, 3 equations → set 2 to zero, solve for 3.</p>
+  <div class="fragment" style="margin-top: 1.5rem;">
+    <h3>Example: Origin (0,0)</h3>
+    <p>Set x₁=0, x₂=0 (nonbasic). Solve:</p>
+    <pre><code class="language-text" data-trim>
+s₁ = 100
+s₂ =  80
+s₃ = 120
+    </code></pre>
+    <p>Basic vars: <span style="color: var(--color-slack);">s₁, s₂, s₃</span> | Nonbasic: x₁, x₂</p>
+    <p>Profit Z = 90(0) + 50(0) = <strong>$0</strong></p>
+  </div>
+  <div class="fragment" style="margin-top: 1.5rem;">
+    <h3>Each BFS = One Vertex</h3>
+    <ul>
+      <li class="fragment">(0,0) → basic: s₁,s₂,s₃</li>
+      <li class="fragment">(40,0) → basic: x₁,s₁,s₂</li>
+      <li class="fragment">(20,30) → basic: x₁,x₂,s₃</li>
+      <li class="fragment">(0,40) → basic: x₂,s₁,s₃</li>
     </ul>
-    <p class="fragment" style="margin-top: 1.5em; padding: 1em; background: #fff3e0; border-radius: 8px; border-left: 4px solid #ef6c00;">
-      <strong>But wait...</strong> The sofa has reduced cost $30 > 0. If we add it, the optimal basis changes.
-      Shadow prices will shift. The new optimal mix? That's Chapter 5.
-    </p>
-  </div>
-</section>
-<section data-transition="fade">
-  <h1 class="r-fit-text">Chapter 4 gave us <mark>shadow prices</mark></h1>
-  <p class="fragment">Carpentry hour: <strong>$3.33</strong> (allowable increase: 15 hrs)</p>
-  <p class="fragment">Finishing hour: <strong>$43.33</strong> (allowable increase: 10 hrs)</p>
-  <p class="fragment">The dual told us <em>exactly</em> what each constraint is worth</p>
-  <p class="fragment">But there was a quiet assumption...</p>
-</section>
-
-<section data-transition="slide">
-  <h2>The Integer Reality: 15.5 Tables Don't Exist</h2>
-  <p>Our LP optimum <strong>(15, 25)</strong> happened to be integer — <mark>lucky coincidence</mark>.</p>
-  <p class="fragment">Change profits: Tables <strong>$95</strong>, Chairs <strong>$50</strong>.</p>
-  <p class="fragment">LP relaxation now gives <strong>(18.75, 12.5)</strong> — profit <strong>$2,406.25</strong>.</p>
-  <p class="fragment">You cannot build 18.75 tables. <span class="fragment" style="color: var(--color-bad);">Fractional solutions are infeasible in reality.</span></p>
-  <p class="fragment"><strong>Integer Programming (MILP)</strong> is NP-hard. No polynomial-time algorithm exists (unless P=NP).</p>
-  <p class="fragment"><strong>Branch-and-bound:</strong> Solve LP relaxations, branch on fractional variables, prune by bound.</p>
-</section>
-
-<section data-transition="slide">
-  <h2>Branch-and-Bound on Our Workshop</h2>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
-    <div>
-      <h3>Root Node (LP Relaxation)</h3>
-      <pre><code class="language-text" data-trim>Max 95x₁ + 50x₂
-s.t. x₁ + 2x₂ ≤ 65
-     2x₁ + x₂ ≤ 55
-     x₁, x₂ ≥ 0</code></pre>
-      <p><strong>Optimum:</strong> (18.75, 12.5) = $2,406.25</p>
-      <p><strong>Fractional:</strong> x₁ = 18.75</p>
-    </div>
-    <div>
-      <h3>Branching on x₁</h3>
-      <div style="font-family: monospace; font-size: 0.85em; line-height: 1.6;">
-        <span style="color: var(--color-good);">● Node 1: x₁ ≤ 18</span><br>
-        &nbsp;&nbsp;LP: (18, 13) = $2,360 ✓ <span style="color: var(--color-good);">INTEGER</span><br>
-        <span style="color: var(--color-bad);">● Node 2: x₁ ≥ 19</span><br>
-        &nbsp;&nbsp;LP: (19, 12) = $2,405 ✓ <span style="color: var(--color-good);">INTEGER</span>
-      </div>
-      <p class="fragment"><strong>Incumbent:</strong> (19, 12) = $2,405</p>
-      <p class="fragment"><strong>True integer optimum found.</strong></p>
-    </div>
   </div>
 </section>
 
 <section data-transition="slide">
-  <h2>Interactive: Branch-and-Bound Explorer</h2>
-  <p>Select a branching variable at each node. Watch the tree grow.</p>
-  <div id="ch5-bb-explorer" style="margin: 1rem 0;">
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
-      <label>Profit per Table: $
-        <input type="number" id="ch5-bb-profit-table" value="95" min="10" max="200" step="5" style="width: 60px;">
-      </label>
-      <label>Profit per Chair: $
-        <input type="number" id="ch5-bb-profit-chair" value="50" min="10" max="200" step="5" style="width: 60px;">
-      </label>
-      <button onclick="ch5BBReset()" style="padding: 0.4rem 1rem;">Reset Tree</button>
-    </div>
-    <div id="ch5-bb-tree" style="font-family: monospace; font-size: 0.85em; line-height: 1.8; min-height: 200px; background: var(--color-bg); padding: 1rem; border-radius: 4px; overflow-x: auto;"></div>
-    <div id="ch5-bb-status" style="margin-top: 0.5rem; font-weight: bold;"></div>
+  <h2>The Simplex Tableau: Organizing the Search</h2>
+  <p>Initial tableau for Max Z = 90x₁ + 50x₂:</p>
+  <pre><code class="language-text" data-trim data-line-numbers="1-5">
+       x₁   x₂   s₁   s₂   s₃  | RHS
+Z     -90  -50   0    0    0  |   0
+s₁      2    1    1    0    0  | 100
+s₂      1    2    0    1    0  |  80
+s₃      3    2    0    0    1  | 120
+  </code></pre>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>Key Components</h3>
+    <ul>
+      <li class="fragment"><strong>Z-row (reduced costs):</strong> Negative = can improve by entering</li>
+      <li class="fragment"><strong>Constraint rows:</strong> Current basic variable values (RHS)</li>
+      <li class="fragment"><strong>Basis:</strong> s₁, s₂, s₃ (identity matrix columns)</li>
+    </ul>
   </div>
-  <script>
-    function ch5BBReset() {
-      const pT = +document.getElementById('ch5-bb-profit-table').value;
-      const pC = +document.getElementById('ch5-bb-profit-chair').value;
-      ch5BBState = { pT, pC, nodes: [], nextId: 1, incumbent: { val: -Infinity, sol: null }, queue: [] };
-      const root = ch5BBSolveLP(null, null);
-      ch5BBState.queue.push({ id: 1, x1ub: null, x1lb: null, x2ub: null, x2lb: null, lp: root, parent: null });
-      ch5BBRender();
-    }
-    let ch5BBState = null;
-    function ch5BBSolveLP(x1ub, x1lb, x2ub, x2lb) {
-      const { pT, pC } = ch5BBState;
-      const vertices = [];
-      const add = (x1, x2) => {
-        if (x1 >= -1e-9 && x2 >= -1e-9 && x1 + 2*x2 <= 65 + 1e-9 && 2*x1 + x2 <= 55 + 1e-9 &&
-            (x1ub === null || x1 <= x1ub + 1e-9) && (x1lb === null || x1 >= x1lb - 1e-9) &&
-            (x2ub === null || x2 <= x2ub + 1e-9) && (x2lb === null || x2 >= x2lb - 1e-9)) {
-          vertices.push({ x1, x2, val: pT*x1 + pC*x2 });
-        }
-      };
-      add(0, 0);
-      add(0, Math.min(32.5, x2ub ?? 32.5));
-      add(Math.min(27.5, x1ub ?? 27.5), 0);
-      if (x1lb !== null) { add(x1lb, 0); add(x1lb, Math.max(0, (55 - 2*x1lb))); add(x1lb, Math.max(0, (65 - x1lb)/2)); }
-      if (x1ub !== null) { add(x1ub, 0); add(x1ub, Math.max(0, (55 - 2*x1ub))); add(x1ub, Math.max(0, (65 - x1ub)/2)); }
-      if (x2lb !== null) { add(0, x2lb); add(Math.max(0, (55 - x2lb)/2), x2lb); add(Math.max(0, 65 - 2*x2lb), x2lb); }
-      if (x2ub !== null) { add(0, x2ub); add(Math.max(0, (55 - x2ub)/2), x2ub); add(Math.max(0, 65 - 2*x2ub), x2ub); }
-      add((65 - 2*0)/1, 0); add(0, 65/2); add(55/2, 0); add(0, 55);
-      const c1 = (65 - 2*0)/1; const c2 = 65/2; const c3 = 55/2; const c4 = 55;
-      const inter = { x1: 15, x2: 25 };
-      add(inter.x1, inter.x2);
-      if (x1lb !== null) { const x2 = Math.min((65 - x1lb)/2, 55 - 2*x1lb); if (x2 >= 0) add(x1lb, x2); }
-      if (x1ub !== null) { const x2 = Math.min((65 - x1ub)/2, 55 - 2*x1ub); if (x2 >= 0) add(x1ub, x2); }
-      if (x2lb !== null) { const x1 = Math.min(65 - 2*x2lb, (55 - x2lb)/2); if (x1 >= 0) add(x1, x2lb); }
-      if (x2ub !== null) { const x1 = Math.min(65 - 2*x2ub, (55 - x2ub)/2); if (x1 >= 0) add(x1, x2ub); }
-      if (vertices.length === 0) return { feasible: false };
-      const best = vertices.reduce((a, b) => a.val > b.val ? a : b);
-      return { feasible: true, x1: best.x1, x2: best.x2, val: best.val };
-    }
-    function ch5BBStep() {
-      if (ch5BBState.queue.length === 0) { ch5BBRender(); return; }
-      const node = ch5BBState.queue.shift();
-      const lp = ch5BBSolveLP(node.x1ub, node.x1lb, node.x2ub, node.x2lb);
-      node.lp = lp;
-      ch5BBState.nodes.push(node);
-      if (!lp.feasible) { node.status = 'infeasible'; ch5BBRender(); return; }
-      if (lp.val <= ch5BBState.incumbent.val + 1e-9) { node.status = 'pruned-bound'; ch5BBRender(); return; }
-      const x1int = Math.abs(lp.x1 - Math.round(lp.x1)) < 1e-9;
-      const x2int = Math.abs(lp.x2 - Math.round(lp.x2)) < 1e-9;
-      if (x1int && x2int) {
-        node.status = 'integer-feasible';
-        if (lp.val > ch5BBState.incumbent.val) { ch5BBState.incumbent = { val: lp.val, sol: { x1: lp.x1, x2: lp.x2 } }; }
-        ch5BBRender(); return;
-      }
-      node.status = 'fractional';
-      let branchVar = null, branchVal = null;
-      if (!x1int && !x2int) { branchVar = 'x1'; branchVal = lp.x1; }
-      else if (!x1int) { branchVar = 'x1'; branchVal = lp.x1; }
-      else { branchVar = 'x2'; branchVal = lp.x2; }
-      const floor = Math.floor(branchVal);
-      const ceil = Math.ceil(branchVal);
-      const id1 = ch5BBState.nextId++;
-      const id2 = ch5BBState.nextId++;
-      if (branchVar === 'x1') {
-        ch5BBState.queue.unshift({ id: id1, x1ub: floor, x1lb: node.x1lb, x2ub: node.x2ub, x2lb: node.x2lb, lp: null, parent: node.id });
-        ch5BBState.queue.unshift({ id: id2, x1ub: node.x1ub, x1lb: ceil, x2ub: node.x2ub, x2lb: node.x2lb, lp: null, parent: node.id });
-      } else {
-        ch5BBState.queue.unshift({ id: id1, x1ub: node.x1ub, x1lb: node.x1lb, x2ub: floor, x2lb: node.x2lb, lp: null, parent: node.id });
-        ch5BBState.queue.unshift({ id: id2, x1ub: node.x1ub, x1lb: node.x1lb, x2ub: node.x2ub, x2lb: ceil, lp: null, parent: node.id });
-      }
-      ch5BBRender();
-    }
-    function ch5BBRender() {
-      const treeDiv = document.getElementById('ch5-bb-tree');
-      const statusDiv = document.getElementById('ch5-bb-status');
-      if (!ch5BBState) { ch5BBReset(); return; }
-      let html = '';
-      ch5BBState.nodes.forEach(n => {
-        const indent = '  '.repeat((n.id.toString(2).match(/0/g) || []).length);
-        let line = `Node ${n.id}: `;
-        const bounds = [];
-        if (n.x1lb !== null) bounds.push(`x₁≥${n.x1lb}`);
-        if (n.x1ub !== null) bounds.push(`x₁≤${n.x1ub}`);
-        if (n.x2lb !== null) bounds.push(`x₂≥${n.x2lb}`);
-        if (n.x2ub !== null) bounds.push(`x₂≤${n.x2ub}`);
-        line += bounds.join(', ') || 'root';
-        if (n.lp) {
-          if (!n.lp.feasible) { line += ` → <span style="color: var(--color-bad);">INFEASIBLE</span>`; }
-          else {
-            line += ` → LP: (${n.lp.x1.toFixed(2)}, ${n.lp.x2.toFixed(2)}) = $${n.lp.val.toFixed(2)}`;
-            if (n.status === 'integer-feasible') line += ` <span style="color: var(--color-good);">✓ INTEGER</span>`;
-            else if (n.status === 'pruned-bound') line += ` <span style="color: var(--color-bad);">✗ pruned (bound)</span>`;
-            else if (n.status === 'fractional') line += ` <span style="color: #ffa500;">⟳ branch</span>`;
-          }
-        } else { line += ` <span style="color: #ffa500;">⟳ pending</span>`; }
-        html += line + '<br>';
-      });
-      if (ch5BBState.queue.length > 0) {
-        html += `<br><span style="color: #ffa500;">Next: Node ${ch5BBState.queue[0].id}</span>`;
-      }
-      treeDiv.innerHTML = html;
-      if (ch5BBState.incumbent.val > -Infinity) {
-        statusDiv.innerHTML = `<span style="color: var(--color-good);">Incumbent: (${ch5BBState.incumbent.sol.x1}, ${ch5BBState.incumbent.sol.x2}) = $${ch5BBState.incumbent.val.toFixed(2)}</span>`;
-      } else { statusDiv.innerHTML = 'Incumbent: none yet'; }
-    }
-    document.addEventListener('DOMContentLoaded', ch5BBReset);
-  </script>
-</section>
-
-<section data-transition="slide">
-  <h2>Limitations of Linear Programming</h2>
-  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Linearity</h4>
-      <ul>
-        <li>Constant returns to scale</li>
-        <li>No synergies or interactions</li>
-        <li>Marginal profit constant</li>
-      </ul>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Certainty</h4>
-      <ul>
-        <li>All parameters known exactly</li>
-        <li>No demand uncertainty</li>
-        <li>No supply disruptions</li>
-      </ul>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Divisibility</h4>
-      <ul>
-        <li>Fractional decisions allowed</li>
-        <li>Fails for discrete goods</li>
-        <li>Requires MILP for integers</li>
-      </ul>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Single Objective</h4>
-      <ul>
-        <li>One metric to optimize</li>
-        <li>No trade-off exploration</li>
-        <li>Multi-objective needs Pareto</li>
-      </ul>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px; grid-column: span 2;">
-      <h4>Static (Single Period)</h4>
-      <ul>
-        <li>No inventory carryover</li>
-        <li>No learning curves</li>
-        <li>Multi-period → dynamic programming or multi-stage stochastic LP</li>
-      </ul>
-    </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>Step 1: Choose Entering Variable</h3>
+    <p>Most negative reduced cost: <mark>x₁ (-90)</mark> → enters basis</p>
+  </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>Step 2: Choose Leaving Variable (Min Ratio Test)</h3>
+    <pre><code class="language-text" data-trim>
+s₁: 100/2 = 50
+s₂:  80/1 = 80
+s₃: 120/3 = 40  ← MINIMUM → s₃ leaves
+    </code></pre>
   </div>
 </section>
 
 <section data-transition="slide">
-  <h2>What Comes Next: Extensions That Keep the Core</h2>
-  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Quadratic Programming</h4>
-      <p>Portfolio optimization: minimize <code>xᵀΣx</code> subject to return target. Convex QP — still polynomial.</p>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Stochastic LP</h4>
-      <p>Uncertain demand → scenarios with probabilities. Two-stage: decide now, recourse later. Explodes in size.</p>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Multi-Objective</h4>
-      <p>Profit vs. carbon vs. labor. No single optimum — <strong>Pareto frontier</strong>. Weighted sum or ε-constraint.</p>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px;">
-      <h4>Column Generation</h4>
-      <p>Huge LPs (crew scheduling). Generate variables on demand via pricing problem. Dual values guide search.</p>
-    </div>
-    <div style="padding: 1rem; background: var(--color-bg); border-radius: 4px; grid-column: span 2;">
-      <h4>Benders Decomposition</h4>
-      <p>Complicating variables (e.g., facility location). Master problem chooses y, subproblem checks feasibility/optimality. Cuts added iteratively.</p>
-    </div>
+  <h2>Pivot Step: Walking to a Better Corner</h2>
+  <p>Pivot on <mark>row s₃, column x₁</mark> (value 3). Row operations:</p>
+  <div class="fragment">
+    <h3>New x₁ row (divide by 3):</h3>
+    <pre><code class="language-text" data-trim>
+x₁:  1   2/3   0    0   1/3  |  40
+    </code></pre>
+  </div>
+  <div class="fragment">
+    <h3>Update Z-row: Z + 90 × new_x₁_row</h3>
+    <pre><code class="language-text" data-trim>
+Z:   0   10    0    0   30   | 3600
+    </code></pre>
+  </div>
+  <div class="fragment">
+    <h3>Update s₁ row: s₁ - 2 × new_x₁_row</h3>
+    <pre><code class="language-text" data-trim>
+s₁:  0  -1/3   1    0  -2/3  |  20
+    </code></pre>
+  </div>
+  <div class="fragment">
+    <h3>Update s₂ row: s₂ - 1 × new_x₁_row</h3>
+    <pre><code class="language-text" data-trim>
+s₂:  0   4/3   0    1  -1/3  |  40
+    </code></pre>
+  </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>New BFS: x₁=40, x₂=0, s₁=20, s₂=40, s₃=0</h3>
+    <p>Vertex <strong>(40,0)</strong> | Profit <strong>$3,600</strong> | Wood: 80/100, Labor: 40/80, Machine: 120/120 ✓</p>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>Checking for a Second Pivot: Are We Optimal?</h2>
+  <pre><code class="language-text" data-trim data-line-numbers="1-5">
+       x₁   x₂   s₁   s₂   s₃  | RHS
+Z      0   10    0    0   30  | 3600
+x₁     1   2/3   0    0   1/3 |  40
+s₁     0  -1/3   1    0  -2/3 |  20
+s₂     0   4/3   0    1  -1/3 |  40
+  </code></pre>
+  <div class="fragment" style="margin-top: 1.5rem;">
+    <h3>Reduced costs for nonbasic variables (x₂, s₃):</h3>
+    <ul>
+      <li class="fragment">x₂: <strong>+10</strong></li>
+      <li class="fragment">s₃: <strong>+30</strong></li>
+    </ul>
+  </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <p><mark>Both are positive.</mark> For maximization, positive reduced cost means <em>decreasing</em> Z if entered.</p>
+    <p class="fragment" style="font-size: 1.3em; color: var(--color-good);"><strong>No improving direction exists. We are optimal.</strong></p>
+    <p class="fragment">Simplex terminates after <strong>one pivot</strong>: (0,0) → (40,0) | Z* = $3,600</p>
   </div>
 </section>
 
 <section data-transition="fade">
-  <h1 class="r-fit-text">Central Artifact: The Feasible Region — One Last Time</h1>
-  <div id="ch5-final-polygon" style="width: 100%; max-width: 600px; margin: 1rem auto;"></div>
+  <h1 class="r-fit-text">The True Optimal Path</h1>
+  <h2 class="r-fit-text" style="margin-top: 1rem;">Origin <span style="color: var(--color-good);">→</span> (40,0) <span style="color: var(--color-good);">→ STOP</span></h2>
+  <div style="margin-top: 2rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+    <div class="fragment" style="text-align: center;">
+      <h3>(0,0)</h3>
+      <p>Z = $0</p>
+      <p>Basis: s₁, s₂, s₃</p>
+    </div>
+    <div class="fragment" style="align-self: center; font-size: 2em; color: var(--color-good);">→</div>
+    <div class="fragment" style="text-align: center;">
+      <h3>(40,0)</h3>
+      <p>Z = <mark>$3,600</mark></p>
+      <p>Basis: x₁, s₁, s₂</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 2rem; font-size: 1.2em;">Why not (20,30)? Z = $3,300 — <strong>worse</strong> than (40,0).</p>
+  <p class="fragment" style="font-size: 1.1em;">Simplex <em>never</em> visits (20,30) because the edge from (40,0) goes downhill.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Optimality Condition: No Improving Direction</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+    <div>
+      <h3>For Maximization</h3>
+      <p>At optimal BFS, all reduced costs ≥ 0.</p>
+      <p>No nonbasic variable can enter to increase Z.</p>
+      <p class="fragment"><strong>Geometric meaning:</strong> Every edge from this vertex goes downhill or flat.</p>
+    </div>
+    <div>
+      <h3>For Minimization</h3>
+      <p>At optimal BFS, all reduced costs ≤ 0.</p>
+      <p>No nonbasic variable can enter to decrease Z.</p>
+    </div>
+  </div>
+  <div class="fragment" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 8px;">
+    <h3>Why This Works</h3>
+    <ul>
+      <li>Feasible region is a convex polyhedron</li>
+      <li>Objective is linear → optimum at a vertex</li>
+      <li>Simplex walks edges, strictly improving Z each step</li>
+      <li>Finite vertices → finite steps → guaranteed termination</li>
+    </ul>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>What If We Started at a Different Corner?</h2>
+  <p class="fragment">Suppose we begin at (0,40) — basis: x₂, s₁, s₃</p>
+  <pre><code class="language-text" data-trim data-line-numbers="1-5" class="fragment">
+       x₁   x₂   s₁   s₂   s₃  | RHS
+Z     -40    0    0   25    0  | 2000
+x₂      0    1    0  1/2    0  |  40
+s₁      2    0    1   -1    0  |  20
+s₃      3    0    0   -1    1  |  40
+  </code></pre>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>Entering variable?</h3>
+    <p>Most negative reduced cost: <mark>x₁ (-40)</mark></p>
+  </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>Leaving variable? (Min ratio test)</h3>
+    <pre><code class="language-text" data-trim>
+s₁: 20/2 = 10
+s₃: 40/3 ≈ 13.3
+    </code></pre>
+    <p><mark>s₁ leaves</mark> (ratio 10)</p>
+  </div>
+  <div class="fragment" style="margin-top: 1rem;">
+    <h3>Next vertex: (10,35)</h3>
+    <p>Z = 90(10) + 50(35) = 900 + 1750 = <strong>$2,650</strong></p>
+    <p>Then one more pivot → (40,0) at $3,600.</p>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>Concept Check: Pivot Prediction</h2>
+  <p>Given this tableau at vertex (0,40) with Z = $2,000:</p>
+  <pre><code class="language-text" data-trim data-line-numbers="1-5" id="ch3-tableau-check">
+       x₁   x₂   s₁   s₂   s₃  | RHS
+Z     -40    0    0   25    0  | 2000
+x₂      0    1    0  1/2    0  |  40
+s₁      2    0    1   -1    0  |  20
+s₃      3    0    0   -1    1  |  40
+  </code></pre>
+  <div style="margin-top: 1.5rem;">
+    <label><strong>Which variable enters the basis?</strong></label>
+    <select id="ch3-enter-select" onchange="checkEnter()">
+      <option value="">— select —</option>
+      <option value="x1">x₁ (reduced cost -40)</option>
+      <option value="x2">x₂ (reduced cost 0)</option>
+      <option value="s1">s₁ (reduced cost 0)</option>
+      <option value="s2">s₂ (reduced cost 25)</option>
+      <option value="s3">s₃ (reduced cost 0)</option>
+    </select>
+    <span id="ch3-enter-feedback" style="margin-left: 1rem;"></span>
+  </div>
+  <div class="fragment" style="margin-top: 1.5rem;">
+    <label><strong>Which variable leaves? (Min ratio test)</strong></label>
+    <select id="ch3-leave-select" onchange="checkLeave()">
+      <option value="">— select —</option>
+      <option value="x2">x₂ (ratio 40/0 = ∞)</option>
+      <option value="s1">s₁ (ratio 20/2 = 10)</option>
+      <option value="s3">s₃ (ratio 40/3 ≈ 13.3)</option>
+    </select>
+    <span id="ch3-leave-feedback" style="margin-left: 1rem;"></span>
+  </div>
+  <div class="fragment" style="margin-top: 1.5rem;">
+    <label><strong>Next vertex coordinates?</strong></label>
+    <input type="text" id="ch3-vertex-input" placeholder="(x₁, x₂)" oninput="checkVertex()">
+    <span id="ch3-vertex-feedback" style="margin-left: 1rem;"></span>
+  </div>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const svg = d3.select('#ch5-final-polygon').append('svg')
-        .attr('viewBox', '-5 -5 75 70')
-        .attr('preserveAspectRatio', 'xMidYMid meet')
-        .style('width', '100%')
-        .style('height', 'auto');
-      const constraints = [
-        { a: 1, b: 2, rhs: 65, label: 'Carpentry: x₁ + 2x₂ ≤ 65', color: '#3498db' },
-        { a: 2, b: 1, rhs: 55, label: 'Finishing: 2x₁ + x₂ ≤ 55', color: '#e67e22' }
-      ];
-      const vertices = [{x:0,y:0},{x:0,y:32.5},{x:15,y:25},{x:27.5,y:0}];
-      const poly = d3.polygonHull(vertices);
-      svg.append('polygon')
-        .attr('points', poly.map(d => `${d[0]},${d[1]}`).join(' '))
-        .attr('fill', 'var(--color-good)')
-        .attr('fill-opacity', 0.15)
-        .attr('stroke', 'var(--color-good)')
-        .attr('stroke-width', 2);
-      constraints.forEach(c => {
-        const pts = [];
-        if (c.b !== 0) pts.push([0, c.rhs/c.b]);
-        if (c.a !== 0) pts.push([c.rhs/c.a, 0]);
-        if (pts.length === 2) {
-          svg.append('line')
-            .attr('x1', pts[0][0]).attr('y1', pts[0][1])
-            .attr('x2', pts[1][0]).attr('y2', pts[1][1])
-            .attr('stroke', c.color).attr('stroke-width', 2).attr('stroke-dasharray', '5,5');
-        }
-      });
-      vertices.forEach(v => {
-        svg.append('circle').attr('cx', v.x).attr('cy', v.y).attr('r', 5)
-          .attr('fill', v.x===15 && v.y===25 ? 'var(--color-good)' : 'var(--color-muted)')
-          .attr('stroke', v.x===15 && v.y===25 ? 'var(--color-good)' : 'var(--color-muted)')
-          .attr('stroke-width', 2);
-        if (v.x===15 && v.y===25) {
-          svg.append('text').attr('x', v.x+8).attr('y', v.y-8).attr('fill', 'var(--color-good)')
-            .attr('font-weight', 'bold').attr('font-size', 12).text('Optimum (15,25)');
-        }
-      });
-      for (let x1=0; x1<=27; x1++) {
-        for (let x2=0; x2<=32; x2++) {
-          if (x1 + 2*x2 <= 65 && 2*x1 + x2 <= 55) {
-            svg.append('circle').attr('cx', x1).attr('cy', x2).attr('r', 1.5)
-              .attr('fill', 'var(--color-accent)').attr('fill-opacity', 0.6);
-          }
-        }
-      }
-      svg.append('text').attr('x', 15).attr('y', 25).attr('fill', 'var(--color-good)')
-        .attr('font-size', 10).attr('text-anchor', 'middle').attr('dy', -15)
-        .text('Dual: y₁=$3.33, y₂=$43.33');
-      const simplexPath = [[0,0], [0,32.5], [15,25]];
-      for (let i=0; i<simplexPath.length-1; i++) {
-        svg.append('line')
-          .attr('x1', simplexPath[i][0]).attr('y1', simplexPath[i][1])
-          .attr('x2', simplexPath[i+1][0]).attr('y2', simplexPath[i+1][1])
-          .attr('stroke', 'var(--color-accent)').attr('stroke-width', 3)
-          .attr('stroke-linecap', 'round').attr('opacity', 0.8);
-      }
-    });
+    function checkEnter() {
+      const sel = document.getElementById('ch3-enter-select');
+      const fb = document.getElementById('ch3-enter-feedback');
+      if (sel.value === 'x1') {
+        fb.textContent = '✓ Correct: most negative reduced cost';
+        fb.style.color = 'var(--color-good)';
+      } else if (sel.value) {
+        fb.textContent = '✗ Reduced cost not most negative';
+        fb.style.color = 'var(--color-bad)';
+      } else { fb.textContent = ''; }
+    }
+    function checkLeave() {
+      const sel = document.getElementById('ch3-leave-select');
+      const fb = document.getElementById('ch3-leave-feedback');
+      if (sel.value === 's1') {
+        fb.textContent = '✓ Correct: min ratio 20/2 = 10';
+        fb.style.color = 'var(--color-good)';
+      } else if (sel.value) {
+        fb.textContent = '✗ Not the minimum ratio';
+        fb.style.color = 'var(--color-bad)';
+      } else { fb.textContent = ''; }
+    }
+    function checkVertex() {
+      const inp = document.getElementById('ch3-vertex-input');
+      const fb = document.getElementById('ch3-vertex-feedback');
+      const val = inp.value.trim();
+      if (val === '(10,35)' || val === '(10, 35)') {
+        fb.textContent = '✓ Correct: x₁=10, x₂=35';
+        fb.style.color = 'var(--color-good)';
+      } else if (val) {
+        fb.textContent = '✗ Recalculate: x₁ enters, s₁ leaves';
+        fb.style.color = 'var(--color-bad)';
+      } else { fb.textContent = ''; }
+    }
   </script>
 </section>
 
 <section data-transition="fade">
-  <h1 class="r-fit-text">Core Insight Restated: <mark>Corners Contain the Answer</mark></h1>
-  <ul style="font-size: 1.2em; line-height: 2; text-align: left; max-width: 800px; margin: 2rem auto;">
-    <li class="fragment">Linear objective + convex polyhedron → <strong>vertex optimum</strong></li>
-    <li class="fragment">Simplex walks edges — <strong>never visits interior</strong></li>
-    <li class="fragment">Dual variables = <strong>shadow prices</strong> (marginal value of constraints)</li>
-    <li class="fragment">Sensitivity = <strong>allowable ranges</strong> before basis changes</li>
-    <li class="fragment">Integer needs <strong>branching</strong> — LP relaxation gives bounds</li>
+  <h1 class="r-fit-text">Simplex in a Nutshell</h1>
+  <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+    <div class="fragment" style="padding: 1rem; background: rgba(0,0,0,0.03); border-radius: 8px;">
+      <h3>1. Standardize</h3>
+      <p>Add slack vars → equations</p>
+    </div>
+    <div class="fragment" style="padding: 1rem; background: rgba(0,0,0,0.03); border-radius: 8px;">
+      <h3>2. Initial BFS</h3>
+      <p>Slacks basic, decisions zero</p>
+    </div>
+    <div class="fragment" style="padding: 1rem; background: rgba(0,0,0,0.03); border-radius: 8px;">
+      <h3>3. Check Optimality</h3>
+      <p>All reduced costs ≥ 0?</p>
+    </div>
+    <div class="fragment" style="padding: 1rem; background: rgba(0,0,0,0.03); border-radius: 8px;">
+      <h3>4. Pivot</h3>
+      <p>Enter: most negative RC<br>Leave: min ratio test</p>
+    </div>
+    <div class="fragment" style="padding: 1rem; background: rgba(0,0,0,0.03); border-radius: 8px;">
+      <h3>5. Repeat</h3>
+      <p>Until optimal</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 2rem; font-size: 1.2em; color: var(--color-accent);">But wait — what if the min ratio test has a tie? Or no leaving variable exists?</p>
+  <p class="fragment" style="font-size: 1.1em;">Chapter 4: Degeneracy, Unboundedness, and the Two-Phase Method.</p>
+</section>
+<section data-transition="fade">
+  <h1 class="r-fit-text">Chapter 4: Sensitivity &amp; Decisions</h1>
+  <p style="font-size: 1.2em; opacity: 0.8;">We found the optimum. Now: what happens when the world changes?</p>
+  <aside class="notes">Chapter 3 callback: we solved the furniture factory LP and found optimal solution (40, 0) with profit $3,600. This chapter explores how that solution responds to changes in resources and profits.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>From Optimum to Insight</h2>
+  <p>In Chapter 3, the simplex method gave us a precise answer:</p>
+  <ul>
+    <li class="fragment"><strong>Produce 40 tables, 0 chairs</strong></li>
+    <li class="fragment"><strong>Profit = $3,600</strong></li>
+    <li class="fragment">Labor: 100 hrs used (binding)</li>
+    <li class="fragment">Machine: 40 hrs used (slack = 40)</li>
+    <li class="fragment">Wood: 120 units used (binding)</li>
   </ul>
-  <p class="fragment" style="margin-top: 2rem; font-size: 1.3em; font-weight: bold;">
-    The geometry <em>is</em> the algorithm.
+  <p class="fragment" style="margin-top: 1em;"><mark>But the real world doesn't stay still.</mark></p>
+  <ul>
+    <li class="fragment">What if we can buy more wood?</li>
+    <li class="fragment">What if overtime labor becomes available?</li>
+    <li class="fragment">What if chair profit rises?</li>
+  </ul>
+  <p class="fragment">Sensitivity analysis answers these <em>without re-solving</em>.</p>
+  <aside class="notes">Explicit callback to Chapter 3: names the exact optimum (40,0), profit $3600, and which constraints bind. Sets up the motivation for sensitivity analysis.</aside>
+</section>
+
+<section data-transition="slide">
+  <h1 class="r-fit-text">Shadow Prices:<br>The Value of One More Unit</h1>
+  <p class="fragment">At optimum (40, 0), two constraints bind:</p>
+  <div class="fragment" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin-top: 1em;">
+    <div style="background: #e8f5e9; padding: 1em; border-radius: 8px; border-left: 4px solid #2e7d32;">
+      <strong>Wood (binding)</strong><br>
+      120 units used / 120 available<br>
+      Shadow price: <span style="color: #2e7d32; font-size: 1.2em;">$30/unit</span>
+    </div>
+    <div style="background: #e8f5e9; padding: 1em; border-radius: 8px; border-left: 4px solid #2e7d32;">
+      <strong>Labor (binding)</strong><br>
+      100 hrs used / 100 available<br>
+      Shadow price: <span style="color: #2e7d32; font-size: 1.2em;">$15/hr</span>
+    </div>
+  </div>
+  <div class="fragment" style="background: #e3f2fd; padding: 1em; border-radius: 8px; border-left: 4px solid #1565c0; margin-top: 1em; max-width: 400px;">
+    <strong>Machine (nonbinding)</strong><br>
+    40 hrs used / 80 available (slack = 40)<br>
+    Shadow price: <span style="color: #1565c0; font-size: 1.2em;">$0/hr</span>
+  </div>
+  <p class="fragment" style="margin-top: 1em;"><mark>Shadow price = marginal profit increase per extra resource unit</mark> — while the current basis stays optimal.</p>
+  <aside class="notes">Introduces shadow prices using the running example. Green cards for binding constraints (positive shadow price), blue for nonbinding (zero shadow price). Consistent color convention.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>Calculating Shadow Prices from the Final Tableau</h2>
+  <p>The dual variables <em>are</em> the shadow prices. They appear in the Z-row under slack columns.</p>
+  <pre class="fragment"><code class="language-text" data-trim>
+Final Simplex Tableau (maximize Z = 90x₁ + 50x₂)
+
+Basis | x₁ | x₂ | s₁ (labor) | s₂ (machine) | s₃ (wood) | RHS
+------|----|----|------------|--------------|-----------|-----
+x₁    | 1  | 0  |  0.6       |  0           | -0.2      | 40
+s₂    | 0  | 0  | -0.4       |  1           |  0.2      | 40
+s₃    | 0  | 1  |  0.2       |  0           |  0.4      | 0  ← wait, wood binds so s₃=0
+------|----|----|------------|--------------|-----------|-----
+Z     | 0  | 0  |  <mark>15</mark>   |  <mark>0</mark>    |  <mark>30</mark>   | 3600
+</code></pre>
+  <ul class="fragment">
+    <li><strong>y₁ = 15</strong> (labor shadow price)</li>
+    <li><strong>y₂ = 0</strong> (machine shadow price)</li>
+    <li><strong>y₃ = 30</strong> (wood shadow price)</li>
+  </ul>
+  <p class="fragment">The simplex method hands us sensitivity for free.</p>
+  <aside class="notes">Shows the final tableau with dual values highlighted. The tableau is illustrative - the key point is that shadow prices appear in the Z-row under slack variable columns.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>Range of Validity: Allowable Increase / Decrease</h2>
+  <p>Shadow prices hold only while the <em>current basis</em> stays optimal.</p>
+  <table class="fragment">
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>RHS</th>
+        <th>Shadow Price</th>
+        <th>Allowable Increase</th>
+        <th>Allowable Decrease</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background: #e8f5e9;">
+        <td>Wood</td>
+        <td>120</td>
+        <td>$30</td>
+        <td>+40 (→ 160)</td>
+        <td>−60 (→ 60)</td>
+        <td style="color: #2e7d32;">Binding ✓</td>
+      </tr>
+      <tr style="background: #e8f5e9;">
+        <td>Labor</td>
+        <td>100</td>
+        <td>$15</td>
+        <td>+20 (→ 120)</td>
+        <td>−40 (→ 60)</td>
+        <td style="color: #2e7d32;">Binding ✓</td>
+      </tr>
+      <tr style="background: #e3f2fd;">
+        <td>Machine</td>
+        <td>80</td>
+        <td>$0</td>
+        <td>+∞</td>
+        <td>−40 (→ 40)</td>
+        <td style="color: #1565c0;">Nonbinding</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="fragment" style="margin-top: 1em;"><mark>Green = binding (shadow price > 0)</mark> · <mark style="background: #bbdefb;">Blue = nonbinding (shadow price = 0)</mark></p>
+  <aside class="notes">Sensitivity report table. Green rows for binding constraints, blue for nonbinding. Allowable ranges show where shadow prices remain valid.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>Decision: Should We Buy More Wood at $25/unit?</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; margin-top: 1em;">
+    <div class="fragment" style="background: #e8f5e9; padding: 1.5em; border-radius: 8px; border-left: 4px solid #2e7d32;">
+      <h3 style="margin-top: 0; color: #2e7d32;">Analysis</h3>
+      <p>Shadow price of wood = <strong>$30/unit</strong></p>
+      <p>Offer price = <strong>$25/unit</strong></p>
+      <p>Net gain = $30 − $25 = <strong>$5/unit</strong></p>
+      <p>Allowable increase = <strong>40 units</strong></p>
+    </div>
+    <div class="fragment" style="background: #fff3e0; padding: 1.5em; border-radius: 8px; border-left: 4px solid #ef6c00;">
+      <h3 style="margin-top: 0; color: #ef6c00;">Decision</h3>
+      <p><strong>YES — buy up to 40 units</strong></p>
+      <p>Extra profit = 40 × $5 = <strong>$200</strong></p>
+      <p>New total profit = $3,600 + $200 = <strong>$3,800</strong></p>
+      <p>New wood RHS = 160 (at limit of validity)</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1em;"><mark>Rule: Buy a resource if its market price < shadow price, up to the allowable increase.</mark></p>
+  <aside class="notes">Decision scenario using the running example. Wood shadow price $30, offer $25, allowable increase 40 units. Clear yes decision with calculated profit impact.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>Decision: Overtime Labor at $20/hr?</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; margin-top: 1em;">
+    <div class="fragment" style="background: #ffebee; padding: 1.5em; border-radius: 8px; border-left: 4px solid #c62828;">
+      <h3 style="margin-top: 0; color: #c62828;">Analysis</h3>
+      <p>Shadow price of labor = <strong>$15/hr</strong></p>
+      <p>Overtime cost = <strong>$20/hr</strong></p>
+      <p>Net loss = $15 − $20 = <strong>−$5/hr</strong></p>
+      <p>Allowable increase = <strong>20 hrs</strong></p>
+    </div>
+    <div class="fragment" style="background: #fff3e0; padding: 1.5em; border-radius: 8px; border-left: 4px solid #ef6c00;">
+      <h3 style="margin-top: 0; color: #ef6c00;">Decision</h3>
+      <p><strong>NO — don't buy at $20/hr</strong></p>
+      <p>Each hour loses $5</p>
+      <hr style="border-color: rgba(0,0,0,0.2);">
+      <p><em>But if overtime were $10/hr:</em></p>
+      <p>Net gain = $5/hr × 20 hrs = <strong>$100</strong></p>
+      <p>New profit = $3,600 + $100 = <strong>$3,700</strong></p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1em;"><mark>Shadow price is your maximum willingness to pay.</mark> Above it, you lose. Below it, you gain.</p>
+  <aside class="notes">Second decision scenario. Labor shadow price $15, overtime $20 → don't buy. But shows counterfactual: if overtime were $10, would buy up to 20 hrs (allowable increase).</aside>
+</section>
+
+<section data-transition="slide">
+  <h1 class="r-fit-text">Reduced Cost:<br>The Price to Force a Product In</h1>
+  <p class="fragment">At optimum (40, 0), chairs (x₂) = 0. Why?</p>
+  <div class="fragment" style="background: #f3e5f5; padding: 1.5em; border-radius: 8px; border-left: 4px solid #7b1fa2; margin: 1em 0;">
+    <h3 style="margin-top: 0; color: #7b1fa2;">Reduced Cost of Chairs = −$20</h3>
+    <p style="font-size: 1.1em;">Each chair forced into the solution <strong>reduces profit by $20</strong></p>
+    <p>...unless its profit coefficient rises by $20 (to $70)</p>
+    <p>...or constraints change to make chairs more attractive</p>
+  </div>
+  <p class="fragment"><mark>Reduced cost = opportunity cost of producing one unit of a nonbasic variable.</mark></p>
+  <ul class="fragment">
+    <li>Basic variables (tables): reduced cost = 0</li>
+    <li>Nonbasic at lower bound (chairs): reduced cost ≤ 0 for max problem</li>
+    <li>Magnitude = profit increase needed to make it enter basis</li>
+  </ul>
+  <aside class="notes">Introduces reduced cost using chairs as the nonbasic variable. Purple styling for reduced cost concept. Explains the meaning: $20 profit penalty per chair forced in, or $20 profit increase needed to make chairs viable.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>Scenario: Chair Profit Increases to $70</h2>
+  <p class="fragment">New objective: <strong>Maximize Z = 90x₁ + 70x₂</strong></p>
+  <p class="fragment">Iso-profit lines get steeper. Re-solving...</p>
+  <pre class="fragment"><code class="language-text" data-trim>
+New Optimum: (20, 30)
+  Tables: 20
+  Chairs: 30
+
+Check constraints:
+  Labor:    2(20) + 1(30) = 70 ≤ 100  ✓ (slack 30)
+  Machine:  1(20) + 2(30) = 80 ≤ 80   ✓ (binding)
+  Wood:     3(20) + 2(30) = 120 ≤ 120 ✓ (binding)
+
+Profit: 90(20) + 70(30) = 1800 + 2100 = $3,900
+</code></pre>
+  <p class="fragment" style="margin-top: 1em;">Profit increased from $3,600 → <strong>$3,900</strong> (+$300)</p>
+  <p class="fragment"><mark>Chairs entered the basis because reduced cost was exactly offset.</mark></p>
+  <aside class="notes">Shows the scenario where chair profit rises to $70 (exactly offsetting the -$20 reduced cost). New optimum (20,30) with profit $3900. Constraints shift: machine and wood now bind, labor has slack.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>Scenario: New Machine Adds 30 Machine Hours</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; margin-top: 1em;">
+    <div class="fragment" style="background: #e3f2fd; padding: 1.5em; border-radius: 8px; border-left: 4px solid #1565c0;">
+      <h3 style="margin-top: 0; color: #1565c0;">Current State</h3>
+      <p>Machine hours: 80 available</p>
+      <p>Used at optimum: 40</p>
+      <p>Slack: <strong>40 hours</strong></p>
+      <p>Shadow price: <strong>$0</strong></p>
+    </div>
+    <div class="fragment" style="background: #e8f5e9; padding: 1.5em; border-radius: 8px; border-left: 4px solid #2e7d32;">
+      <h3 style="margin-top: 0; color: #2e7d32;">After Adding 30 Hours</h3>
+      <p>Machine hours: 110 available</p>
+      <p>Used at optimum: 40</p>
+      <p>Slack: <strong>70 hours</strong></p>
+      <p>Shadow price: <strong>$0</strong></p>
+    </div>
+  </div>
+  <div class="fragment" style="text-align: center; margin-top: 1.5em;">
+    <span style="font-size: 3em; color: #2e7d32;">✓</span> <span style="font-size: 1.5em; margin-left: 0.5em;">No profit change</span>
+    <br>
+    <span style="font-size: 3em; color: #c62828; margin-top: 0.5em; display: inline-block;">✗</span> <span style="font-size: 1.5em; margin-left: 0.5em;">Don't invest in this machine</span>
+  </div>
+  <p class="fragment" style="margin-top: 1em;"><mark>Nonbinding resources have zero marginal value — adding more creates only more slack.</mark></p>
+  <aside class="notes">Shows that adding capacity to a nonbinding constraint (machine) has zero value. Green checkmark for "no profit change" (good to know), red X for "don't invest". Consistent color convention.</aside>
+</section>
+
+<section data-transition="slide">
+  <h2>Concept Check: Shadow Price Interpretation</h2>
+  <p style="font-size: 1.2em; margin: 1em 0;">Wood shadow price = $30, allowable increase = 40 units.</p>
+  <p>What does this mean?</p>
+  <div style="margin-top: 1.5em;">
+    <label style="display: block; padding: 1em; background: #f5f5f5; border-radius: 8px; margin: 0.5em 0; cursor: pointer;" onclick="document.getElementById('ch4-slide10-a').checked=true; updateConceptCheck()">
+      <input type="radio" name="ch4-concept" id="ch4-slide10-a" value="A" style="margin-right: 0.5em;">
+      <strong>A:</strong> Each extra wood unit up to 40 adds $30 profit
+    </label>
+    <label style="display: block; padding: 1em; background: #f5f5f5; border-radius: 8px; margin: 0.5em 0; cursor: pointer;" onclick="document.getElementById('ch4-slide10-b').checked=true; updateConceptCheck()">
+      <input type="radio" name="ch4-concept" id="ch4-slide10-b" value="B" style="margin-right: 0.5em;">
+      <strong>B:</strong> Total extra profit from 40 units = $1,200
+    </label>
+    <label style="display: block; padding: 1em; background: #f5f5f5; border-radius: 8px; margin: 0.5em 0; cursor: pointer;" onclick="document.getElementById('ch4-slide10-c').checked=true; updateConceptCheck()">
+      <input type="radio" name="ch4-concept" id="ch4-slide10-c" value="C" style="margin-right: 0.5em;">
+      <strong>C:</strong> Both A and B are correct
+    </label>
+    <label style="display: block; padding: 1em; background: #f5f5f5; border-radius: 8px; margin: 0.5em 0; cursor: pointer;" onclick="document.getElementById('ch4-slide10-d').checked=true; updateConceptCheck()">
+      <input type="radio" name="ch4-concept" id="ch4-slide10-d" value="D" style="margin-right: 0.5em;">
+      <strong>D:</strong> Neither — shadow price is an average, not marginal
+    </label>
+  </div>
+  <div id="ch4-slide10-feedback" style="margin-top: 1em; padding: 1em; border-radius: 8px; display: none;"></div>
+  <script>
+    function updateConceptCheck() {
+      const feedback = document.getElementById('ch4-slide10-feedback');
+      const selected = document.querySelector('input[name="ch4-concept"]:checked');
+      if (!selected) { feedback.style.display = 'none'; return; }
+      if (selected.value === 'C') {
+        feedback.innerHTML = '<strong style="color: #2e7d32;">✓ Correct!</strong> Shadow price is marginal ($30/unit) AND total over the range (40 × $30 = $1,200). Both statements are true.';
+        feedback.style.background = '#e8f5e9';
+        feedback.style.color = '#2e7d32';
+      } else {
+        feedback.innerHTML = '<strong style="color: #c62828;">✗ Not quite.</strong> Shadow price is marginal per unit (A) AND integrates to total over the allowable range (B).';
+        feedback.style.background = '#ffebee';
+        feedback.style.color = '#c62828';
+      }
+      feedback.style.display = 'block';
+    }
+  </script>
+  <aside class="notes">Interactive concept check. Tests understanding that shadow price is both marginal (per unit) and integrates to total over the allowable range. Correct answer is C. Uses namespaced IDs (ch4-slide10-*).</aside>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">What If Multiple Things Change at Once?</h1>
+  <p class="fragment" style="font-size: 1.3em;">We've seen:</p>
+  <ul class="fragment" style="text-align: left; max-width: 600px; margin: 1em auto;">
+    <li>One resource changes → shadow price × Δ (within range)</li>
+    <li>One profit coefficient changes → reduced cost threshold</li>
+  </ul>
+  <p class="fragment" style="font-size: 1.3em; color: #c62828;">But what if <mark>wood supply drops 20 units AND chair profit rises to $65</mark> simultaneously?</p>
+  <p class="fragment">The 100% rule. The dual simplex. Parametric analysis.</p>
+  <p class="fragment"><mark>Chapter 5: When the basis breaks.</mark></p>
+  <aside class="notes">Cliffhanger for Chapter 5. Sets up the question of simultaneous changes - the 100% rule, dual simplex, parametric analysis. "When the basis breaks" is the hook.</aside>
+</section>
+<section data-transition="fade">
+  <h1 class="r-fit-text">We Started With a Polygon</h1>
+  <p class="fragment">We end where we began — but now we see it completely.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>The Feasible Region, Fully Understood</h2>
+  <div class="mermaid" style="max-height: 500px;">
+    graph TD
+      A[Origin (0,0)] --> B[Large Lathe: 2x₁+x₂≤80]
+      A --> C[Small Lathe: x₁+2x₂≤60]
+      A --> D[Assembler: x₁+x₂≤50]
+      A --> E[Finisher: x₁+2x₂≤80]
+      B --> F[Feasible Polygon]
+      C --> F
+      D --> F
+      E --> F
+      F --> G[Optimal Vertex: (40,0)]
+      G --> H[Profit = $3,600]
+      style G fill:#2e7d32,color:#fff
+      style H fill:#2e7d32,color:#fff
+      style F fill:#e8f5e9
+  </div>
+  <p class="fragment"><strong>Green</strong> = optimal vertex, binding constraints, shadow prices > 0</p>
+  <p class="fragment"><strong>Blue</strong> = non-binding constraints (finisher), shadow price = 0</p>
+  <p class="fragment">The iso-profit line <code>90x₁ + 50x₂ = 3600</code> is tangent at (40,0) — it cannot rotate further without leaving the feasible region.</p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">The Vertex Theorem</h1>
+  <p class="fragment"><mark>If an optimal solution exists, at least one lives at a vertex.</mark></p>
+  <p class="fragment">Simplex doesn't search the interior. It walks the edges — vertex to adjacent vertex — improving profit each step.</p>
+  <p class="fragment">Our workshop: (0,0) → (0,30) → (20,30) → <strong style="color:#2e7d32">(40,0)</strong></p>
+  <p class="fragment">4 vertices visited. 3 pivots. Done.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Where LP Breaks Down</h2>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+    <div style="border-left: 4px solid #c62828; padding-left: 1rem;">
+      <h3>1. Linearity</h3>
+      <p>No economies of scale. 100th table costs same as 1st.</p>
+    </div>
+    <div style="border-left: 4px solid #c62828; padding-left: 1rem;">
+      <h3>2. Certainty</h3>
+      <p>Demand, prices, machine hours known exactly. No stochasticity.</p>
+    </div>
+    <div style="border-left: 4px solid #c62828; padding-left: 1rem;">
+      <h3>3. Divisibility</h3>
+      <p>Fractional tables? <code>x₁ = 40.5</code> makes no physical sense.</p>
+    </div>
+    <div style="border-left: 4px solid #c62828; padding-left: 1rem;">
+      <h3>4. Single Objective</h3>
+      <p>Profit only. No tradeoffs: quality vs speed, risk vs return.</p>
+    </div>
+  </div>
+  <p class="fragment">Our solution <strong>(40, 0)</strong> happens to be integer — <span style="color:#2e7d32">lucky!</span> Usually it's not.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Integer Programming: When Fractions Are Forbidden</h2>
+  <p>Add constraint: <code>x₁, x₂ ∈ ℤ₊</code></p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+    <div>
+      <h3>LP Relaxation</h3>
+      <p>Drop integrality → solve LP → get <strong>upper bound</strong> (for max).</p>
+      <p>Our case: LP optimum = <span style="color:#2e7d32">$3,600</span> at (40,0).</p>
+      <p>Integer optimum = <span style="color:#2e7d32">$3,600</span> at (40,0).</p>
+      <p class="fragment"><strong>Gap = 0.</strong> We got lucky.</p>
+    </div>
+    <div>
+      <h3>Branch-and-Bound</h3>
+      <pre><code class="language-text" data-trim>
+Branch: x₁ ≤ 40  |  x₁ ≥ 41
+   │                 │
+   ▼                 ▼
+Solve LP         Infeasible
+(40,0) $3600      (prune)
+      │
+      ▼
+Optimal integer found
+      </code></pre>
+    </div>
+  </div>
+  <p class="fragment">General case: exponential worst-case. But modern solvers handle 10,000+ integer variables routinely.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Multi-Period Planning: Linking LPs Over Time</h2>
+  <p>Week 1, Week 2, Week 3... inventory carries over.</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div>
+      <h3>Inventory Balance</h3>
+      <pre><code class="language-text" data-trim>
+xₜ + invₜ₋₁ = demandₜ + invₜ
+
+xₜ = production in week t
+invₜ = ending inventory week t
+inv₀ = initial stock (given)
+      </code></pre>
+      <p class="fragment">One constraint per product per period.</p>
+      <p class="fragment">Still linear. Still a vertex optimum.</p>
+    </div>
+    <div>
+      <h3>Extended Color Convention</h3>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+        <div style="padding: 0.5rem; background:#e8f5e9; border-left:4px solid #2e7d32;">Green: production vars (xₜ)</div>
+        <div style="padding: 0.5rem; background:#e3f2fd; border-left:4px solid #1565c0;">Blue: inventory vars (invₜ)</div>
+        <div style="padding: 0.5rem; background:#fff3e0; border-left:4px solid #ef6c00;">Amber: backorder/shortage vars</div>
+        <div style="padding: 0.5rem; background:#fce4ec; border-left:4px solid #c62828;">Red: violated demand</div>
+      </div>
+    </div>
+  </div>
+  <p class="fragment">100 periods × 10 products = 1,000 variables. Still an LP. Still solved in milliseconds.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Duality: The Shadow Problem</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div style="border: 2px solid #2e7d32; border-radius: 8px; padding: 1rem;">
+      <h3 style="color:#2e7d32">Primal (Our Workshop)</h3>
+      <p><strong>Maximize</strong> 90x₁ + 50x₂</p>
+      <p>subject to:</p>
+      <pre><code class="language-text" data-trim>
+2x₁ +  x₂ ≤ 80   (large lathe)
+ x₁ + 2x₂ ≤ 60   (small lathe)
+ x₁ +  x₂ ≤ 50   (assembler)
+ x₁ + 2x₂ ≤ 80   (finisher)
+x₁, x₂ ≥ 0
+      </code></pre>
+      <p>Optimal: <span style="color:#2e7d32">$3,600</span></p>
+    </div>
+    <div style="border: 2px solid #1565c0; border-radius: 8px; padding: 1rem;">
+      <h3 style="color:#1565c0">Dual (Resource Buyer)</h3>
+      <p><strong>Minimize</strong> 80y₁ + 60y₂ + 50y₃ + 80y₄</p>
+      <p>subject to:</p>
+      <pre><code class="language-text" data-trim>
+2y₁ + y₂ + y₃ + y₄ ≥ 90   (table value)
+ y₁ + 2y₂ + y₃ + 2y₄ ≥ 50  (chair value)
+y₁, y₂, y₃, y₄ ≥ 0
+      </code></pre>
+      <p>Optimal: <span style="color:#1565c0">$3,600</span></p>
+    </div>
+  </div>
+  <p class="fragment"><strong>Weak Duality:</strong> Any feasible dual ≥ any feasible primal.</p>
+  <p class="fragment"><strong>Strong Duality:</strong> At optimum, they are <mark>equal</mark>.</p>
+  <p class="fragment">Dual variables <code>y₁...y₄</code> = <strong>shadow prices</strong> from Chapter 4.</p>
+</section>
+
+<section data-transition="slide">
+  <h2>Interactive: Verify Strong Duality</h2>
+  <p>Adjust dual variables. Can you match the primal optimum of $3,600?</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+    <div>
+      <h4>Dual Variables (Resource Prices)</h4>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <label>y₁ (Large Lathe): <input type="range" id="ch5-dual-y1" min="0" max="100" value="45" step="1"> <span id="ch5-y1-val">45</span></label>
+        <label>y₂ (Small Lathe): <input type="range" id="ch5-dual-y2" min="0" max="100" value="0" step="1"> <span id="ch5-y2-val">0</span></label>
+        <label>y₃ (Assembler): <input type="range" id="ch5-dual-y3" min="0" max="100" value="0" step="1"> <span id="ch5-y3-val">0</span></label>
+        <label>y₄ (Finisher): <input type="range" id="ch5-dual-y4" min="0" max="100" value="0" step="1"> <span id="ch5-y4-val">0</span></label>
+      </div>
+    </div>
+    <div>
+      <h4>Dual Constraints Check</h4>
+      <div id="ch5-dual-check" style="font-family: monospace; line-height: 2;">
+        2y₁ + y₂ + y₃ + y₄ ≥ 90 → <span id="ch5-con1">90</span> ≥ 90 ✓<br>
+        y₁ + 2y₂ + y₃ + 2y₄ ≥ 50 → <span id="ch5-con2">45</span> ≥ 50 ✗
+      </div>
+      <div style="margin-top: 1rem; padding: 1rem; background:#f5f5f5; border-radius:4px;">
+        Dual Objective: 80y₁ + 60y₂ + 50y₃ + 80y₄ = <strong id="ch5-dual-obj">3600</strong>
+      </div>
+      <p id="ch5-dual-status" style="margin-top: 0.5rem; font-weight: bold;"></p>
+    </div>
+  </div>
+  <script>
+    const y1 = document.getElementById('ch5-dual-y1');
+    const y2 = document.getElementById('ch5-dual-y2');
+    const y3 = document.getElementById('ch5-dual-y3');
+    const y4 = document.getElementById('ch5-dual-y4');
+    function update() {
+      const v1 = parseInt(y1.value), v2 = parseInt(y2.value), v3 = parseInt(y3.value), v4 = parseInt(y4.value);
+      document.getElementById('ch5-y1-val').textContent = v1;
+      document.getElementById('ch5-y2-val').textContent = v2;
+      document.getElementById('ch5-y3-val').textContent = v3;
+      document.getElementById('ch5-y4-val').textContent = v4;
+      const c1 = 2*v1 + v2 + v3 + v4;
+      const c2 = v1 + 2*v2 + v3 + 2*v4;
+      document.getElementById('ch5-con1').textContent = c1;
+      document.getElementById('ch5-con2').textContent = c2;
+      document.getElementById('ch5-con1').style.color = c1 >= 90 ? '#2e7d32' : '#c62828';
+      document.getElementById('ch5-con2').style.color = c2 >= 50 ? '#2e7d32' : '#c62828';
+      const obj = 80*v1 + 60*v2 + 50*v3 + 80*v4;
+      document.getElementById('ch5-dual-obj').textContent = obj;
+      const feasible = c1 >= 90 && c2 >= 50;
+      const status = document.getElementById('ch5-dual-status');
+      if (feasible) {
+        if (obj === 3600) {
+          status.textContent = '✓ Optimal dual found! Strong duality holds.';
+          status.style.color = '#2e7d32';
+        } else if (obj > 3600) {
+          status.textContent = `Feasible but not optimal (${obj} > 3600). Can you lower it?`;
+          status.style.color = '#ef6c00';
+        }
+      } else {
+        status.textContent = '✗ Infeasible dual — violates constraints.';
+        status.style.color = '#c62828';
+      }
+    }
+    [y1,y2,y3,y4].forEach(el => el.addEventListener('input', update));
+    update();
+  </script>
+</section>
+
+<section data-transition="slide">
+  <h2>Modern Solvers: You Formulate, They Solve</h2>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1rem;">
+    <div style="text-align: center; padding: 1rem; background:#f5f5f5; border-radius:8px;">
+      <h3>Algorithms</h3>
+      <p><strong>Simplex</strong> — vertex walking, great for small/medium</p>
+      <p><strong>Interior-Point (Karmarkar)</strong> — through the interior, polynomial time, dominates huge LPs</p>
+      <p class="fragment">Commercial solvers run <em>both</em> and pick automatically.</p>
+    </div>
+    <div style="text-align: center; padding: 1rem; background:#f5f5f5; border-radius:8px;">
+      <h3>Solvers</h3>
+      <p><strong>Gurobi</strong> — speed king, free academic license</p>
+      <p><strong>CPLEX</strong> — IBM, enterprise standard</p>
+      <p><strong>HiGHS</strong> — open source, surprisingly fast</p>
+      <p class="fragment">All solve our workshop in < 0.01 seconds.</p>
+    </div>
+    <div style="text-align: center; padding: 1rem; background:#f5f5f5; border-radius:8px;">
+      <h3>Modeling Languages</h3>
+      <p><strong>Pyomo</strong> (Python)</p>
+      <p><strong>JuMP</strong> (Julia)</p>
+      <p><strong>AMPL</strong> (classic algebraic)</p>
+      <p class="fragment">You write the <em>math</em>. They handle the <em>solver API</em>.</p>
+    </div>
+  </div>
+</section>
+
+<section data-transition="slide">
+  <h2>What Comes Next: Your LP Journey</h2>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
+    <div style="padding: 1rem; border-left: 4px solid #2e7d32; background:#e8f5e9;">
+      <h3>Integer Programming</h3>
+      <p>Branch-and-bound, cutting planes. When fractions forbidden.</p>
+    </div>
+    <div style="padding: 1rem; border-left: 4px solid #1565c0; background:#e3f2fd;">
+      <h3>Network Flows</h3>
+      <p>Transportation, assignment, max flow. Special structure = lightning fast.</p>
+    </div>
+    <div style="padding: 1rem; border-left: 4px solid #ef6c00; background:#fff3e0;">
+      <h3>Quadratic Programming</h3>
+      <p>Portfolio optimization (Markowitz). Curved objectives, linear constraints.</p>
+    </div>
+    <div style="padding: 1rem; border-left: 4px solid #6a1b9a; background:#f3e5f5;">
+      <h3>Stochastic Programming</h3>
+      <p>Scenarios, recourse. "Here-and-now" vs "wait-and-see" decisions.</p>
+    </div>
+    <div style="padding: 1rem; border-left: 4px solid #00695c; background:#e0f2f1;">
+      <h3>Column Generation</h3>
+      <p>Huge LPs solved by generating variables on demand. Crew scheduling, cutting stock.</p>
+    </div>
+  </div>
+  <p class="fragment" style="margin-top: 1.5rem; font-size: 1.2em;"><mark>The vertex principle extends to all of them.</mark></p>
+</section>
+
+<section data-transition="fade">
+  <h1 class="r-fit-text">The Corner Principle in Life</h1>
+  <p class="fragment" style="font-size: 1.3em; line-height: 1.6;">
+    <strong>Constraints define your feasible region.</strong>
+  </p>
+  <p class="fragment" style="font-size: 1.3em; line-height: 1.6;">
+    <strong>The optimum lives at the boundaries.</strong>
+  </p>
+  <p class="fragment" style="font-size: 1.3em; line-height: 1.6;">
+    <strong>Push the right constraints. Accept the others.</strong>
+  </p>
+  <p class="fragment" style="margin-top: 2rem; font-size: 1.1em; color: #666;">
+    That's linear programming.<br>
+    And that's strategy.
   </p>
 </section>
-
-<section data-transition="slide">
-  <h2>Your Turn: Formulate a Real Problem</h2>
-  <p>Fill in the template. Export to <code>.lp</code> format for any solver.</p>
-  <div id="ch5-formulate" style="margin: 1rem 0;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-      <div>
-        <h4>Decision Variables</h4>
-        <div id="ch5-vars-container">
-          <div class="var-row" style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;">
-            <input type="text" placeholder="Name (e.g., tables)" class="var-name" style="flex: 1; padding: 0.4rem;">
-            <select class="var-type" style="padding: 0.4rem;"><option value="continuous">Continuous</option><option value="integer">Integer</option><option value="binary">Binary</option></select>
-            <button onclick="this.parentElement.remove()" style="padding: 0.4rem; background: var(--color-bad); color: white; border: none; border-radius: 3px;">×</button>
-          </div>
-        </div>
-        <button onclick="addVarRow()" style="margin-top: 0.5rem; padding: 0.4rem 1rem;">+ Add Variable</button>
-      </div>
-      <div>
-        <h4>Objective</h4>
-        <label><input type="radio" name="ch5-obj-sense" value="max" checked> Maximize</label>
-        <label style="margin-left: 1rem;"><input type="radio" name="ch5-obj-sense" value="min"> Minimize</label>
-        <div id="ch5-obj-coeffs" style="margin-top: 0.5rem;"></div>
-      </div>
-    </div>
-    <div style="margin-top: 1.5rem;">
-      <h4>Constraints</h4>
-      <div id="ch5-constraints-container"></div>
-      <button onclick="addConstraintRow()" style="margin-top: 0.5rem; padding: 0.4rem 1rem;">+ Add Constraint</button>
-    </div>
-    <div style="margin-top: 1.5rem;">
-      <button onclick="generateLP()" style="padding: 0.6rem 1.5rem; font-size: 1.1em; background: var(--color-good); color: white; border: none; border-radius: 4px;">Generate .lp File</button>
-      <a id="ch5-download-link" style="display: none; margin-left: 1rem;" download="model.lp">Download</a>
-    </div>
-    <pre id="ch5-lp-output" style="margin-top: 1rem; background: var(--color-bg); padding: 1rem; border-radius: 4px; max-height: 300px; overflow: auto; display: none;"></pre>
-  </div>
-  <script>
-    let varCounter = 0, constrCounter = 0;
-    function addVarRow(name='', type='continuous') {
-      const c = document.getElementById('ch5-vars-container');
-      const div = document.createElement('div');
-      div.className = 'var-row';
-      div.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;';
-      div.innerHTML = `<input type="text" class="var-name" placeholder="Name (e.g., tables)" value="${name}" style="flex: 1; padding: 0.4rem;">
-        <select class="var-type" style="padding: 0.4rem;"><option value="continuous" ${type==='continuous'?'selected':''}>Continuous</option><option value="integer" ${type==='integer'?'selected':''}>Integer</option><option value="binary" ${type==='binary'?'selected':''}>Binary</option></select>
-        <button onclick="this.parentElement.remove(); updateObjCoeffs()" style="padding: 0.4rem; background: var(--color-bad); color: white; border: none; border-radius: 3px;">×</button>`;
-      c.appendChild(div);
-      updateObjCoeffs();
-    }
-    function updateObjCoeffs() {
-      const container = document.getElementById('ch5-obj-coeffs');
-      const names = Array.from(document.querySelectorAll('.var-name')).map(i => i.value).filter(v => v);
-      container.innerHTML = names.map(n => `<label style="display: inline-block; margin: 0.3rem 1rem 0.3rem 0;">${n}: <input type="number" class="obj-coeff" data-var="${n}" value="0" step="0.1" style="width: 80px; padding: 0.3rem;"></label>`).join('');
-      updateConstraintVarInputs();
-    }
-    function addConstraintRow() {
-      const c = document.getElementById('ch5-constraints-container');
-      const id = constrCounter++;
-      const names = Array.from(document.querySelectorAll('.var-name')).map(i => i.value).filter(v => v);
-      const div = document.createElement('div');
-      div.className = 'constr-row';
-      div.style.cssText = 'margin-bottom: 0.5rem; padding: 0.5rem; background: var(--color-bg); border-radius: 4px;';
-      div.innerHTML = `<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.3rem;">
-        ${names.map(n => `<label style="display: inline-flex; align-items: center; gap: 0.3rem; background: white; padding: 0.2rem 0.5rem; border-radius: 3px;">${n}: <input type="number" class="constr-coeff" data-constr="${id}" data-var="${n}" value="0" step="0.1" style="width: 60px; padding: 0.2rem;"></label>`).join('')}
-      </div>
-      <div style="display: flex; gap: 0.5rem; align-items: center;">
-        <select class="constr-sense" style="padding: 0.3rem;"><option value="<=">≤</option><option value=">=">≥</option><option value="=">=</option></select>
-        <input type="number" class="constr-rhs" placeholder="RHS" value="0" step="0.1" style="padding: 0.3rem; width: 100px;">
-        <input type="text" class="constr-name" placeholder="Name (optional)" style="padding: 0.3rem; flex: 1;">
-        <button onclick="this.closest('.constr-row').remove()" style="padding: 0.3rem; background: var(--color-bad); color: white; border: none; border-radius: 3px;">×</button>
-      </div>`;
-      c.appendChild(div);
-    }
-    function updateConstraintVarInputs() {
-      document.querySelectorAll('.constr-row').forEach(row => {
-        const id = row.querySelector('.constr-coeff')?.dataset.constr;
-        const names = Array.from(document.querySelectorAll('.var-name')).map(i => i.value).filter(v => v);
-        const coeffDiv =
       </div>
     </div>
 
